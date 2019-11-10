@@ -13,7 +13,7 @@
     src="https://img.shields.io/static/v1.svg?label=&message=Vue&style=flat-square&color=3fb984"></a>
 <a href="https://github.com/daybrush/ruler/tree/master/packages/svelte-ruler" target="_blank"><img
     alt="Vue"
-    src="https://img.shields.io/static/v1.svg?label=&message=Svelte&style=flat-square&color=3fb984"></a>
+    src="https://img.shields.io/static/v1.svg?label=&message=Svelte&style=flat-square&color=C82B38"></a>
 </p>
 <p align="middle">The Ruler component draws a grid that can scroll infinitely.</p>
 <p align="middle">
