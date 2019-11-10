@@ -13,7 +13,7 @@
         "scena",
         "ruler",
         "scroller",
-        "angular"
+        "svelte"
     ],
     "repository": {
         "type": "git",
