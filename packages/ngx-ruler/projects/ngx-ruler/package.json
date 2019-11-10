@@ -1,6 +1,6 @@
 {
   "name": "ngx-ruler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An Angular Ruler Component",
   "keywords": [
     "scene",
@@ -10,17 +10,17 @@
     "ruler",
     "scroller",
     "angular"
-],
-"repository": {
+  ],
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/daybrush/ruler.git"
-},
-"author": "Daybrush",
-"license": "MIT",
-"bugs": {
+  },
+  "author": "Daybrush",
+  "license": "MIT",
+  "bugs": {
     "url": "https://github.com/daybrush/ruler/issues"
-},
-"homepage": "https://github.com/daybrush/ruler#readme",
+  },
+  "homepage": "https://github.com/daybrush/ruler#readme",
   "peerDependencies": {
     "@angular/common": "^8.2.13",
     "@angular/core": "^8.2.13"

@@ -1,0 +1,55 @@
+{
+    "name": "svelte-ruler",
+    "version": "0.1.0",
+    "description": "A Svelte Ruler Component",
+    "main": "./dist/ruler.cjs.js",
+    "module": "./dist/ruler.esm.js",
+    "types": "src/index.d.ts",
+    "sideEffects": false,
+    "keywords": [
+        "scene",
+        "scenejs",
+        "scene.js",
+        "scena",
+        "ruler",
+        "scroller",
+        "angular"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/daybrush/ruler.git"
+    },
+    "author": "Daybrush",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/daybrush/ruler/issues"
+    },
+    "homepage": "https://github.com/daybrush/ruler#readme",
+    "devDependencies": {
+        "@daybrush/builder": "^0.1.2",
+        "@pyoner/svelte-ts-preprocess": "^1.2.1",
+        "keycon": "^0.6.0",
+        "rollup": "^1.12.0",
+        "rollup-plugin-commonjs": "^10.0.0",
+        "rollup-plugin-livereload": "^1.0.0",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-svelte": "^5.0.3",
+        "rollup-plugin-terser": "^5.1.2",
+        "scenejs": "^1.1.5",
+        "sirv-cli": "^0.4.4",
+        "svelte": "^3.0.0",
+        "svelte-preprocess": "^3.2.2",
+        "tslib": "^1.10.0",
+        "typescript": "^3.6.4"
+    },
+    "dependencies": {
+        "@scena/ruler": "^0.1.0"
+    },
+    "scripts": {
+        "build": "rollup -c rollup.build.config.js",
+        "dev": "rollup -c -w",
+        "start": "sirv public --single",
+        "start:dev": "sirv public --single --dev",
+        "build:dev": "rollup -c"
+    }
+}

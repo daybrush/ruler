@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import Ruler, { RulerInterface, RulerProps } from '@scena/ruler';
 import { IObject } from '@daybrush/utils';
 
@@ -9,7 +9,7 @@ import { IObject } from '@daybrush/utils';
   `,
   styles: []
 })
-export class NgxRulerComponent implements OnInit, RulerInterface, RulerProps, AfterViewInit, OnChanges {
+export class NgxRulerComponent implements OnInit, RulerInterface, RulerProps, AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('rulerRef', { static: false }) private rulerRef: ElementRef;
   @Input() public type?: 'horizontal' | 'vertical';
   @Input() public width?: number;
@@ -59,6 +59,9 @@ export class NgxRulerComponent implements OnInit, RulerInterface, RulerProps, Af
       zoom: this.zoom,
     });
     this.setStyle();
+  }
+  ngOnDestroy() {
+    this.ruler.destroy();
   }
   setStyle() {
     const el = this.rulerRef.nativeElement;
