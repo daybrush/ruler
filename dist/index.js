@@ -431,7 +431,7 @@ version: 0.1.0
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/drag.git
-    version: 0.11.0
+    version: 0.11.1
     */
 
     /*! *****************************************************************************
@@ -680,9 +680,12 @@ version: 0.1.0
         }
 
         if (this.isTouch) {
-          addEvent(el, "touchstart", this.onDragStart);
-          addEvent(container, "touchmove", this.onDrag);
-          addEvent(container, "touchend", this.onDragEnd);
+          var passive = {
+            passive: false
+          };
+          addEvent(el, "touchstart", this.onDragStart, passive);
+          addEvent(container, "touchmove", this.onDrag, passive);
+          addEvent(container, "touchend", this.onDragEnd, passive);
         }
       }
 
