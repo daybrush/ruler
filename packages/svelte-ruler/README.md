@@ -16,7 +16,7 @@
     alt="Vue"
     src="https://img.shields.io/static/v1.svg?label=&message=Svelte&style=flat-square&color=C82B38"></a>
 </p>
-<p align="middle">The Svelte Ruler component draws a grid that can scroll infinitely.</p>
+<p align="middle">A Svelte Ruler component that can draw grids and scroll infinitely.</p>
 <p align="middle">
     <a href="https://daybrush.com/ruler" target="_blank"><strong>Demo</strong></a> /
     <a href="https://github.com/daybrush/scenejs-editor" target="_blank"><strong>Main Project</strong></a>

@@ -71,7 +71,7 @@
           />
         </a>
       </p>
-      <p class="description">The Ruler component draws a grid that can scroll infinitely.</p>
+      <p class="description">A Ruler component that can draw grids and scroll infinitely.</p>
       <div class="buttons">
         <a
           href="https://github.com/daybrush/ruler/tree/master/packages/svelte-ruler"

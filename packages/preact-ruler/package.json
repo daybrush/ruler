@@ -1,7 +1,7 @@
 {
     "name": "preact-ruler",
     "version": "0.1.5",
-    "description": "A Preact Ruler Component",
+    "description": "A Preact Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
     "sideEffects": false,

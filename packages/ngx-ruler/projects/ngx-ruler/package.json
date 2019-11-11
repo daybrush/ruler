@@ -1,7 +1,7 @@
 {
   "name": "ngx-ruler",
   "version": "0.1.1",
-  "description": "An Angular Ruler Component",
+  "description": "An Angular Ruler component that can draw grids and scroll infinitely.",
   "keywords": [
     "scene",
     "scenejs",

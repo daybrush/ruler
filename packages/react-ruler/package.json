@@ -1,7 +1,7 @@
 {
   "name": "@scena/react-ruler",
   "version": "0.1.4",
-  "description": "A React Ruler Component",
+  "description": "A React Ruler component that can draw grids and scroll infinitely.",
   "main": "./dist/ruler.cjs.js",
   "module": "./dist/ruler.esm.js",
   "sideEffects": false,
