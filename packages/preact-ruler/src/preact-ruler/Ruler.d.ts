@@ -4,4 +4,4 @@ import Preact, { Component } from "preact";
 export default class PreactRuler extends Component<RulerProps> {
     public render(): any;
 }
-export default interface PreactRuler extends RulerInterface {}
+export default interface PreactRuler extends Component<RulerProps>, RulerInterface {}
