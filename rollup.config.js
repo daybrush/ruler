@@ -5,6 +5,11 @@ import preact from "rollup-plugin-preact";
 const preactPlugin = preact({
     noPropTypes: true,
     usePreactX: true,
+    // resolvePreactCompat: true,
+});
+const preactResolvePlugin = preact({
+    noPropTypes: true,
+    usePreactX: true,
     resolvePreactCompat: true,
 });
 
@@ -16,19 +21,22 @@ const external = {
     "@egjs/agent": "eg.Agent",
     "@egjs/children-differ": "eg.ChildrenDiffer",
     "preact": "preact",
+    "preact/compat": "preact/compat",
+    "preact-ruler": "preact-ruler",
 };
 export default builder([
     {
         name: "Ruler",
         input: "src/index.umd.ts",
         output: "./dist/ruler.js",
-        plugins: [preactPlugin],
+        plugins: [preactResolvePlugin],
+
     },
     {
         name: "Ruler",
         input: "src/index.umd.ts",
         output: "./dist/ruler.min.js",
-        plugins: [preactPlugin],
+        plugins: [preactResolvePlugin],
         uglify: true,
     },
     {
