@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.1.0
+version: 0.1.2
 */
 (function () {
     'use strict';
@@ -108,7 +108,7 @@ version: 0.1.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/preact-ruler
-    version: 0.1.4
+    version: 0.1.7
     */
 
     /*
@@ -117,7 +117,7 @@ version: 0.1.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.1.3
+    version: 0.1.4
     */
 
     /*! *****************************************************************************
