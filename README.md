@@ -60,6 +60,7 @@ export interface RulerProps {
     style?: IObject<any>;
     backgroundColor?: string;
     lineColor?: string;
+    textColor?: string;
 }
 
 ```

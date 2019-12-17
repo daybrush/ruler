@@ -19,6 +19,7 @@ export class NgxRulerComponent implements OnInit, RulerInterface, RulerProps, Af
   @Input() public style: IObject<any> = { width: '100%', height: '100%' };
   @Input() public backgroundColor?: string;
   @Input() public lineColor?: string;
+  @Input() public textColor?: string;
   private ruler: Ruler;
   public scroll(scrollPos: number) {
     this.ruler.scroll(scrollPos);

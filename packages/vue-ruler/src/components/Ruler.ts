@@ -13,6 +13,7 @@ export default class Ruler extends Vue implements RulerInterface, RulerProps {
     @Prop({ default: () => ({ width: "100%", height: "100%" }) }) public style?: IObject<any>;
     @Prop() public backgroundColor?: string;
     @Prop() public lineColor?: string;
+    @Prop() public textColor?: string;
     private ruler!: VanillaRuler;
     private options!: Partial<RulerProps>;
 

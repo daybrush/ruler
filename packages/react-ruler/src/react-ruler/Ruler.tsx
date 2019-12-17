@@ -11,6 +11,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         unit: 50,
         style: { width: "100%", height: "100%" },
         backgroundColor: "#333333",
+        textColor: "#ffffff",
         lineColor: "#777777",
     };
     public divisionsElement!: HTMLElement;
@@ -61,6 +62,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             type,
             backgroundColor,
             lineColor,
+            textColor,
         } = this.props as Required<RulerProps>;
         const width = this.width;
         const height = this.height;
@@ -77,7 +79,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         context.strokeStyle = lineColor;
         context.lineWidth = 1;
         context.font = "10px sans-serif";
-        context.fillStyle = "#ffffff";
+        context.fillStyle = textColor;
         context.translate(0.5, 0);
         context.beginPath();
 
