@@ -2,11 +2,7 @@
 import builder from "@daybrush/builder";
 import preact from "rollup-plugin-preact";
 
-const preactPlugin = preact({
-    noPropTypes: true,
-    usePreactX: true,
-    // resolvePreactCompat: true,
-});
+
 const preactResolvePlugin = preact({
     noPropTypes: true,
     usePreactX: true,
@@ -20,9 +16,6 @@ const external = {
     "framework-utils": "framework-utils",
     "@egjs/agent": "eg.Agent",
     "@egjs/children-differ": "eg.ChildrenDiffer",
-    "preact": "preact",
-    "preact/compat": "preact/compat",
-    "preact-ruler": "preact-ruler",
 };
 export default builder([
     {
@@ -44,7 +37,7 @@ export default builder([
         output: "./dist/ruler.esm.js",
         exports: "named",
         format: "es",
-        plugins: [preactPlugin],
+        plugins: [preactResolvePlugin],
         external,
     },
     {
@@ -52,7 +45,7 @@ export default builder([
         output: "./dist/ruler.cjs.js",
         exports: "default",
         format: "cjs",
-        plugins: [preactPlugin],
+        plugins: [preactResolvePlugin],
         external,
     },
 ]);
