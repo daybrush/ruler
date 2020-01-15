@@ -1,5 +1,6 @@
 import { ref, Properties } from "framework-utils";
-import { h, render } from "preact";
+import * as React from "react";
+import { render } from "react-dom";
 import { PROPERTIES } from "./consts";
 import { RulerInterface, RulerProps } from "@scena/react-ruler/declaration/types";
 import InnerRuler from "./InnerRuler";
@@ -36,12 +37,12 @@ class Ruler implements RulerInterface {
         this.getRuler().resize();
     }
     public destroy() {
-        render("", this.tempElement);
+        render(null, this.tempElement);
         this.tempElement = null;
         this.innerRuler = null;
     }
     private getRuler() {
-        return this.innerRuler.preactRuler;
+        return this.innerRuler.ruler;
     }
 }
 

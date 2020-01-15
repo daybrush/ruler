@@ -1,15 +1,22 @@
 
 import builder from "@daybrush/builder";
-import preact from "rollup-plugin-preact";
+import compat from "rollup-plugin-react-compat";
 
 
-const preactResolvePlugin = preact({
-    noPropTypes: true,
-    usePreactX: true,
-    resolvePreactCompat: true,
+const reactCompat = compat({
+    useReactCompat: true,
+    aliasModules: {
+        "@scena/react-ruler": "react-compat-ruler",
+    },
+});
+const resolveReactCompat = compat({
+    useReactCompat: true,
+    resolveCompat: true,
 });
 
 const external = {
+    "react-simple-compat": "react-simple-compat",
+    "react-compat-ruler": "react-compat-ruler",
     "@egjs/component": "@egjs/component",
     "@daybrush/utils": "@daybrush/utils",
     "@daybrush/drag": "@daybrush/drag",
@@ -22,14 +29,14 @@ export default builder([
         name: "Ruler",
         input: "src/index.umd.ts",
         output: "./dist/ruler.js",
-        plugins: [preactResolvePlugin],
+        plugins: [resolveReactCompat],
 
     },
     {
         name: "Ruler",
         input: "src/index.umd.ts",
         output: "./dist/ruler.min.js",
-        plugins: [preactResolvePlugin],
+        plugins: [resolveReactCompat],
         uglify: true,
     },
     {
@@ -37,7 +44,7 @@ export default builder([
         output: "./dist/ruler.esm.js",
         exports: "named",
         format: "es",
-        plugins: [preactResolvePlugin],
+        plugins: [reactCompat],
         external,
     },
     {
@@ -45,7 +52,7 @@ export default builder([
         output: "./dist/ruler.cjs.js",
         exports: "default",
         format: "cjs",
-        plugins: [preactResolvePlugin],
+        plugins: [reactCompat],
         external,
     },
 ]);

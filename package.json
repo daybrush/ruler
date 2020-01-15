@@ -1,6 +1,6 @@
 {
     "name": "@scena/ruler",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "A Vanilla Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -48,19 +48,21 @@
         "@daybrush/release": "^0.2.4",
         "@types/karma-chai": "^0.1.2",
         "@types/mocha": "^5.2.7",
+        "@types/react-dom": "^16.9.4",
         "daybrush-jsdoc-template": "^1.6.0",
         "gh-pages": "^2.0.1",
         "keycon": "^0.5.0",
-        "preact": "^10.2.1",
         "print-sizes": "0.0.4",
         "pvu": "^0.3.1",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
         "rollup-plugin-css-bundle": "^1.0.4",
-        "rollup-plugin-preact": "^0.5.2",
         "scenejs": "^1.1.4",
         "tslint": "^5.18.0",
         "typescript": "^3.5.2"
     },
     "dependencies": {
-        "preact-ruler": "^0.2.1"
+        "react-compat-ruler": "^0.1.0",
+        "rollup-plugin-react-compat": "^0.1.0"
     }
 }

@@ -1,18 +1,19 @@
-import { Component, h } from "preact";
-import { createPortal } from "preact/compat";
+import * as React from "react";
+import { createPortal } from "react-dom";
 import { ref } from "framework-utils";
-import PreactRuler from "preact-ruler";
+import ReactRuler from "@scena/react-ruler";
 import { InnerRulerProps } from "./types";
 
-export default class InnerRuler extends Component<InnerRulerProps, InnerRulerProps> {
+export default class InnerRuler extends React.Component<InnerRulerProps, InnerRulerProps> {
     public state: InnerRulerProps = {};
-    public preactRuler: PreactRuler;
+    public ruler: ReactRuler;
     constructor(props: InnerRulerProps) {
         super(props);
         this.state = this.props;
     }
     public render() {
         const { parentElement, ...state } = this.state;
-        return createPortal(<PreactRuler ref={ref(this, "preactRuler")} {...state} />, parentElement);
+
+        return createPortal(<ReactRuler ref={ref(this, "ruler")} {...state} />, parentElement);
     }
 }
