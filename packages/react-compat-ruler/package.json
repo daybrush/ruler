@@ -1,6 +1,6 @@
 {
     "name": "react-compat-ruler",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "A React Compat Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -49,7 +49,7 @@
     "dependencies": {
         "@scena/react-ruler": "^0.2.1",
         "@types/react": "^16.9.17",
-        "react-simple-compat": "^0.1.0"
+        "react-simple-compat": "^0.1.1"
     },
     "peerDependencies": {
         "react-simple-compat": ">=0.1.0"
