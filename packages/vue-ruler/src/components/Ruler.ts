@@ -1,32 +1,22 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
-import VanillaRuler, { RulerInterface, RulerProps, PROPERTIES } from "@scena/ruler";
+import VanillaRuler, { RulerInterface, RulerProps, PROPERTIES, METHODS } from "@scena/ruler";
 import { IObject } from "@daybrush/utils";
+import { Properties, withMethods } from "framework-utils";
 
 @Component({
 })
-export default class Ruler extends Vue implements RulerInterface, RulerProps {
-    @Prop() public type?: "horizontal" | "vertical";
-    @Prop() public width?: number;
-    @Prop() public height?: number;
-    @Prop() public unit?: number;
-    @Prop() public zoom?: number;
-    @Prop({ default: () => ({ width: "100%", height: "100%" }) }) public style?: IObject<any>;
-    @Prop() public backgroundColor?: string;
-    @Prop() public lineColor?: string;
-    @Prop() public textColor?: string;
+@Properties(PROPERTIES as any, (prototype, name) => {
+    Prop()(prototype, name);
+})
+export default class Ruler extends Vue {
+    @withMethods(METHODS)
     private ruler!: VanillaRuler;
     private options!: Partial<RulerProps>;
 
-    public scroll(scrollPos: number) {
-        this.ruler.scroll(scrollPos);
-    }
-    public resize() {
-        this.ruler.resize();
-    }
     public setStyle() {
         const el = this.$refs.rulerElement as HTMLElement;
         const elStyle = el.style as any;
-        const style = this.style;
+        const style = this.style || { width: "100%", height: "100%" };
 
         for (const name in style) {
             if (elStyle[name] === style[name]) {
@@ -74,3 +64,5 @@ export default class Ruler extends Vue implements RulerInterface, RulerProps {
         this.setStyle();
     }
 }
+
+export default interface Ruler extends RulerInterface, RulerProps {}

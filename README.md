@@ -61,6 +61,7 @@ export interface RulerProps {
     backgroundColor?: string;
     lineColor?: string;
     textColor?: string;
+    direction?: "start" | "end";
 }
 
 ```

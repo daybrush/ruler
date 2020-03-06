@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import Ruler, { RulerInterface, RulerProps, PROPERTIES } from '@scena/ruler';
 import { IObject } from '@daybrush/utils';
+import { NgxRulerInterface } from './ngx-ruler.interface';
 
 @Component({
   selector: 'ngx-ruler',
@@ -9,7 +10,7 @@ import { IObject } from '@daybrush/utils';
   `,
   styles: []
 })
-export class NgxRulerComponent implements OnInit, RulerInterface, RulerProps, AfterViewInit, OnChanges, OnDestroy {
+export class NgxRulerComponent extends NgxRulerInterface implements RulerProps, AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('rulerRef', { static: false }) private rulerRef: ElementRef;
   @Input() public type?: 'horizontal' | 'vertical';
   @Input() public width?: number;
@@ -20,17 +21,8 @@ export class NgxRulerComponent implements OnInit, RulerInterface, RulerProps, Af
   @Input() public backgroundColor?: string;
   @Input() public lineColor?: string;
   @Input() public textColor?: string;
-  private ruler: Ruler;
-  public scroll(scrollPos: number) {
-    this.ruler.scroll(scrollPos);
-  }
-  public resize() {
-    this.ruler.resize();
-  }
-  constructor() { }
+  @Input() public direction?: 'start' | 'end';
 
-  ngOnInit() {
-  }
   ngOnChanges(changes: SimpleChanges): void {
     const ruler = this.ruler;
 
@@ -55,6 +47,9 @@ export class NgxRulerComponent implements OnInit, RulerInterface, RulerProps, Af
     const options = {};
 
     PROPERTIES.forEach(name => {
+      if (name === 'style') {
+        return;
+      }
       options[name] = this[name];
     });
     this.ruler = new Ruler(el, options);

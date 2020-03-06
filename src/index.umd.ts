@@ -1,6 +1,7 @@
-import Ruler from "./Ruler";
-import { PROPERTIES } from "./consts";
+import Ruler, * as others from "./index.esm";
 
-(Ruler as any).PROPERTIES = PROPERTIES;
+for (const name in others) {
+    (Ruler as any)[name] = others[name];
+}
 
 export default Ruler;
