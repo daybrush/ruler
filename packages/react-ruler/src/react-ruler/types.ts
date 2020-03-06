@@ -10,6 +10,7 @@ export interface RulerProps {
     height?: number;
     unit?: number;
     zoom?: number;
+    direction?: "start" | "end";
     style?: IObject<any>;
     backgroundColor?: string;
     lineColor?: string;

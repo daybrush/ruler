@@ -18,11 +18,11 @@ export default class App extends Component<{}> {
             <Ruler ref={ref(this, "ruler1")}
                  type="horizontal" style={{ display: "block", width: "300px", height: "100px" }}/>
             <Ruler ref={ref(this, "ruler2")}
-                type="horizontal" style={{ display: "block", width: "400px", height: "30px" }}/>
+                type="horizontal" direction="start" style={{ display: "block", width: "400px", height: "30px" }}/>
             <Ruler ref={ref(this, "ruler3")}
                 type="vertical" style={{ display: "block", width: "400px", height: "30px" }}/>
             <Ruler ref={ref(this, "ruler4")}
-                type="vertical" style={{ display: "block",  width: "30px", height: "130px" }}/>
+                type="vertical" direction="start" style={{ display: "block",  width: "30px", height: "130px" }}/>
         </div>
         );
     }

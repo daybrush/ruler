@@ -9,6 +9,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         width: 0,
         height: 0,
         unit: 50,
+        direction: "end",
         style: { width: "100%", height: "100%" },
         backgroundColor: "#333333",
         textColor: "#ffffff",
@@ -63,6 +64,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             backgroundColor,
             lineColor,
             textColor,
+            direction,
         } = this.props as Required<RulerProps>;
         const width = this.width;
         const height = this.height;
@@ -70,6 +72,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         state.scrollPos = scrollPos;
         const context = this.canvasContext;
         const isHorizontal = type === "horizontal";
+        const isDirectionStart = direction === "start";
 
         context.rect(0, 0, width * 2, height * 2);
         context.fillStyle = backgroundColor;
@@ -80,6 +83,10 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         context.lineWidth = 1;
         context.font = "10px sans-serif";
         context.fillStyle = textColor;
+
+        if (isDirectionStart) {
+            context.textBaseline = "top";
+        }
         context.translate(0.5, 0);
         context.beginPath();
 
@@ -93,8 +100,9 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             const startPos = ((i + minRange) * unit - scrollPos) * zoom;
 
             if (startPos >= -zoomUnit && startPos < size) {
-                const startX = isHorizontal ? startPos + 3 : width - 18;
-                const startY = isHorizontal ? height - 18 : startPos - 4;
+                const [startX, startY] = isHorizontal
+                    ? [startPos + 3, isDirectionStart ? 17 : height - 17]
+                    : [isDirectionStart ? 17 : width - 17, startPos - 4];
 
                 if (isHorizontal) {
                     context.fillText(`${(i + minRange) * unit}`, startX, startY);
@@ -117,10 +125,10 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                     ? isHorizontal ? height : width
                     : (j % 2 === 0 ? 10 : 7);
 
-                const x1 = isHorizontal ? pos : width - lineSize;
-                const x2 = isHorizontal ? pos : width;
-                const y1 = isHorizontal ? height - lineSize : pos;
-                const y2 = isHorizontal ? height : pos;
+                const [x1, y1] = isHorizontal
+                    ? [pos, isDirectionStart ? 0 : height - lineSize]
+                    : [isDirectionStart ? 0 : width - lineSize, pos];
+                const [x2, y2] = isHorizontal ? [x1, y1 + lineSize] : [x1 + lineSize, y1];
                 context.moveTo(x1, y1);
                 context.lineTo(x2, y2);
             }

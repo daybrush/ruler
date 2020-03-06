@@ -1,6 +1,6 @@
 {
   "name": "@scena/react-ruler",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A React Ruler component that can draw grids and scroll infinitely.",
   "main": "./dist/ruler.cjs.js",
   "module": "./dist/ruler.esm.js",
@@ -10,7 +10,11 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "start": "react-scripts start",
     "build": "rollup -c && npm run declaration && print-sizes ./dist ",
-    "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json"
+    "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json",
+    "packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
+    "packages:update": "pvu --path=../ --update=preact-ruler,react-compat-ruler",
+    "packages:build": "pvu --path=../ --build=preact-ruler,react-compat-ruler",
+    "packages:publish": "pvu --path=../  --publish=preact-ruler,react-compat-ruler"
   },
   "keywords": [
     "scene",
