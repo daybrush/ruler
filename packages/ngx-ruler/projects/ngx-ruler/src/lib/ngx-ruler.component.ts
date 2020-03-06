@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import Ruler, { RulerInterface, RulerProps } from '@scena/ruler';
+import Ruler, { RulerInterface, RulerProps, PROPERTIES } from '@scena/ruler';
 import { IObject } from '@daybrush/utils';
 
 @Component({
@@ -52,13 +52,12 @@ export class NgxRulerComponent implements OnInit, RulerInterface, RulerProps, Af
   }
   ngAfterViewInit() {
     const el = this.rulerRef.nativeElement;
-    this.ruler = new Ruler(el, {
-      type: this.type,
-      width: this.width,
-      height: this.height,
-      unit: this.unit,
-      zoom: this.zoom,
+    const options = {};
+
+    PROPERTIES.forEach(name => {
+      options[name] = this[name];
     });
+    this.ruler = new Ruler(el, options);
     this.setStyle();
   }
   ngOnDestroy() {
