@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.2.3
+version: 0.3.1
 */
 (function () {
     'use strict';
@@ -503,7 +503,7 @@ version: 0.2.3
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/react-simple-compat.git
-    version: 0.1.1
+    version: 0.1.4
     */
 
     /*! *****************************************************************************
@@ -640,13 +640,13 @@ version: 0.2.3
       });
     }
 
-    function createProvider(el, key) {
+    function createProvider(el, key, index, container) {
       if (isString(el)) {
-        return new TextProvider("text_" + el, key, null, {});
+        return new TextProvider("text_" + el, key, index, container, null, {});
       }
 
       var providerClass = typeof el.type === "string" ? ElementProvider : el.type.prototype.render ? ComponentProvider : FunctionProvider;
-      return new providerClass(el.type, key, el.ref, el.props);
+      return new providerClass(el.type, key, index, container, el.ref, el.props);
     }
 
     function flat(arr) {
@@ -711,13 +711,15 @@ version: 0.2.3
     var Provider =
     /*#__PURE__*/
     function () {
-      function Provider(type, key, ref, props) {
+      function Provider(type, key, index, container, ref, props) {
         if (props === void 0) {
           props = {};
         }
 
         this.type = type;
         this.key = key;
+        this.index = index;
+        this.container = container;
         this.ref = ref;
         this.props = props;
         this._providers = [];
@@ -936,7 +938,7 @@ version: 0.2.3
           this.base = document.createElement(this.type);
         }
 
-        renderProviders(this.props.children, this._providers, hooks, null, this.base);
+        renderProviders(this, this._providers, this.props.children, hooks, null);
         var base = this.base;
 
         var _a = splitProps(prevProps),
@@ -978,6 +980,21 @@ version: 0.2.3
 
       return ElementProvider;
     }(Provider);
+
+    function findContainerNode(provider) {
+      if (!provider) {
+        return null;
+      }
+
+      var base = provider.base;
+
+      if (base instanceof Node) {
+        return base;
+      }
+
+      return findContainerNode(provider.container);
+    }
+
     function findDOMNode(comp) {
       if (!comp) {
         return null;
@@ -1009,7 +1026,7 @@ version: 0.2.3
 
       __proto._render = function (hooks) {
         var template = this.type(this.props);
-        renderProviders(template ? [template] : [], this._providers, hooks);
+        renderProviders(this, this._providers, template ? [template] : [], hooks);
         return true;
       };
 
@@ -1022,17 +1039,42 @@ version: 0.2.3
       return FunctionProvider;
     }(Provider);
 
+    var ContainerProvider =
+    /*#__PURE__*/
+    function (_super) {
+      __extends$1(ContainerProvider, _super);
+
+      function ContainerProvider(base) {
+        var _this = _super.call(this, "container", "container", 0, null) || this;
+
+        _this.base = base;
+        return _this;
+      }
+
+      var __proto = ContainerProvider.prototype;
+
+      __proto._render = function () {
+        return true;
+      };
+
+      __proto._unmount = function () {
+        return;
+      };
+
+      return ContainerProvider;
+    }(Provider);
+
     var ComponentProvider =
     /*#__PURE__*/
     function (_super) {
       __extends$1(ComponentProvider, _super);
 
-      function ComponentProvider(type, key, ref, props) {
+      function ComponentProvider(type, key, index, container, ref, props) {
         if (props === void 0) {
           props = {};
         }
 
-        return _super.call(this, type, key, ref, fillProps(props, type.defaultProps)) || this;
+        return _super.call(this, type, key, index, container, ref, fillProps(props, type.defaultProps)) || this;
       }
 
       var __proto = ComponentProvider.prototype;
@@ -1062,7 +1104,7 @@ version: 0.2.3
           template.props.children = this.props.children;
         }
 
-        renderProviders(template ? [template] : [], this._providers, hooks, nextState, null);
+        renderProviders(this, this._providers, template ? [template] : [], hooks, nextState, null);
         hooks.push(function () {
           if (isMount) {
             _this._mounted();
@@ -1121,7 +1163,7 @@ version: 0.2.3
       __proto.setState = function (state, callback, isForceUpdate) {
         var hooks = [];
         var provider = this._provider;
-        var isUpdate = renderProviders([provider.original], [provider], hooks, __assign$1(__assign$1({}, this.state), state), null, isForceUpdate);
+        var isUpdate = renderProviders(provider.container, [provider], [provider.original], hooks, __assign$1(__assign$1({}, this.state), state), isForceUpdate);
 
         if (isUpdate) {
           if (callback) {
@@ -1178,32 +1220,48 @@ version: 0.2.3
         var _a = this.props,
             element = _a.element,
             container = _a.container;
-        this._portalProvider = renderProvider(element, container);
+        this._portalProvider = new ContainerProvider(container);
+        renderProvider(element, container, this._portalProvider);
       };
 
       __proto.componentDidUpdate = function () {
         var _a = this.props,
             element = _a.element,
             container = _a.container;
-        this._portalProvider = renderProvider(element, container);
+        renderProvider(element, container, this._portalProvider);
       };
 
       __proto.componentWillUnmount = function () {
         var container = this.props.container;
+        renderProvider(null, container, this._portalProvider);
         this._portalProvider = null;
-        renderProvider(null, container);
       };
 
       return _Portal;
     }(PureComponent);
 
-    function updateProviders(children, providers, nextState, container) {
+    function updateProvider(provider, children, nextState) {
       var hooks = [];
-      renderProviders(children, providers, hooks, nextState, container);
+      renderProviders(provider, provider._providers, children, hooks, nextState);
       executeHooks(hooks);
     }
 
-    function renderProviders(children, providers, updatedHooks, nextState, container, isForceUpdate) {
+    function getNextSibiling(provider, childProvider) {
+      var childProviders = provider._providers;
+      var length = childProviders.length;
+
+      for (var i = childProvider.index + 1; i < length; ++i) {
+        var el = findDOMNode(childProviders[i].base);
+
+        if (el) {
+          return el;
+        }
+      }
+
+      return null;
+    }
+
+    function diffProviders(containerProvider, providers, children) {
       var childrenKeys = children.map(function (p) {
         return isString(p) ? null : p.key;
       });
@@ -1230,7 +1288,7 @@ version: 0.2.3
         }
       });
       result.added.forEach(function (index) {
-        providers.splice(index, 0, createProvider(children[index], childrenKeys[index]));
+        providers.splice(index, 0, createProvider(children[index], childrenKeys[index], index, containerProvider));
       });
       var changed = result.maintained.filter(function (_a) {
         var _ = _a[0],
@@ -1242,51 +1300,66 @@ version: 0.2.3
         if (type !== childProvider.type) {
           childProvider._unmount();
 
-          providers.splice(to, 1, createProvider(el, childrenKeys[to]));
+          providers.splice(to, 1, createProvider(el, childrenKeys[to], to, containerProvider));
           return true;
         }
 
+        childProvider.index = to;
         return false;
       });
-      var updated = providers.filter(function (childProvider, i) {
-        var el = children[i];
-        return childProvider._update(updatedHooks, el, nextState, isForceUpdate);
-      });
+      return __spreadArrays(result.added, changed.map(function (_a) {
+        var _ = _a[0],
+            to = _a[1];
+        return to;
+      }));
+    }
 
-      if (container) {
-        __spreadArrays(result.added, changed.map(function (_a) {
-          var _ = _a[0],
-              to = _a[1];
-          return to;
-        })).forEach(function (index) {
-          var el = findDOMNode(providers[index].base);
+    function renderProviders(containerProvider, providers, children, updatedHooks, nextState, isForceUpdate) {
+      var result = diffProviders(containerProvider, providers, children);
+      var updated = providers.filter(function (childProvider, i) {
+        return childProvider._update(updatedHooks, children[i], nextState, isForceUpdate);
+      });
+      var containerNode = findContainerNode(containerProvider);
+
+      if (containerNode) {
+        result.reverse().forEach(function (index) {
+          var childProvider = providers[index];
+          var el = findDOMNode(childProvider.base);
 
           if (!el) {
             return;
           }
 
-          var nextProvider = providers[index + 1];
-
-          if (container !== el && !el.parentNode) {
-            var nextElement = findDOMNode(nextProvider && nextProvider.base);
-            container.insertBefore(el, nextElement && nextElement.parentNode ? nextElement : null);
+          if (containerNode !== el && !el.parentNode) {
+            var nextElement = getNextSibiling(containerProvider, childProvider);
+            containerNode.insertBefore(el, nextElement);
           }
         });
       }
 
       return updated.length > 0;
     }
+
     function renderProvider(element, container, provider) {
       if (provider === void 0) {
         provider = container.__REACT_COMPAT__;
       }
 
-      var providers = provider ? [provider] : [];
-      updateProviders(element ? [element] : [], providers, null, container);
-      provider = providers[0];
-      container.__REACT_COMPAT__ = provider;
+      var isProvider = !!provider;
+
+      if (!provider) {
+        provider = new ContainerProvider(container);
+      }
+
+      updateProvider(provider, element ? [element] : []);
+
+      if (!isProvider) {
+        container.__REACT_COMPAT__ = provider;
+      }
+
       return provider;
     }
+
     function render(element, container, callback) {
       var provider = container.__REACT_COMPAT__;
 
@@ -1304,7 +1377,7 @@ version: 0.2.3
       });
     }
 
-    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor"];
+    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction"];
 
     /*
     Copyright (c) 2019 Daybrush
@@ -1312,7 +1385,7 @@ version: 0.2.3
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.2.1
+    version: 0.3.0
     */
 
     /*! *****************************************************************************
@@ -1416,13 +1489,15 @@ version: 0.2.3
             type = _a.type,
             backgroundColor = _a.backgroundColor,
             lineColor = _a.lineColor,
-            textColor = _a.textColor;
+            textColor = _a.textColor,
+            direction = _a.direction;
         var width = this.width;
         var height = this.height;
         var state = this.state;
         state.scrollPos = scrollPos;
         var context = this.canvasContext;
         var isHorizontal = type === "horizontal";
+        var isDirectionStart = direction === "start";
         context.rect(0, 0, width * 2, height * 2);
         context.fillStyle = backgroundColor;
         context.fill();
@@ -1432,6 +1507,11 @@ version: 0.2.3
         context.lineWidth = 1;
         context.font = "10px sans-serif";
         context.fillStyle = textColor;
+
+        if (isDirectionStart) {
+          context.textBaseline = "top";
+        }
+
         context.translate(0.5, 0);
         context.beginPath();
         var size = isHorizontal ? width : height;
@@ -1444,8 +1524,9 @@ version: 0.2.3
           var startPos = ((i + minRange) * unit - scrollPos) * zoom;
 
           if (startPos >= -zoomUnit && startPos < size) {
-            var startX = isHorizontal ? startPos + 3 : width - 18;
-            var startY = isHorizontal ? height - 18 : startPos - 4;
+            var _b = isHorizontal ? [startPos + 3, isDirectionStart ? 17 : height - 17] : [isDirectionStart ? 17 : width - 17, startPos - 4],
+                startX = _b[0],
+                startY = _b[1];
 
             if (isHorizontal) {
               context.fillText("" + (i + minRange) * unit, startX, startY);
@@ -1466,10 +1547,15 @@ version: 0.2.3
             }
 
             var lineSize = j === 0 ? isHorizontal ? height : width : j % 2 === 0 ? 10 : 7;
-            var x1 = isHorizontal ? pos : width - lineSize;
-            var x2 = isHorizontal ? pos : width;
-            var y1 = isHorizontal ? height - lineSize : pos;
-            var y2 = isHorizontal ? height : pos;
+
+            var _c = isHorizontal ? [pos, isDirectionStart ? 0 : height - lineSize] : [isDirectionStart ? 0 : width - lineSize, pos],
+                x1 = _c[0],
+                y1 = _c[1];
+
+            var _d = isHorizontal ? [x1, y1 + lineSize] : [x1 + lineSize, y1],
+                x2 = _d[0],
+                y2 = _d[1];
+
             context.moveTo(x1, y1);
             context.lineTo(x2, y2);
           }
@@ -1485,6 +1571,7 @@ version: 0.2.3
         width: 0,
         height: 0,
         unit: 50,
+        direction: "end",
         style: {
           width: "100%",
           height: "100%"
