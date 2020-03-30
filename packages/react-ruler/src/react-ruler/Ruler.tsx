@@ -65,6 +65,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             lineColor,
             textColor,
             direction,
+            formatText,
         } = this.props as Required<RulerProps>;
         const width = this.width;
         const height = this.height;
@@ -104,13 +105,17 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                     ? [startPos + 3, isDirectionStart ? 17 : height - 17]
                     : [isDirectionStart ? 17 : width - 17, startPos - 4];
 
+                let text = `${(i + minRange) * unit}`;
+                if (formatText) {
+                    text = formatText(`${(i + minRange) * unit}`);
+                }
                 if (isHorizontal) {
-                    context.fillText(`${(i + minRange) * unit}`, startX, startY);
+                    context.fillText(text, startX, startY);
                 } else {
                     context.save();
                     context.translate(startX, startY);
                     context.rotate(-Math.PI / 2);
-                    context.fillText(`${(i + minRange) * unit}`, 0, 0);
+                    context.fillText(text, 0, 0);
                     context.restore();
                 }
             }
