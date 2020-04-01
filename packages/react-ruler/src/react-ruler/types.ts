@@ -15,5 +15,5 @@ export interface RulerProps {
     backgroundColor?: string;
     lineColor?: string;
     textColor?: string;
-    formatText?: (scale: number) => string;
+    textFormat?: (scale: number) => string;
 }

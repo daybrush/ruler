@@ -22,6 +22,7 @@ export class NgxRulerComponent extends NgxRulerInterface implements RulerProps, 
   @Input() public lineColor?: string;
   @Input() public textColor?: string;
   @Input() public direction?: 'start' | 'end';
+  @Input() public textFormat?: RulerProps['textFormat'];
 
   ngOnChanges(changes: SimpleChanges): void {
     const ruler = this.ruler;

@@ -60,12 +60,15 @@ export interface RulerProps {
     height?: number;
     unit?: number;
     zoom?: number;
+    direction?: "start" | "end";
     style?: IObject<any>;
     backgroundColor?: string;
     lineColor?: string;
     textColor?: string;
-    direction?: "start" | "end";
+    textFormat?: (scale: number) => string;
 }
+
+
 ```
 
 

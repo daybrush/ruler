@@ -1,6 +1,6 @@
 {
     "name": "svelte-ruler",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "description": "A Svelte Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -43,7 +43,7 @@
         "typescript": "^3.6.4"
     },
     "dependencies": {
-        "@scena/ruler": "^0.3.1"
+        "@scena/ruler": "^0.4.0"
     },
     "scripts": {
         "build": "rollup -c rollup.build.config.js",
