@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.3.1
+version: 0.4.0
 */
 (function () {
     'use strict';
@@ -1377,7 +1377,7 @@ version: 0.3.1
       });
     }
 
-    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction"];
+    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat"];
 
     /*
     Copyright (c) 2019 Daybrush
@@ -1385,7 +1385,7 @@ version: 0.3.1
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.3.0
+    version: 0.4.0
     */
 
     /*! *****************************************************************************
@@ -1490,7 +1490,8 @@ version: 0.3.1
             backgroundColor = _a.backgroundColor,
             lineColor = _a.lineColor,
             textColor = _a.textColor,
-            direction = _a.direction;
+            direction = _a.direction,
+            textFormat = _a.textFormat;
         var width = this.width;
         var height = this.height;
         var state = this.state;
@@ -1528,13 +1529,19 @@ version: 0.3.1
                 startX = _b[0],
                 startY = _b[1];
 
+            var text = "" + (i + minRange) * unit;
+
+            if (textFormat) {
+              text = textFormat((i + minRange) * unit);
+            }
+
             if (isHorizontal) {
-              context.fillText("" + (i + minRange) * unit, startX, startY);
+              context.fillText(text, startX, startY);
             } else {
               context.save();
               context.translate(startX, startY);
               context.rotate(-Math.PI / 2);
-              context.fillText("" + (i + minRange) * unit, 0, 0);
+              context.fillText(text, 0, 0);
               context.restore();
             }
           }
