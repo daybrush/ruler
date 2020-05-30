@@ -1,6 +1,6 @@
 {
     "name": "react-compat-ruler",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "A React Compat Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -33,6 +33,7 @@
     },
     "homepage": "https://daybrush.com/ruler",
     "devDependencies": {
+        "@types/react": "^16.9.17",
         "@daybrush/builder": "^0.1.0",
         "@scenejs/effects": "^1.0.1",
         "keycon": "^0.3.0",
@@ -48,10 +49,9 @@
     },
     "dependencies": {
         "@scena/react-ruler": "^0.4.0",
-        "@types/react": "^16.9.17",
-        "react-simple-compat": "^0.1.4"
+        "react-simple-compat": "^0.1.6"
     },
     "peerDependencies": {
-        "react-simple-compat": ">=0.1.0"
+        "react-simple-compat": ">=0.1.6"
     }
 }

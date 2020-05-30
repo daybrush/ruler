@@ -1,6 +1,6 @@
 {
   "name": "ngx-ruler",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "An Angular Ruler component that can draw grids and scroll infinitely.",
   "keywords": [
     "scene",
@@ -26,6 +26,6 @@
     "@angular/core": "^8.2.13"
   },
   "dependencies": {
-    "@scena/ruler": "^0.4.0"
+    "@scena/ruler": "^0.4.1"
   }
 }

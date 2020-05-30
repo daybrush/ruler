@@ -1,6 +1,6 @@
 {
     "name": "@scena/ruler",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "A Vanilla Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -63,9 +63,9 @@
         "typescript": "^3.5.2"
     },
     "dependencies": {
-        "react-compat-ruler": "^0.3.0"
+        "react-compat-ruler": "^0.3.1"
     },
     "peerDependencies": {
-        "react-simple-compat": ">=0.3.0"
+        "react-simple-compat": ">=0.3.1"
     }
 }

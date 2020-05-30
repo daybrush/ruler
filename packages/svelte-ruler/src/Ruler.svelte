@@ -56,11 +56,8 @@
     ruler.destroy();
   });
 
-  export function resize() {
-    ruler.resize();
-  }
-  export function scroll(scrollPos: number) {
-    ruler.scroll(scrollPos);
+  export function getInstance() {
+    return ruler;
   }
 </script>
 

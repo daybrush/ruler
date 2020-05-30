@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Ruler from "./Ruler.svelte";
+  import Ruler from "./index.js";
   import { onMount } from "svelte";
   import Dragger from "@daybrush/drag";
 
