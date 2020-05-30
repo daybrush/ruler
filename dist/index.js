@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.4.0
+version: 0.4.1
 */
 (function () {
     'use strict';
@@ -423,7 +423,7 @@ version: 0.4.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/utils
-    @version 0.10.1
+    @version 0.10.4
     */
     /**
     * get string "string"
@@ -503,7 +503,7 @@ version: 0.4.0
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/react-simple-compat.git
-    version: 0.1.4
+    version: 0.1.6
     */
 
     /*! *****************************************************************************
@@ -702,7 +702,7 @@ version: 0.4.0
         ref: ref,
         props: __assign$1(__assign$1({}, otherProps), {
           children: flat(children).filter(function (child) {
-            return child != null;
+            return child != null && child !== false;
           })
         })
       };
@@ -827,15 +827,27 @@ version: 0.4.0
           changed = _a.changed;
 
       for (var name in added) {
-        style[name] = added[name];
+        if (style.setProperty) {
+          style.setProperty(name, added[name]);
+        } else {
+          style[name] = added[name];
+        }
       }
 
       for (var name in changed) {
-        style[name] = changed[name][1];
+        if (style.setProperty) {
+          style.setProperty(name, changed[name][1]);
+        } else {
+          style[name] = changed[name][1];
+        }
       }
 
       for (var name in removed) {
-        style[name] = "";
+        if (style.removeProperty) {
+          style.removeProperty(name);
+        } else {
+          style[name] = "";
+        }
       }
     }
 
