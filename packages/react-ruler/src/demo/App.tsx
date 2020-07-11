@@ -25,12 +25,12 @@ export default class App extends Component<{}> {
             <Ruler ref={ref(this, "ruler4")}
                 type="vertical" direction="start" style={{ display: "block",  width: "30px", height: "130px" }}/>
             <Ruler ref={ref(this, "ruler5")}
-                type="vertical" direction="start" style={{ display: "block",  width: "30px", height: "130px"}}
-                formatText={this.formatText.bind(this)}/>
+                type="horizontal" direction="start" style={{ display: "block",  width: "130px", height: "30px"}}
+                textFormat={this.textFormat.bind(this)}/>
         </div>
         );
     }
-    public formatText(s: number): string {
+    public textFormat(s: number): string {
         let t = "";
         if (s < 0) {
             s = 0;

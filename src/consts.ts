@@ -4,7 +4,7 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "type", "width", "height",
     "unit", "zoom", "style", "backgroundColor", "lineColor",
     "textColor", "direction",
-    "textFormat",
+    "textFormat", "scrollPos",
 ];
 export const METHODS: Array<keyof RulerInterface> = [
     "scroll", "resize",

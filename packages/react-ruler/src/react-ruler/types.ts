@@ -11,6 +11,7 @@ export interface RulerProps {
     unit?: number;
     zoom?: number;
     direction?: "start" | "end";
+    scrollPos?: number;
     style?: IObject<any>;
     backgroundColor?: string;
     lineColor?: string;

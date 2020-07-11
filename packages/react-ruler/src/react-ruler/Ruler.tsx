@@ -48,13 +48,14 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const {
             width,
             height,
+            scrollPos,
         } = this.props;
 
         this.width = width || canvas.offsetWidth;
         this.height = height || canvas.offsetHeight;
         canvas.width = this.width * 2;
         canvas.height = this.height * 2;
-        this.draw();
+        this.draw(scrollPos);
     }
     private draw(scrollPos: number = this.state.scrollPos) {
         const {
