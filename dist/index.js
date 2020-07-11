@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.4.1
+version: 0.5.0
 */
 (function () {
     'use strict';
@@ -423,7 +423,7 @@ version: 0.4.1
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/utils
-    @version 0.10.4
+    @version 0.10.5
     */
     /**
     * get string "string"
@@ -496,6 +496,28 @@ version: 0.4.1
     function isString(value) {
       return typeof value === STRING;
     }
+    /**
+    * transform a camelized string into a lowercased string.
+    * @memberof Utils
+    * @param {string} text - a camel-cased string
+    * @param {string} [separator="-"] - a separator
+    * @return {string}  a lowercased string
+    * @example
+    import {decamelize} from "@daybrush/utils";
+
+    console.log(decamelize("transformOrigin")); // transform-origin
+    console.log(decamelize("abcdEfg", "_")); // abcd_efg
+    */
+
+    function decamelize(str, separator) {
+      if (separator === void 0) {
+        separator = "-";
+      }
+
+      return str.replace(/([a-z])([A-Z])/g, function (all, letter, letter2) {
+        return "" + letter + separator + letter2.toLowerCase();
+      });
+    }
 
     /*
     Copyright (c) Daybrush
@@ -503,7 +525,7 @@ version: 0.4.1
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/react-simple-compat.git
-    version: 0.1.6
+    version: 0.1.8
     */
 
     /*! *****************************************************************************
@@ -826,23 +848,29 @@ version: 0.4.1
           removed = _a.removed,
           changed = _a.changed;
 
-      for (var name in added) {
+      for (var beforeName in added) {
+        var name = decamelize(beforeName, "-");
+
         if (style.setProperty) {
-          style.setProperty(name, added[name]);
+          style.setProperty(name, added[beforeName]);
         } else {
-          style[name] = added[name];
+          style[name] = added[beforeName];
         }
       }
 
-      for (var name in changed) {
+      for (var beforeName in changed) {
+        var name = decamelize(beforeName, "-");
+
         if (style.setProperty) {
-          style.setProperty(name, changed[name][1]);
+          style.setProperty(name, changed[beforeName][1]);
         } else {
-          style[name] = changed[name][1];
+          style[name] = changed[beforeName][1];
         }
       }
 
-      for (var name in removed) {
+      for (var beforeName in removed) {
+        var name = decamelize(beforeName, "-");
+
         if (style.removeProperty) {
           style.removeProperty(name);
         } else {
@@ -1389,7 +1417,7 @@ version: 0.4.1
       });
     }
 
-    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat"];
+    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat", "scrollPos"];
 
     /*
     Copyright (c) 2019 Daybrush
@@ -1397,7 +1425,7 @@ version: 0.4.1
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.4.0
+    version: 0.5.0
     */
 
     /*! *****************************************************************************
@@ -1482,12 +1510,13 @@ version: 0.4.1
         var canvas = this.canvasElement;
         var _a = this.props,
             width = _a.width,
-            height = _a.height;
+            height = _a.height,
+            scrollPos = _a.scrollPos;
         this.width = width || canvas.offsetWidth;
         this.height = height || canvas.offsetHeight;
         canvas.width = this.width * 2;
         canvas.height = this.height * 2;
-        this.draw();
+        this.draw(scrollPos);
       };
 
       __proto.draw = function (scrollPos) {
