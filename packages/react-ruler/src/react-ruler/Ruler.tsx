@@ -76,9 +76,17 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const isHorizontal = type === "horizontal";
         const isDirectionStart = direction === "start";
 
-        context.rect(0, 0, width * 2, height * 2);
-        context.fillStyle = backgroundColor;
-        context.fill();
+        if (backgroundColor === 'transparent') {
+            // Clear existing paths & text
+            context.clearRect(0, 0, width * 2, height * 2);        
+        }
+        else {
+            // Draw the background
+            context.rect(0, 0, width * 2, height * 2);
+            context.fillStyle = backgroundColor;
+            context.fill();
+        }
+        
         context.save();
         context.scale(2, 2);
         context.strokeStyle = lineColor;
