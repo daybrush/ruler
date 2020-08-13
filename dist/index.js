@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.5.0
+version: 0.6.0
 */
 (function () {
     'use strict';
@@ -1425,7 +1425,7 @@ version: 0.5.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.5.0
+    version: 0.6.0
     */
 
     /*! *****************************************************************************
@@ -1540,9 +1540,17 @@ version: 0.5.0
         var context = this.canvasContext;
         var isHorizontal = type === "horizontal";
         var isDirectionStart = direction === "start";
-        context.rect(0, 0, width * 2, height * 2);
-        context.fillStyle = backgroundColor;
-        context.fill();
+
+        if (backgroundColor === "transparent") {
+          // Clear existing paths & text
+          context.clearRect(0, 0, width * 2, height * 2);
+        } else {
+          // Draw the background
+          context.rect(0, 0, width * 2, height * 2);
+          context.fillStyle = backgroundColor;
+          context.fill();
+        }
+
         context.save();
         context.scale(2, 2);
         context.strokeStyle = lineColor;
