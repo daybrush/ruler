@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.6.0
+version: 0.6.1
 */
 (function () {
     'use strict';
@@ -423,7 +423,7 @@ version: 0.6.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/utils
-    @version 0.10.5
+    @version 1.0.0
     */
     /**
     * get string "string"
@@ -525,7 +525,7 @@ version: 0.6.0
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/react-simple-compat.git
-    version: 0.1.8
+    version: 0.1.9
     */
 
     /*! *****************************************************************************
@@ -1425,7 +1425,7 @@ version: 0.6.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.6.0
+    version: 0.6.1
     */
 
     /*! *****************************************************************************
