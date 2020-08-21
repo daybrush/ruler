@@ -1,6 +1,6 @@
 {
   "name": "@scena/react-ruler",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A React Ruler component that can draw grids and scroll infinitely.",
   "main": "./dist/ruler.cjs.js",
   "module": "./dist/ruler.esm.js",
@@ -51,12 +51,11 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "@daybrush/utils": "^0.13.0",
-    "framework-utils": "^0.3.0"
+    "@daybrush/utils": "^1.0.0",
+    "framework-utils": "^0.3.4"
   },
   "peerDependencies": {
-    "framework-utils": ">=0.3.0",
-    "@daybrush/utils": ">=0.13.0"
+    "framework-utils": ">=0.3.4"
   },
   "browserslist": {
     "production": [
