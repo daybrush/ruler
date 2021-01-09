@@ -11,6 +11,12 @@ export interface RulerProps {
     unit?: number;
     zoom?: number;
     direction?: "start" | "end";
+    textAlign?: "left" | "center" | "right";
+    mainLineSize?: string | number;
+    longLineSize?: string | number;
+    shortLineSize?: string | number;
+    textOffset?: number[];
+    negativeRuler?: boolean;
     scrollPos?: number;
     style?: IObject<any>;
     backgroundColor?: string;

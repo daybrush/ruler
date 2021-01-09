@@ -1,14 +1,19 @@
 import * as React from "react";
 import { ref } from "framework-utils";
 import { RulerInterface, RulerProps } from "./types";
+import { convertUnitSize } from "@daybrush/utils";
 
 export default class Ruler extends React.PureComponent<RulerProps> implements RulerInterface {
-    public static defaultProps = {
+    public static defaultProps: RulerProps = {
         type: "horizontal",
         zoom: 1,
         width: 0,
         height: 0,
         unit: 50,
+        negativeRuler: true,
+        mainLineSize: "100%",
+        longLineSize: 10,
+        shortLineSize: 7,
         direction: "end",
         style: { width: "100%", height: "100%" },
         backgroundColor: "#333333",
@@ -58,6 +63,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         this.draw(scrollPos);
     }
     private draw(scrollPos: number = this.state.scrollPos) {
+        const props = this.props;
         const {
             unit,
             zoom,
@@ -66,8 +72,9 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             lineColor,
             textColor,
             direction,
+            negativeRuler = true,
             textFormat,
-        } = this.props as Required<RulerProps>;
+        } = props as Required<RulerProps>;
         const width = this.width;
         const height = this.height;
         const state = this.state;
@@ -75,6 +82,13 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const context = this.canvasContext;
         const isHorizontal = type === "horizontal";
         const isDirectionStart = direction === "start";
+        const isNegative = negativeRuler !== false;
+        const textAlign = props.textAlign || "left";
+        const textOffset = props.textOffset || [0, 0];
+        const containerSize = isHorizontal ? height : width;
+        const mainLineSize = convertUnitSize(`${props.mainLineSize || "100%"}`, containerSize);
+        const longLineSize = convertUnitSize(`${props.longLineSize || 10}`, containerSize);
+        const shortLineSize = convertUnitSize(`${props.shortLineSize || 7}`, containerSize);
 
         if (backgroundColor === "transparent") {
             // Clear existing paths & text
@@ -104,30 +118,18 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const minRange = Math.floor(scrollPos * zoom / zoomUnit);
         const maxRange = Math.ceil((scrollPos * zoom + size) / zoomUnit);
         const length = maxRange - minRange;
+        const alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
 
-        for (let i = 0; i < length; ++i) {
-            const startPos = ((i + minRange) * unit - scrollPos) * zoom;
 
-            if (startPos >= -zoomUnit && startPos < size) {
-                const [startX, startY] = isHorizontal
-                    ? [startPos + 3, isDirectionStart ? 17 : height - 17]
-                    : [isDirectionStart ? 17 : width - 17, startPos - 4];
 
-                let text = `${(i + minRange) * unit}`;
+        for (let i = 0; i <= length; ++i) {
+            const value = i + minRange;
 
-                if (textFormat) {
-                    text = textFormat((i + minRange) * unit);
-                }
-                if (isHorizontal) {
-                    context.fillText(text, startX, startY);
-                } else {
-                    context.save();
-                    context.translate(startX, startY);
-                    context.rotate(-Math.PI / 2);
-                    context.fillText(text, 0, 0);
-                    context.restore();
-                }
+            if (!isNegative && value < 0) {
+                continue;
             }
+            const startPos = (value * unit - scrollPos) * zoom;
+
 
             for (let j = 0; j < 10; ++j) {
                 const pos = startPos + j / 10 * zoomUnit;
@@ -136,8 +138,8 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                     continue;
                 }
                 const lineSize = j === 0
-                    ? isHorizontal ? height : width
-                    : (j % 2 === 0 ? 10 : 7);
+                    ? mainLineSize
+                    : (j % 2 === 0 ? longLineSize : shortLineSize);
 
                 const [x1, y1] = isHorizontal
                     ? [pos, isDirectionStart ? 0 : height - lineSize]
@@ -145,6 +147,29 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 const [x2, y2] = isHorizontal ? [x1, y1 + lineSize] : [x1 + lineSize, y1];
                 context.moveTo(x1, y1);
                 context.lineTo(x2, y2);
+            }
+
+            if (startPos >= -zoomUnit && startPos < size + unit * zoom) {
+                const [startX, startY] = isHorizontal
+                    ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17]
+                    : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3];
+
+                let text = `${value * unit}`;
+
+                if (textFormat) {
+                    text = textFormat(value * unit);
+                }
+
+                context.textAlign = textAlign;
+                if (isHorizontal) {
+                    context.fillText(text, startX + textOffset[0], startY + textOffset[1]);
+                } else {
+                    context.save();
+                    context.translate(startX + textOffset[0], startY + textOffset[1]);
+                    context.rotate(-Math.PI / 2);
+                    context.fillText(text, 0, 0);
+                    context.restore();
+                }
             }
         }
         context.stroke();

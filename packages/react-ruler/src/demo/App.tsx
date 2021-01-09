@@ -17,13 +17,22 @@ export default class App extends Component<{}> {
     public render() {
         return (<div>
             <Ruler ref={ref(this, "ruler1")}
+                negativeRuler={false}
+                textAlign={"center"}
+                mainLineSize={12}
+                shortLineSize={5}
+                longLineSize={5}
                  type="horizontal" style={{ display: "block", width: "300px", height: "100px" }}/>
             <Ruler ref={ref(this, "ruler2")}
                 type="horizontal" direction="start" style={{ display: "block", width: "400px", height: "30px" }}/>
             <Ruler ref={ref(this, "ruler3")}
+                negativeRuler={false}
                 type="vertical" style={{ display: "block", width: "400px", height: "30px" }}/>
             <Ruler ref={ref(this, "ruler4")}
-                type="vertical" direction="start" style={{ display: "block",  width: "30px", height: "130px" }}/>
+                negativeRuler={false}
+                textAlign={"center"}
+                textOffset={[0, 0]}
+                type="vertical" direction="start" style={{ display: "block",  width: "30px", height: "130px", transform: "translate(100px) rotate(90deg)" }} />
             <Ruler ref={ref(this, "ruler5")}
                 type="horizontal" direction="start" style={{ display: "block",  width: "130px", height: "30px"}}
                 textFormat={this.textFormat.bind(this)}/>

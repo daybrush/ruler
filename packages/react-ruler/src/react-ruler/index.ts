@@ -1,4 +1,5 @@
-import Ruler from "./Ruler";
+import Ruler from "./index.esm";
 
-export default Ruler;
 export * from "./types";
+export * from "./index.esm";
+export default Ruler;
