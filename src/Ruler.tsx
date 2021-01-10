@@ -5,6 +5,12 @@ import { PROPERTIES } from "./consts";
 import { RulerInterface, RulerProps } from "@scena/react-ruler/declaration/types";
 import InnerRuler from "./InnerRuler";
 
+
+/**
+ * A Ruler component that can draw grids and scroll infinitely.
+ * @sort 1
+ * @implements Ruler.RulerInterface
+ */
 @Properties(PROPERTIES, (prototype, property) => {
     Object.defineProperty(prototype, property, {
         get() {
@@ -22,7 +28,10 @@ import InnerRuler from "./InnerRuler";
 class Ruler implements RulerInterface {
     private tempElement = document.createElement("div");
     private innerRuler!: InnerRuler;
-
+    /**
+     * @param - container
+     * @param {$ts:Partial<Ruler.RulerProps>} options - options
+     */
     constructor(parentElement: HTMLElement, options: Partial<RulerProps> = {}) {
         render(
             <InnerRuler ref={ref(this, "innerRuler")}
@@ -36,6 +45,9 @@ class Ruler implements RulerInterface {
     public resize() {
         this.getRuler().resize();
     }
+    /**
+     * Remove Ruler
+     */
     public destroy() {
         render(null, this.tempElement);
         this.tempElement = null;
