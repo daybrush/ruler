@@ -11,7 +11,7 @@ const defaultOptions = {
         "preact/compat": "Preact",
         "preact-compat": "preact-compat",
         "framework-utils": "framework-utils",
-        "preact-css-styler": "preact-css-styler",
+        "react-css-styled": "preact-css-styled",
         "@egjs/agent": "eg.Agent",
         "@egjs/children-differ": "eg.ChildrenDiffer",
     },
@@ -23,7 +23,7 @@ const defaultOptions = {
             noReactIs: false,
             usePreactX: true,
             aliasModules: {
-                "react-css-styler": "preact-css-styler",
+                "react-css-styled": "preact-css-styled",
             },
         }),
     ],
@@ -35,6 +35,7 @@ export default builder([
         input: "src/preact-ruler/index.esm.ts",
         output: "./dist/ruler.esm.js",
         format: "es",
+        exports: "named",
     },
     {
         ...defaultOptions,
