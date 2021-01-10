@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.6.1
+version: 0.7.0
 */
 (function () {
     'use strict';
@@ -423,7 +423,7 @@ version: 0.6.1
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/utils
-    @version 1.0.0
+    @version 1.4.0
     */
     /**
     * get string "string"
@@ -435,6 +435,16 @@ version: 0.6.1
     */
 
     var STRING = "string";
+    /**
+    * get string "number"
+    * @memberof Consts
+    * @example
+    import {NUMBER} from "@daybrush/utils";
+
+    console.log(NUMBER); // "number"
+    */
+
+    var NUMBER = "number";
     /**
     * get string "undefined"
     * @memberof Consts
@@ -496,6 +506,9 @@ version: 0.6.1
     function isString(value) {
       return typeof value === STRING;
     }
+    function isNumber(value) {
+      return typeof value === NUMBER;
+    }
     /**
     * transform a camelized string into a lowercased string.
     * @memberof Utils
@@ -525,7 +538,7 @@ version: 0.6.1
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/react-simple-compat.git
-    version: 0.1.9
+    version: 1.0.0
     */
 
     /*! *****************************************************************************
@@ -663,7 +676,7 @@ version: 0.6.1
     }
 
     function createProvider(el, key, index, container) {
-      if (isString(el)) {
+      if (isString(el) || isNumber(el)) {
         return new TextProvider("text_" + el, key, index, container, null, {});
       }
 
@@ -975,7 +988,7 @@ version: 0.6.1
         var isMount = !this.base;
 
         if (isMount) {
-          this.base = document.createElement(this.type);
+          this.base = this.props.portalContainer || document.createElement(this.type);
         }
 
         renderProviders(this, this._providers, this.props.children, hooks, null);
@@ -1015,7 +1028,10 @@ version: 0.6.1
         });
 
         this.events = {};
-        base.parentNode.removeChild(base);
+
+        if (!this.props.portalContainer) {
+          base.parentNode.removeChild(base);
+        }
       };
 
       return ElementProvider;
@@ -1417,7 +1433,184 @@ version: 0.6.1
       });
     }
 
-    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat", "scrollPos"];
+    /*
+    Copyright (c) 2018 Daybrush
+    @name: @daybrush/utils
+    license: MIT
+    author: Daybrush
+    repository: https://github.com/daybrush/utils
+    @version 1.4.0
+    */
+    /**
+    * get string "function"
+    * @memberof Consts
+    * @example
+    import {FUNCTION} from "@daybrush/utils";
+
+    console.log(FUNCTION); // "function"
+    */
+
+    var FUNCTION = "function";
+    /**
+    * get string "object"
+    * @memberof Consts
+    * @example
+    import {OBJECT} from "@daybrush/utils";
+
+    console.log(OBJECT); // "object"
+    */
+
+    var OBJECT = "object";
+    var DEFAULT_UNIT_PRESETS = {
+      "cm": function (pos) {
+        return pos * 96 / 2.54;
+      },
+      "mm": function (pos) {
+        return pos * 96 / 254;
+      },
+      "in": function (pos) {
+        return pos * 96;
+      },
+      "pt": function (pos) {
+        return pos * 96 / 72;
+      },
+      "pc": function (pos) {
+        return pos * 96 / 6;
+      },
+      "%": function (pos, size) {
+        return pos * size / 100;
+      },
+      "vw": function (pos, size) {
+        if (size === void 0) {
+          size = window.innerWidth;
+        }
+
+        return pos / 100 * size;
+      },
+      "vh": function (pos, size) {
+        if (size === void 0) {
+          size = window.innerHeight;
+        }
+
+        return pos / 100 * size;
+      },
+      "vmax": function (pos, size) {
+        if (size === void 0) {
+          size = Math.max(window.innerWidth, window.innerHeight);
+        }
+
+        return pos / 100 * size;
+      },
+      "vmin": function (pos, size) {
+        if (size === void 0) {
+          size = Math.min(window.innerWidth, window.innerHeight);
+        }
+
+        return pos / 100 * size;
+      }
+    };
+    /**
+    * Check the type that the value is object.
+    * @memberof Utils
+    * @param {string} value - Value to check the type
+    * @return {} true if the type is correct, false otherwise
+    * @example
+    import {isObject} from "@daybrush/utils";
+
+    console.log(isObject({})); // true
+    console.log(isObject(undefined)); // false
+    console.log(isObject("")); // false
+    console.log(isObject(null)); // false
+    */
+
+    function isObject(value) {
+      return value && typeof value === OBJECT;
+    }
+    /**
+    * Check the type that the value is function.
+    * @memberof Utils
+    * @param {string} value - Value to check the type
+    * @return {} true if the type is correct, false otherwise
+    * @example
+    import {isFunction} from "@daybrush/utils";
+
+    console.log(isFunction(function a() {})); // true
+    console.log(isFunction(() => {})); // true
+    console.log(isFunction("1234")); // false
+    console.log(isFunction(1)); // false
+    console.log(isFunction(null)); // false
+    */
+
+    function isFunction(value) {
+      return typeof value === FUNCTION;
+    }
+    /**
+    * divide text by number and unit.
+    * @memberof Utils
+    * @param {string} text - text to divide
+    * @return {} divided texts
+    * @example
+    import {splitUnit} from "@daybrush/utils";
+
+    console.log(splitUnit("10px"));
+    // {prefix: "", value: 10, unit: "px"}
+    console.log(splitUnit("-10px"));
+    // {prefix: "", value: -10, unit: "px"}
+    console.log(splitUnit("a10%"));
+    // {prefix: "a", value: 10, unit: "%"}
+    */
+
+    function splitUnit(text) {
+      var matches = /^([^\d|e|\-|\+]*)((?:\d|\.|-|e-|e\+)+)(\S*)$/g.exec(text);
+
+      if (!matches) {
+        return {
+          prefix: "",
+          unit: "",
+          value: NaN
+        };
+      }
+
+      var prefix = matches[1];
+      var value = matches[2];
+      var unit = matches[3];
+      return {
+        prefix: prefix,
+        unit: unit,
+        value: parseFloat(value)
+      };
+    }
+    /**
+    * convert unit size to px size
+    * @function
+    * @memberof Utils
+    */
+
+    function convertUnitSize(pos, size) {
+      var _a = splitUnit(pos),
+          value = _a.value,
+          unit = _a.unit;
+
+      if (isObject(size)) {
+        var sizeFunction = size[unit];
+
+        if (sizeFunction) {
+          if (isFunction(sizeFunction)) {
+            return sizeFunction(value);
+          } else if (DEFAULT_UNIT_PRESETS[unit]) {
+            return DEFAULT_UNIT_PRESETS[unit](value, sizeFunction);
+          }
+        }
+      } else if (unit === "%") {
+        return value * size / 100;
+      }
+
+      if (DEFAULT_UNIT_PRESETS[unit]) {
+        return DEFAULT_UNIT_PRESETS[unit](value);
+      }
+
+      return value;
+    }
 
     /*
     Copyright (c) 2019 Daybrush
@@ -1425,7 +1618,7 @@ version: 0.6.1
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.6.1
+    version: 0.7.2
     */
 
     /*! *****************************************************************************
@@ -1501,10 +1694,19 @@ version: 0.6.1
       __proto.componentDidUpdate = function () {
         this.resize();
       };
+      /**
+       * @method Ruler#scroll
+       * @param scrollPos
+       */
+
 
       __proto.scroll = function (scrollPos) {
         this.draw(scrollPos);
       };
+      /**
+       * @method Ruler#resize
+       */
+
 
       __proto.resize = function () {
         var canvas = this.canvasElement;
@@ -1524,7 +1726,8 @@ version: 0.6.1
           scrollPos = this.state.scrollPos;
         }
 
-        var _a = this.props,
+        var props = this.props;
+        var _a = props,
             unit = _a.unit,
             zoom = _a.zoom,
             type = _a.type,
@@ -1532,6 +1735,8 @@ version: 0.6.1
             lineColor = _a.lineColor,
             textColor = _a.textColor,
             direction = _a.direction,
+            _b = _a.negativeRuler,
+            negativeRuler = _b === void 0 ? true : _b,
             textFormat = _a.textFormat;
         var width = this.width;
         var height = this.height;
@@ -1540,6 +1745,13 @@ version: 0.6.1
         var context = this.canvasContext;
         var isHorizontal = type === "horizontal";
         var isDirectionStart = direction === "start";
+        var isNegative = negativeRuler !== false;
+        var textAlign = props.textAlign || "left";
+        var textOffset = props.textOffset || [0, 0];
+        var containerSize = isHorizontal ? height : width;
+        var mainLineSize = convertUnitSize("" + (props.mainLineSize || "100%"), containerSize);
+        var longLineSize = convertUnitSize("" + (props.longLineSize || 10), containerSize);
+        var shortLineSize = convertUnitSize("" + (props.shortLineSize || 7), containerSize);
 
         if (backgroundColor === "transparent") {
           // Clear existing paths & text
@@ -1569,31 +1781,16 @@ version: 0.6.1
         var minRange = Math.floor(scrollPos * zoom / zoomUnit);
         var maxRange = Math.ceil((scrollPos * zoom + size) / zoomUnit);
         var length = maxRange - minRange;
+        var alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
 
-        for (var i = 0; i < length; ++i) {
-          var startPos = ((i + minRange) * unit - scrollPos) * zoom;
+        for (var i = 0; i <= length; ++i) {
+          var value = i + minRange;
 
-          if (startPos >= -zoomUnit && startPos < size) {
-            var _b = isHorizontal ? [startPos + 3, isDirectionStart ? 17 : height - 17] : [isDirectionStart ? 17 : width - 17, startPos - 4],
-                startX = _b[0],
-                startY = _b[1];
-
-            var text = "" + (i + minRange) * unit;
-
-            if (textFormat) {
-              text = textFormat((i + minRange) * unit);
-            }
-
-            if (isHorizontal) {
-              context.fillText(text, startX, startY);
-            } else {
-              context.save();
-              context.translate(startX, startY);
-              context.rotate(-Math.PI / 2);
-              context.fillText(text, 0, 0);
-              context.restore();
-            }
+          if (!isNegative && value < 0) {
+            continue;
           }
+
+          var startPos = (value * unit - scrollPos) * zoom;
 
           for (var j = 0; j < 10; ++j) {
             var pos = startPos + j / 10 * zoomUnit;
@@ -1602,7 +1799,7 @@ version: 0.6.1
               continue;
             }
 
-            var lineSize = j === 0 ? isHorizontal ? height : width : j % 2 === 0 ? 10 : 7;
+            var lineSize = j === 0 ? mainLineSize : j % 2 === 0 ? longLineSize : shortLineSize;
 
             var _c = isHorizontal ? [pos, isDirectionStart ? 0 : height - lineSize] : [isDirectionStart ? 0 : width - lineSize, pos],
                 x1 = _c[0],
@@ -1614,6 +1811,30 @@ version: 0.6.1
 
             context.moveTo(x1, y1);
             context.lineTo(x2, y2);
+          }
+
+          if (startPos >= -zoomUnit && startPos < size + unit * zoom) {
+            var _e = isHorizontal ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17] : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3],
+                startX = _e[0],
+                startY = _e[1];
+
+            var text = "" + value * unit;
+
+            if (textFormat) {
+              text = textFormat(value * unit);
+            }
+
+            context.textAlign = textAlign;
+
+            if (isHorizontal) {
+              context.fillText(text, startX + textOffset[0], startY + textOffset[1]);
+            } else {
+              context.save();
+              context.translate(startX + textOffset[0], startY + textOffset[1]);
+              context.rotate(-Math.PI / 2);
+              context.fillText(text, 0, 0);
+              context.restore();
+            }
           }
         }
 
@@ -1627,6 +1848,10 @@ version: 0.6.1
         width: 0,
         height: 0,
         unit: 50,
+        negativeRuler: true,
+        mainLineSize: "100%",
+        longLineSize: 10,
+        shortLineSize: 7,
         direction: "end",
         style: {
           width: "100%",
@@ -1638,6 +1863,10 @@ version: 0.6.1
       };
       return Ruler;
     }(PureComponent);
+
+    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat", "scrollPos", "textAlign", "mainLineSize", "longLineSize", "shortLineSize", "negativeRuler"];
+
+    var PROPERTIES$1 = PROPERTIES;
 
     var InnerRuler =
     /*#__PURE__*/
@@ -1667,9 +1896,19 @@ version: 0.6.1
       return InnerRuler;
     }(Component);
 
+    /**
+     * A Ruler component that can draw grids and scroll infinitely.
+     * @sort 1
+     * @implements Ruler.RulerInterface
+     */
+
     var Ruler$1 =
     /*#__PURE__*/
     function () {
+      /**
+       * @param - container
+       * @param {$ts:Partial<Ruler.RulerProps>} options - options
+       */
       function Ruler(parentElement, options) {
         if (options === void 0) {
           options = {};
@@ -1692,6 +1931,10 @@ version: 0.6.1
       __proto.resize = function () {
         this.getRuler().resize();
       };
+      /**
+       * Remove Ruler
+       */
+
 
       __proto.destroy = function () {
         render(null, this.tempElement);
@@ -1703,7 +1946,7 @@ version: 0.6.1
         return this.innerRuler.ruler;
       };
 
-      Ruler = __decorate([Properties(PROPERTIES, function (prototype, property) {
+      Ruler = __decorate([Properties(PROPERTIES$1, function (prototype, property) {
         Object.defineProperty(prototype, property, {
           get: function () {
             return this.getRuler().props[property];
