@@ -45,9 +45,16 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
     public componentDidUpdate() {
         this.resize();
     }
+    /**
+     * @method Ruler#scroll
+     * @param scrollPos
+     */
     public scroll(scrollPos: number) {
         this.draw(scrollPos);
     }
+    /**
+     * @method Ruler#resize
+     */
     public resize() {
         const canvas = this.canvasElement;
         const {
