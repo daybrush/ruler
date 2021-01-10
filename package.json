@@ -1,6 +1,6 @@
 {
     "name": "@scena/ruler",
-    "version": "0.6.1",
+    "version": "0.7.0",
     "description": "A Vanilla Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -13,9 +13,9 @@
         "doc": "rm -rf ./doc && jsdoc -c jsdoc.json",
         "demo:start": "rollup -c rollup.config.demo.js -w",
         "demo:build": "rollup -c rollup.config.demo.js",
-        "prerelease": "npm run build && prerelease --dirs=dist",
-        "release": "npm run build && npm run demo:build && release --dirs=dist",
-        "release:init": "npm run build && npm run demo:build && release -i --dirs=dist",
+        "prerelease": "npm run build && npm run doc && prerelease --dirs=dist",
+        "release": "npm run build && npm run doc && npm run demo:build && release --dirs=dist,doc",
+        "release:init": "npm run build && npm run doc && npm run demo:build && release -i --dirs=dist,doc",
         "deploy": "gh-pages -d ./demo --dest=./ --add --remote origin",
         "packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
         "packages:update": "pvu --update=svelte-ruler,ngx-ruler/projects/ngx-ruler,vue-ruler",
@@ -44,7 +44,7 @@
         "@daybrush/builder": "^0.1.2",
         "@daybrush/demo": "0.0.2",
         "@daybrush/drag": "^0.11.1",
-        "@daybrush/jsdoc": "^0.3.7",
+        "@daybrush/jsdoc": "^0.3.9",
         "@daybrush/release": "^0.2.4",
         "@types/karma-chai": "^0.1.2",
         "@types/mocha": "^5.2.7",
@@ -63,6 +63,6 @@
         "typescript": "^3.5.2"
     },
     "dependencies": {
-        "react-compat-ruler": "^0.5.1"
+        "react-compat-ruler": "^0.6.0"
     }
 }

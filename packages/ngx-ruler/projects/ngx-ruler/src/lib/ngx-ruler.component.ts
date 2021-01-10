@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import Ruler, { RulerInterface, RulerProps, PROPERTIES } from '@scena/ruler';
+import { Component, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import Ruler, { RulerProps, PROPERTIES } from '@scena/ruler';
 import { IObject } from '@daybrush/utils';
 import { NgxRulerInterface } from './ngx-ruler.interface';
 
@@ -24,6 +24,12 @@ export class NgxRulerComponent extends NgxRulerInterface implements RulerProps, 
   @Input() public direction?: 'start' | 'end';
   @Input() public textFormat?: RulerProps['textFormat'];
   @Input() public scrollPos?: RulerProps['scrollPos'];
+  @Input() public textAlign?: 'left' | 'center' | 'right';
+  @Input() public mainLineSize?: string | number;
+  @Input() public longLineSize?: string | number;
+  @Input() public shortLineSize?: string | number;
+  @Input() public textOffset?: number[];
+  @Input() public negativeRuler?: boolean;
 
   ngOnChanges(changes: SimpleChanges): void {
     const ruler = this.ruler;

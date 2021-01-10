@@ -1,11 +1,8 @@
 import { RulerProps, RulerInterface } from "@scena/react-ruler/declaration/types";
+import {
+    PROPERTIES as RULER_PROPERTIES,
+    METHODS as RULER_METHODS,
+} from "@scena/react-ruler";
 
-export const PROPERTIES: Array<keyof RulerProps> = [
-    "type", "width", "height",
-    "unit", "zoom", "style", "backgroundColor", "lineColor",
-    "textColor", "direction",
-    "textFormat", "scrollPos",
-];
-export const METHODS: Array<keyof RulerInterface> = [
-    "scroll", "resize",
-];
+export const PROPERTIES: Array<keyof RulerProps> = RULER_PROPERTIES;
+export const METHODS: Array<keyof RulerInterface> = RULER_METHODS;
