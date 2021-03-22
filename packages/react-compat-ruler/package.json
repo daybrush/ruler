@@ -1,6 +1,6 @@
 {
     "name": "react-compat-ruler",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "description": "A React Compat Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -10,7 +10,8 @@
         "lint": "tslint -c tslint.json 'src/**/*.ts'",
         "start": "open ./demo/index.html && rollup -c rollup.config.demo.js -w",
         "build": "rollup -c && npm run declaration && print-sizes ./dist ",
-        "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json"
+        "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json",
+        "packages:update": "pvu --path=../../ --update=./"
     },
     "keywords": [
         "scene",
@@ -33,12 +34,13 @@
     },
     "homepage": "https://daybrush.com/ruler",
     "devDependencies": {
-        "@types/react": "^16.9.17",
         "@daybrush/builder": "^0.1.0",
         "@scenejs/effects": "^1.0.1",
+        "@types/react": "^16.9.17",
         "keycon": "^0.3.0",
         "preact": "^10.0.0",
         "print-sizes": "^0.1.0",
+        "pvu": "^0.5.1",
         "rollup-plugin-css-bundle": "^1.0.4",
         "rollup-plugin-preact": "^0.5.2",
         "rollup-plugin-react-compat": "^0.1.0",
@@ -48,7 +50,7 @@
         "typescript": "^3.4.5"
     },
     "dependencies": {
-        "@scena/react-ruler": "^0.7.2",
+        "@scena/react-ruler": "~0.7.3",
         "react-simple-compat": "^1.0.0"
     }
 }

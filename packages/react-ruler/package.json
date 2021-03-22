@@ -1,6 +1,6 @@
 {
   "name": "@scena/react-ruler",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "A React Ruler component that can draw grids and scroll infinitely.",
   "main": "./dist/ruler.cjs.js",
   "module": "./dist/ruler.esm.js",
@@ -11,10 +11,11 @@
     "start": "react-scripts start",
     "build": "rollup -c && npm run declaration && print-sizes ./dist ",
     "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json",
-    "packages": "npm run packages:update && npm run packages:build && npm run packages:publish",
+    "packages": "npm run packages:update && npm run packages:build && npm run packages:publish && npm run packages:vanilla",
     "packages:update": "pvu --path=../ --update=preact-ruler,react-compat-ruler",
     "packages:build": "pvu --path=../ --build=preact-ruler,react-compat-ruler",
-    "packages:publish": "pvu --path=../  --publish=preact-ruler,react-compat-ruler"
+    "packages:publish": "pvu --path=../  --publish=preact-ruler,react-compat-ruler",
+    "packages:vanilla": "cd ../react-compat-ruler && npm run packages:update"
   },
   "keywords": [
     "scene",
@@ -42,7 +43,7 @@
     "@types/react-color": "^3.0.1",
     "@types/react-dom": "^16.8.4",
     "print-sizes": "0.0.4",
-    "pvu": "^0.3.1",
+    "pvu": "^0.5.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.0.1",
@@ -51,11 +52,8 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "@daybrush/utils": "^1.0.0",
-    "framework-utils": "^0.3.4"
-  },
-  "peerDependencies": {
-    "framework-utils": ">=0.3.4"
+    "@daybrush/utils": "^1.4.0",
+    "framework-utils": "^1.1.0"
   },
   "browserslist": {
     "production": [
