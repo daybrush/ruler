@@ -15,12 +15,12 @@
     alt="Vue"
     src="https://img.shields.io/static/v1.svg?label=&message=Svelte&style=flat-square&color=C82B38"></a>
 </p>
-<p align="middle">A Ruler component that can draw grids and scroll infinitely.</p>
+<p align="middle">This is a fork of the @Scena Main Ruler component that can draw grids and scroll infinitely.</p>
 <p align="middle">
-    <a href="https://daybrush.com/ruler" target="_blank"><strong>Demo</strong></a> /
-    <a href="https://daybrush.com/ruler/release/latest/doc/" target="_blank"><strong>API</strong></a> /
-    <a href="https://github.com/daybrush/guides" target="_blank"><strong>Guides</strong></a> /
-    <a href="https://github.com/daybrush/scena" target="_blank"><strong>Main Project</strong></a>
+    <a href="https://daybrush.com/ruler" target="_blank"><strong>Main Ruler Demo</strong></a> /
+    <a href="https://daybrush.com/ruler/release/latest/doc/" target="_blank"><strong>Main Ruler API</strong></a> /
+    <a href="https://github.com/daybrush/guides" target="_blank"><strong>Main Ruler Guides</strong></a> /
+    <a href="https://github.com/daybrush/scena/ruler" target="_blank"><strong>Main Ruler Repo</strong></a>
 </p>
 
 
