@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.7.1
+version: 0.7.2
 */
 (function () {
     'use strict';
@@ -538,7 +538,7 @@ version: 0.7.1
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/react-simple-compat.git
-    version: 1.1.0
+    version: 1.2.0
     */
 
     /*! *****************************************************************************
@@ -956,6 +956,7 @@ version: 0.7.1
         var _this = _super !== null && _super.apply(this, arguments) || this;
 
         _this.events = {};
+        _this._isSVG = false;
         return _this;
       }
 
@@ -988,7 +989,22 @@ version: 0.7.1
         var isMount = !this.base;
 
         if (isMount) {
-          this.base = this.props.portalContainer || document.createElement(this.type);
+          var isSVG = this._hasSVG();
+
+          this._isSVG = isSVG;
+          var element = this.props.portalContainer;
+
+          if (!element) {
+            var type = this.type;
+
+            if (isSVG) {
+              element = document.createElementNS("http://www.w3.org/2000/svg", type);
+            } else {
+              element = document.createElement(type);
+            }
+          }
+
+          this.base = element;
         }
 
         renderProviders(this, this._providers, this.props.children, hooks, null);
@@ -1032,6 +1048,15 @@ version: 0.7.1
         if (!this.props.portalContainer) {
           base.parentNode.removeChild(base);
         }
+      };
+
+      __proto._hasSVG = function () {
+        if (this._isSVG || this.type === "svg") {
+          return true;
+        }
+
+        var containerNode = findContainerNode(this.container);
+        return containerNode && "ownerSVGElement" in containerNode;
       };
 
       return ElementProvider;
@@ -1618,7 +1643,7 @@ version: 0.7.1
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.7.3
+    version: 0.7.4
     */
 
     /*! *****************************************************************************
@@ -1864,7 +1889,7 @@ version: 0.7.1
       return Ruler;
     }(PureComponent);
 
-    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat", "scrollPos", "textAlign", "mainLineSize", "longLineSize", "shortLineSize", "negativeRuler"];
+    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat", "scrollPos", "textAlign", "mainLineSize", "longLineSize", "shortLineSize", "negativeRuler", "textOffset"];
 
     var PROPERTIES$1 = PROPERTIES;
 
