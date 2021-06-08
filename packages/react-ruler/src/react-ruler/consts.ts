@@ -9,6 +9,8 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "mainLineSize", "longLineSize",
     "shortLineSize", "negativeRuler",
     "textOffset",
+    "font",
+    "segment",
 ];
 export const METHODS: Array<keyof RulerInterface> = [
     "scroll", "resize",
