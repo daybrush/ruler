@@ -19,6 +19,7 @@ export interface RulerInterface {
  * @property - zoom (default: 1)
  * @property - line's direction (default: "end")
  * @property - text align (default: "start")
+ * @property - font and size  (default: "10px sans-serif")
  * @property - main line size (default "100%")
  * @property - long line size (default: 10)
  * @property - short line size (default: 7)
@@ -39,6 +40,7 @@ export interface RulerProps {
     zoom?: number;
     direction?: "start" | "end";
     textAlign?: "left" | "center" | "right";
+    font?: string;
     mainLineSize?: string | number;
     longLineSize?: string | number;
     shortLineSize?: string | number;

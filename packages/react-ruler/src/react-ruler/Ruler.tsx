@@ -17,6 +17,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         direction: "end",
         style: { width: "100%", height: "100%" },
         backgroundColor: "#333333",
+        font: "10px sans-serif",
         textColor: "#ffffff",
         lineColor: "#777777",
     };
@@ -90,6 +91,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const isHorizontal = type === "horizontal";
         const isDirectionStart = direction === "start";
         const isNegative = negativeRuler !== false;
+        const font = props.font || "10px sans-serif";
         const textAlign = props.textAlign || "left";
         const textOffset = props.textOffset || [0, 0];
         const containerSize = isHorizontal ? height : width;
@@ -111,7 +113,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         context.scale(2, 2);
         context.strokeStyle = lineColor;
         context.lineWidth = 1;
-        context.font = "10px sans-serif";
+        context.font = font;
         context.fillStyle = textColor;
 
         if (isDirectionStart) {
