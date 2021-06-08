@@ -10,26 +10,28 @@ import { NgxRulerInterface } from './ngx-ruler.interface';
   `,
   styles: []
 })
-export class NgxRulerComponent extends NgxRulerInterface implements RulerProps, AfterViewInit, OnChanges, OnDestroy {
+export class NgxRulerComponent extends NgxRulerInterface implements Required<RulerProps>, AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('rulerRef', { static: false }) private rulerRef: ElementRef;
-  @Input() public type?: 'horizontal' | 'vertical';
-  @Input() public width?: number;
-  @Input() public height?: number;
-  @Input() public unit?: number;
-  @Input() public zoom?: number;
+  @Input() public font: string;
+  @Input() public segment: number;
+  @Input() public type: 'horizontal' | 'vertical';
+  @Input() public width: number;
+  @Input() public height: number;
+  @Input() public unit: number;
+  @Input() public zoom: number;
   @Input() public style: IObject<any> = { width: '100%', height: '100%' };
-  @Input() public backgroundColor?: string;
-  @Input() public lineColor?: string;
-  @Input() public textColor?: string;
-  @Input() public direction?: 'start' | 'end';
-  @Input() public textFormat?: RulerProps['textFormat'];
-  @Input() public scrollPos?: RulerProps['scrollPos'];
-  @Input() public textAlign?: 'left' | 'center' | 'right';
-  @Input() public mainLineSize?: string | number;
-  @Input() public longLineSize?: string | number;
-  @Input() public shortLineSize?: string | number;
-  @Input() public textOffset?: number[];
-  @Input() public negativeRuler?: boolean;
+  @Input() public backgroundColor: string;
+  @Input() public lineColor: string;
+  @Input() public textColor: string;
+  @Input() public direction: 'start' | 'end';
+  @Input() public textFormat: RulerProps['textFormat'];
+  @Input() public scrollPos: RulerProps['scrollPos'];
+  @Input() public textAlign: 'left' | 'center' | 'right';
+  @Input() public mainLineSize: string | number;
+  @Input() public longLineSize: string | number;
+  @Input() public shortLineSize: string | number;
+  @Input() public textOffset: number[];
+  @Input() public negativeRuler: boolean;
 
   ngOnChanges(changes: SimpleChanges): void {
     const ruler = this.ruler;
