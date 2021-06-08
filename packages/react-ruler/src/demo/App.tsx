@@ -19,9 +19,10 @@ export default class App extends Component<{}> {
             <Ruler ref={ref(this, "ruler1")}
                 negativeRuler={false}
                 textAlign={"center"}
+                segment={5}
                 mainLineSize={12}
                 shortLineSize={5}
-                longLineSize={5}
+                longLineSize={4}
                 type="horizontal" style={{ display: "block", width: "300px", height: "100px" }}
                 font="15px sans-serif"
                 />

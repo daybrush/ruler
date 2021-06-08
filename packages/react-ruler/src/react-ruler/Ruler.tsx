@@ -14,6 +14,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         mainLineSize: "100%",
         longLineSize: 10,
         shortLineSize: 7,
+        segment: 10,
         direction: "end",
         style: { width: "100%", height: "100%" },
         backgroundColor: "#333333",
@@ -81,6 +82,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             textColor,
             direction,
             negativeRuler = true,
+            segment = 10,
             textFormat,
         } = props as Required<RulerProps>;
         const width = this.width;
@@ -138,10 +140,8 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 continue;
             }
             const startPos = (value * unit - scrollPos) * zoom;
-
-
-            for (let j = 0; j < 10; ++j) {
-                const pos = startPos + j / 10 * zoomUnit;
+            for (let j = 0; j < segment; ++j) {
+                const pos = startPos + j / segment * zoomUnit;
 
                 if (pos < 0 || pos >= size) {
                     continue;

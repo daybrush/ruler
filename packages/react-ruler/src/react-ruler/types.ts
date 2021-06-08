@@ -20,6 +20,7 @@ export interface RulerInterface {
  * @property - line's direction (default: "end")
  * @property - text align (default: "start")
  * @property - font and size  (default: "10px sans-serif")
+ * @property - Number of areas to divide between two main lines (default: 10)
  * @property - main line size (default "100%")
  * @property - long line size (default: 10)
  * @property - short line size (default: 7)
@@ -41,6 +42,7 @@ export interface RulerProps {
     direction?: "start" | "end";
     textAlign?: "left" | "center" | "right";
     font?: string;
+    segment?: number;
     mainLineSize?: string | number;
     longLineSize?: string | number;
     shortLineSize?: string | number;
