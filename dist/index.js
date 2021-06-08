@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.7.2
+version: 0.8.0
 */
 (function () {
     'use strict';
@@ -1643,7 +1643,7 @@ version: 0.7.2
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.7.4
+    version: 0.8.1
     */
 
     /*! *****************************************************************************
@@ -1762,6 +1762,8 @@ version: 0.7.2
             direction = _a.direction,
             _b = _a.negativeRuler,
             negativeRuler = _b === void 0 ? true : _b,
+            _c = _a.segment,
+            segment = _c === void 0 ? 10 : _c,
             textFormat = _a.textFormat;
         var width = this.width;
         var height = this.height;
@@ -1771,6 +1773,7 @@ version: 0.7.2
         var isHorizontal = type === "horizontal";
         var isDirectionStart = direction === "start";
         var isNegative = negativeRuler !== false;
+        var font = props.font || "10px sans-serif";
         var textAlign = props.textAlign || "left";
         var textOffset = props.textOffset || [0, 0];
         var containerSize = isHorizontal ? height : width;
@@ -1792,7 +1795,7 @@ version: 0.7.2
         context.scale(2, 2);
         context.strokeStyle = lineColor;
         context.lineWidth = 1;
-        context.font = "10px sans-serif";
+        context.font = font;
         context.fillStyle = textColor;
 
         if (isDirectionStart) {
@@ -1817,8 +1820,8 @@ version: 0.7.2
 
           var startPos = (value * unit - scrollPos) * zoom;
 
-          for (var j = 0; j < 10; ++j) {
-            var pos = startPos + j / 10 * zoomUnit;
+          for (var j = 0; j < segment; ++j) {
+            var pos = startPos + j / segment * zoomUnit;
 
             if (pos < 0 || pos >= size) {
               continue;
@@ -1826,22 +1829,22 @@ version: 0.7.2
 
             var lineSize = j === 0 ? mainLineSize : j % 2 === 0 ? longLineSize : shortLineSize;
 
-            var _c = isHorizontal ? [pos, isDirectionStart ? 0 : height - lineSize] : [isDirectionStart ? 0 : width - lineSize, pos],
-                x1 = _c[0],
-                y1 = _c[1];
+            var _d = isHorizontal ? [pos, isDirectionStart ? 0 : height - lineSize] : [isDirectionStart ? 0 : width - lineSize, pos],
+                x1 = _d[0],
+                y1 = _d[1];
 
-            var _d = isHorizontal ? [x1, y1 + lineSize] : [x1 + lineSize, y1],
-                x2 = _d[0],
-                y2 = _d[1];
+            var _e = isHorizontal ? [x1, y1 + lineSize] : [x1 + lineSize, y1],
+                x2 = _e[0],
+                y2 = _e[1];
 
             context.moveTo(x1, y1);
             context.lineTo(x2, y2);
           }
 
           if (startPos >= -zoomUnit && startPos < size + unit * zoom) {
-            var _e = isHorizontal ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17] : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3],
-                startX = _e[0],
-                startY = _e[1];
+            var _f = isHorizontal ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17] : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3],
+                startX = _f[0],
+                startY = _f[1];
 
             var text = "" + value * unit;
 
@@ -1877,19 +1880,21 @@ version: 0.7.2
         mainLineSize: "100%",
         longLineSize: 10,
         shortLineSize: 7,
+        segment: 10,
         direction: "end",
         style: {
           width: "100%",
           height: "100%"
         },
         backgroundColor: "#333333",
+        font: "10px sans-serif",
         textColor: "#ffffff",
         lineColor: "#777777"
       };
       return Ruler;
     }(PureComponent);
 
-    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat", "scrollPos", "textAlign", "mainLineSize", "longLineSize", "shortLineSize", "negativeRuler", "textOffset"];
+    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat", "scrollPos", "textAlign", "mainLineSize", "longLineSize", "shortLineSize", "negativeRuler", "textOffset", "font", "segment"];
 
     var PROPERTIES$1 = PROPERTIES;
 
