@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.8.0
+version: 0.9.1
 */
 (function () {
     'use strict';
@@ -423,7 +423,7 @@ version: 0.8.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/utils
-    @version 1.4.0
+    @version 1.6.0
     */
     /**
     * get string "string"
@@ -538,7 +538,7 @@ version: 0.8.0
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/react-simple-compat.git
-    version: 1.2.0
+    version: 1.2.2
     */
 
     /*! *****************************************************************************
@@ -1085,7 +1085,7 @@ version: 0.8.0
         return comp;
       }
 
-      var providers = comp._provider._providers;
+      var providers = comp.$_provider._providers;
 
       if (!providers.length) {
         return null;
@@ -1172,7 +1172,7 @@ version: 0.8.0
 
         if (isMount) {
           this.base = new this.type(this.props);
-          this.base._provider = this;
+          this.base.$_provider = this;
         } else {
           this.base.props = this.props;
         }
@@ -1200,11 +1200,12 @@ version: 0.8.0
       };
 
       __proto._setState = function (nextState) {
-        if (!nextState) {
+        var base = this.base;
+
+        if (!base || !nextState) {
           return;
         }
 
-        var base = this.base;
         base.state = nextState;
       };
 
@@ -1213,6 +1214,7 @@ version: 0.8.0
           provider._unmount();
         });
 
+        clearTimeout(this.base.$_timer);
         this.base.componentWillUnmount();
       };
 
@@ -1229,6 +1231,8 @@ version: 0.8.0
 
         this.props = props;
         this.state = {};
+        this.$_timer = 0;
+        this.$_state = {};
       }
 
       var __proto = Component.prototype;
@@ -1242,9 +1246,43 @@ version: 0.8.0
       };
 
       __proto.setState = function (state, callback, isForceUpdate) {
+        var _this = this;
+
+        if (!this.$_timer) {
+          this.$_state = {};
+        }
+
+        clearTimeout(this.$_timer);
+        this.$_timer = 0;
+        this.$_state = __assign$1(__assign$1({}, this.$_state), state);
+
+        if (!isForceUpdate) {
+          this.$_timer = setTimeout(function () {
+            _this.$_timer = 0;
+
+            _this.$_setState(callback, isForceUpdate);
+          });
+        } else {
+          this.$_setState(callback, isForceUpdate);
+        }
+
+        return;
+      };
+
+      __proto.forceUpdate = function (callback) {
+        this.setState({}, callback, true);
+      };
+
+      __proto.componentDidMount = function () {};
+
+      __proto.componentDidUpdate = function (prevProps, prevState) {};
+
+      __proto.componentWillUnmount = function () {};
+
+      __proto.$_setState = function (callback, isForceUpdate) {
         var hooks = [];
-        var provider = this._provider;
-        var isUpdate = renderProviders(provider.container, [provider], [provider.original], hooks, __assign$1(__assign$1({}, this.state), state), isForceUpdate);
+        var provider = this.$_provider;
+        var isUpdate = renderProviders(provider.container, [provider], [provider.original], hooks, __assign$1(__assign$1({}, this.state), this.$_state), isForceUpdate);
 
         if (isUpdate) {
           if (callback) {
@@ -1254,16 +1292,6 @@ version: 0.8.0
           executeHooks(hooks);
         }
       };
-
-      __proto.forceUpdate = function (callback) {
-        this.setState(this.state, callback, true);
-      };
-
-      __proto.componentDidMount = function () {};
-
-      __proto.componentDidUpdate = function (prevProps, prevState) {};
-
-      __proto.componentWillUnmount = function () {};
 
       return Component;
     }();
@@ -1464,7 +1492,7 @@ version: 0.8.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/utils
-    @version 1.4.0
+    @version 1.6.0
     */
     /**
     * get string "function"
@@ -1643,7 +1671,7 @@ version: 0.8.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.8.1
+    version: 0.9.1
     */
 
     /*! *****************************************************************************
@@ -1764,7 +1792,9 @@ version: 0.8.0
             negativeRuler = _b === void 0 ? true : _b,
             _c = _a.segment,
             segment = _c === void 0 ? 10 : _c,
-            textFormat = _a.textFormat;
+            textFormat = _a.textFormat,
+            _d = _a.range,
+            range = _d === void 0 ? [-Infinity, Infinity] : _d;
         var width = this.width;
         var height = this.height;
         var state = this.state;
@@ -1818,51 +1848,55 @@ version: 0.8.0
             continue;
           }
 
-          var startPos = (value * unit - scrollPos) * zoom;
+          var startValue = value * unit;
+          var startPos = (startValue - scrollPos) * zoom;
 
           for (var j = 0; j < segment; ++j) {
             var pos = startPos + j / segment * zoomUnit;
+            var value_1 = startValue + j / segment * unit;
 
-            if (pos < 0 || pos >= size) {
+            if (pos < 0 || pos >= size || value_1 < range[0] || value_1 > range[1]) {
               continue;
             }
 
             var lineSize = j === 0 ? mainLineSize : j % 2 === 0 ? longLineSize : shortLineSize;
 
-            var _d = isHorizontal ? [pos, isDirectionStart ? 0 : height - lineSize] : [isDirectionStart ? 0 : width - lineSize, pos],
-                x1 = _d[0],
-                y1 = _d[1];
+            var _e = isHorizontal ? [pos, isDirectionStart ? 0 : height - lineSize] : [isDirectionStart ? 0 : width - lineSize, pos],
+                x1 = _e[0],
+                y1 = _e[1];
 
-            var _e = isHorizontal ? [x1, y1 + lineSize] : [x1 + lineSize, y1],
-                x2 = _e[0],
-                y2 = _e[1];
+            var _f = isHorizontal ? [x1, y1 + lineSize] : [x1 + lineSize, y1],
+                x2 = _f[0],
+                y2 = _f[1];
 
             context.moveTo(x1, y1);
             context.lineTo(x2, y2);
           }
 
-          if (startPos >= -zoomUnit && startPos < size + unit * zoom) {
-            var _f = isHorizontal ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17] : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3],
-                startX = _f[0],
-                startY = _f[1];
+          if (startPos < -zoomUnit || startPos >= size + unit * zoom || startValue < range[0] || startValue > range[1]) {
+            continue;
+          }
 
-            var text = "" + value * unit;
+          var _g = isHorizontal ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17] : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3],
+              startX = _g[0],
+              startY = _g[1];
 
-            if (textFormat) {
-              text = textFormat(value * unit);
-            }
+          var text = "" + startValue;
 
-            context.textAlign = textAlign;
+          if (textFormat) {
+            text = textFormat(startValue);
+          }
 
-            if (isHorizontal) {
-              context.fillText(text, startX + textOffset[0], startY + textOffset[1]);
-            } else {
-              context.save();
-              context.translate(startX + textOffset[0], startY + textOffset[1]);
-              context.rotate(-Math.PI / 2);
-              context.fillText(text, 0, 0);
-              context.restore();
-            }
+          context.textAlign = textAlign;
+
+          if (isHorizontal) {
+            context.fillText(text, startX + textOffset[0], startY + textOffset[1]);
+          } else {
+            context.save();
+            context.translate(startX + textOffset[0], startY + textOffset[1]);
+            context.rotate(-Math.PI / 2);
+            context.fillText(text, 0, 0);
+            context.restore();
           }
         }
 
@@ -1889,7 +1923,8 @@ version: 0.8.0
         backgroundColor: "#333333",
         font: "10px sans-serif",
         textColor: "#ffffff",
-        lineColor: "#777777"
+        lineColor: "#777777",
+        range: [-Infinity, Infinity]
       };
       return Ruler;
     }(PureComponent);
