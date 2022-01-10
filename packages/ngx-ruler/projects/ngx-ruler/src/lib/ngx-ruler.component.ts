@@ -12,26 +12,27 @@ import { NgxRulerInterface } from './ngx-ruler.interface';
 })
 export class NgxRulerComponent extends NgxRulerInterface implements Required<RulerProps>, AfterViewInit, OnChanges, OnDestroy {
   @ViewChild('rulerRef', { static: false }) private rulerRef: ElementRef;
-  @Input() public font: string;
-  @Input() public segment: number;
-  @Input() public type: 'horizontal' | 'vertical';
-  @Input() public width: number;
-  @Input() public height: number;
-  @Input() public unit: number;
-  @Input() public zoom: number;
-  @Input() public style: IObject<any> = { width: '100%', height: '100%' };
-  @Input() public backgroundColor: string;
-  @Input() public lineColor: string;
-  @Input() public textColor: string;
-  @Input() public direction: 'start' | 'end';
-  @Input() public textFormat: RulerProps['textFormat'];
-  @Input() public scrollPos: RulerProps['scrollPos'];
-  @Input() public textAlign: 'left' | 'center' | 'right';
-  @Input() public mainLineSize: string | number;
-  @Input() public longLineSize: string | number;
-  @Input() public shortLineSize: string | number;
-  @Input() public textOffset: number[];
-  @Input() public negativeRuler: boolean;
+  @Input() public font!: RulerProps['font'];
+  @Input() public segment!: RulerProps['segment'];
+  @Input() public type!: RulerProps['type'];
+  @Input() public width!: RulerProps['width'];
+  @Input() public height!: RulerProps['height'];
+  @Input() public unit!: RulerProps['unit'];
+  @Input() public zoom!: RulerProps['zoom'];
+  @Input() public style!: RulerProps['style'];
+  @Input() public backgroundColor!: RulerProps['backgroundColor'];
+  @Input() public lineColor!: RulerProps['lineColor'];
+  @Input() public textColor!: RulerProps['textColor'];
+  @Input() public direction!: RulerProps['direction'];
+  @Input() public textFormat!: RulerProps['textFormat'];
+  @Input() public scrollPos!: RulerProps['scrollPos'];
+  @Input() public textAlign!: RulerProps['textAlign'];
+  @Input() public mainLineSize!: RulerProps['mainLineSize'];
+  @Input() public longLineSize!: RulerProps['longLineSize'];
+  @Input() public shortLineSize!: RulerProps['shortLineSize'];
+  @Input() public textOffset!: RulerProps['textOffset'];
+  @Input() public negativeRuler!: RulerProps['negativeRuler'];
+  @Input() public range!: RulerProps['range'];
 
   ngOnChanges(changes: SimpleChanges): void {
     const ruler = this.ruler;

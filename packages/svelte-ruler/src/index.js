@@ -4,6 +4,9 @@ import { METHODS } from "@scena/ruler";
 export default /*#__PURE__*/ (() => {
     const prototype = Ruler.prototype;
 
+    if (!prototype) {
+        return Ruler;
+    }
     METHODS.forEach(name => {
         prototype[name] = function (...args) {
             const self = this.getInstance();

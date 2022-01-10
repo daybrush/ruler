@@ -1,6 +1,5 @@
-<script lang="ts">
+<script>
   import VanillaRuler, {
-    RulerProps,
     PROPERTIES
   } from "@scena/ruler";
 
@@ -8,16 +7,13 @@
     onMount,
     onDestroy,
     beforeUpdate,
-    afterUpdate,
-    tick
   } from "svelte";
 
   export let style = { width: "100%", height: "100%"};
 
-  declare var $$props: any;
-  let options: Partial<RulerProps> = {};
-  let ruler: VanillaRuler;
-  let rulerElement: HTMLElement;
+  let options = {};
+  let ruler;
+  let rulerElement;
 
   function setStyle() {
     const elStyle = rulerElement.style;
@@ -38,7 +34,7 @@
         return;
       }
       if (name in props) {
-        (options as any)[name] = props[name];
+        options[name] = props[name];
       }
     });
     if (ruler) {
