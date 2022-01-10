@@ -86,7 +86,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Dragger from "@daybrush/drag";
-import Ruler from "./components/Ruler";
+import Ruler from "./components/Ruler.vue";
 
 @Component({
   components: {
@@ -95,8 +95,8 @@ import Ruler from "./components/Ruler";
 })
 export default class App extends Vue {
   protected mounted() {
-    const ruler1 = this.$refs.ruler1 as Ruler;
-    const ruler2 = this.$refs.ruler2 as Ruler;
+    const ruler1 = this.$refs.ruler1 as any;
+    const ruler2 = this.$refs.ruler2 as any;
     this.onResize();
 
     let scrollX = 0;
@@ -114,8 +114,8 @@ export default class App extends Vue {
     window.addEventListener("resize", this.onResize);
   }
   onResize = () => {
-    const ruler1 = this.$refs.ruler1 as Ruler;
-    const ruler2 = this.$refs.ruler2 as Ruler;
+    const ruler1 = this.$refs.ruler1 as any;
+    const ruler2 = this.$refs.ruler2 as any;
 
     ruler1.resize();
     ruler2.resize();
