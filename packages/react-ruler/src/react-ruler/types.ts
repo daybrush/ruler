@@ -26,6 +26,7 @@ export interface RulerInterface {
  * @property - short line size (default: 7)
  * @property - text's position offset (default: [0, 0])
  * @property - Whether to display the ruler in the negative direction (default: true)
+ * @property - The range to show the ruler's scales (default: [-Infinity, Infinity])
  * @property - you can set scroll position by prop. If you use the scrollPos prop, you can't use the scroll method. (default: 0)
  * @property - ruler canvas style
  * @property - ruler's background color (default: "#333333")
@@ -48,6 +49,7 @@ export interface RulerProps {
     shortLineSize?: string | number;
     textOffset?: number[];
     negativeRuler?: boolean;
+    range?: readonly [number, number],
     scrollPos?: number;
     style?: IObject<any>;
     backgroundColor?: string;

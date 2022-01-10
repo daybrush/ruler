@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ref } from "framework-utils";
 import { RulerInterface, RulerProps } from "./types";
-import { convertUnitSize } from "@daybrush/utils";
+import { between, convertUnitSize } from "@daybrush/utils";
 
 export default class Ruler extends React.PureComponent<RulerProps> implements RulerInterface {
     public static defaultProps: RulerProps = {
@@ -21,6 +21,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         font: "10px sans-serif",
         textColor: "#ffffff",
         lineColor: "#777777",
+        range: [-Infinity, Infinity],
     };
     public divisionsElement!: HTMLElement;
     public state = {
@@ -84,6 +85,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             negativeRuler = true,
             segment = 10,
             textFormat,
+            range = [-Infinity, Infinity],
         } = props as Required<RulerProps>;
         const width = this.width;
         const height = this.height;
@@ -139,11 +141,14 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             if (!isNegative && value < 0) {
                 continue;
             }
-            const startPos = (value * unit - scrollPos) * zoom;
+            const startValue = value * unit;
+            const startPos = (startValue - scrollPos) * zoom;
+
             for (let j = 0; j < segment; ++j) {
                 const pos = startPos + j / segment * zoomUnit;
+                const value = startValue + j / segment * unit;
 
-                if (pos < 0 || pos >= size) {
+                if (pos < 0 || pos >= size || value < range[0] || value > range[1]) {
                     continue;
                 }
                 const lineSize = j === 0
@@ -158,27 +163,28 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 context.lineTo(x2, y2);
             }
 
-            if (startPos >= -zoomUnit && startPos < size + unit * zoom) {
-                const [startX, startY] = isHorizontal
-                    ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17]
-                    : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3];
+            if (startPos < -zoomUnit || startPos >= size + unit * zoom || startValue < range[0] || startValue > range[1]) {
+                continue;
+            }
+            const [startX, startY] = isHorizontal
+                ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17]
+                : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3];
 
-                let text = `${value * unit}`;
+            let text = `${startValue}`;
 
-                if (textFormat) {
-                    text = textFormat(value * unit);
-                }
+            if (textFormat) {
+                text = textFormat(startValue);
+            }
 
-                context.textAlign = textAlign;
-                if (isHorizontal) {
-                    context.fillText(text, startX + textOffset[0], startY + textOffset[1]);
-                } else {
-                    context.save();
-                    context.translate(startX + textOffset[0], startY + textOffset[1]);
-                    context.rotate(-Math.PI / 2);
-                    context.fillText(text, 0, 0);
-                    context.restore();
-                }
+            context.textAlign = textAlign;
+            if (isHorizontal) {
+                context.fillText(text, startX + textOffset[0], startY + textOffset[1]);
+            } else {
+                context.save();
+                context.translate(startX + textOffset[0], startY + textOffset[1]);
+                context.rotate(-Math.PI / 2);
+                context.fillText(text, 0, 0);
+                context.restore();
             }
         }
         context.stroke();

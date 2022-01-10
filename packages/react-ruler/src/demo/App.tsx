@@ -23,6 +23,7 @@ export default class App extends Component<{}> {
                 mainLineSize={12}
                 shortLineSize={5}
                 longLineSize={4}
+                range={[0, 150]}
                 type="horizontal" style={{ display: "block", width: "300px", height: "100px" }}
                 font="15px sans-serif"
                 />
