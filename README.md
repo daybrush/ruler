@@ -66,10 +66,20 @@ export interface RulerProps {
     textColor?: string;
     textFormat?: (scale: number) => string;
 }
-
-
 ```
+### Ruler Units
 
+The default unit is px, and a line is drawn every 50px. If you want to use a different unit instead of the px unit, use it like this:
+
+* 1px (Default)
+    * zoom: 1
+    * unit: 50 (every 50px)
+* 1cm = 37.7952px
+    * zoom: 37.7952
+    * unit: 1 (every 1cm)
+* 1in = 96px = 2.54cm
+    * zoom: 96
+    * unit: 1 (every 1in)
 
 ## ⭐️ Show Your Support
 Please give a ⭐️ if this project helped you!
