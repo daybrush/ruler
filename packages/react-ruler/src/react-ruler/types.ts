@@ -54,6 +54,7 @@ export interface RulerProps {
     scrollPos?: number;
     style?: IObject<any>;
     backgroundColor?: string;
+    rangeBackgroundColor?: string;
     lineColor?: string;
     textColor?: string;
     textBackgroundColor?: string;

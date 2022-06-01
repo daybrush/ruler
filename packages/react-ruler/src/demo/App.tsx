@@ -15,6 +15,8 @@ export default class App extends Component<{}> {
     private ruler4: Ruler;
     private ruler5: Ruler;
     private ruler6: Ruler;
+    private ruler7: Ruler;
+    private ruler8: Ruler;
 
     state = {
         range: [0, 100] as [number, number],
@@ -99,6 +101,30 @@ export default class App extends Component<{}> {
                     range={this.state.range}
                 />
             </div>
+            <div style={{ padding: 10 }}>
+                <Ruler ref={ref(this, "ruler7")}
+                    negativeRuler={false}
+                    type="horizontal"
+                    zoom={0.5}
+                    direction="end"
+                    textAlign="center"
+                    rangeBackgroundColor="#555555"
+                    range={[100, 300]}
+                    style={{ display: "block", width: "400px", height: "30px" }}
+                />
+            </div>
+            <div style={{ padding: 10 }}>
+                <Ruler ref={ref(this, "ruler8")}
+                    negativeRuler={false}
+                    zoom={0.5}
+                    type="vertical"
+                    direction="end"
+                    textAlign="center"
+                    rangeBackgroundColor="#555555"
+                    range={[300, 400]}
+                    style={{ display: "block", width: "30px", height: "400px" }}
+                />
+            </div>
         </div>
         );
     }
@@ -139,6 +165,8 @@ export default class App extends Component<{}> {
             this.ruler3.scroll(scrollY);
             this.ruler4.scroll(scrollY);
             this.ruler6.scroll(scrollX);
+            this.ruler7.scroll(scrollX);
+            this.ruler8.scroll(scrollY);
         });
         setInterval(this.swapRange, 1000);
     }

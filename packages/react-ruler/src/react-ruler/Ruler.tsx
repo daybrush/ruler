@@ -23,6 +23,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         textBackgroundColor: 'transparent',
         lineColor: "#777777",
         range: [-Infinity, Infinity],
+        rangeBackgroundColor: 'transparent',
     };
     public divisionsElement!: HTMLElement;
     public state = {
@@ -88,6 +89,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             segment = 10,
             textFormat,
             range = [-Infinity, Infinity],
+            rangeBackgroundColor,
         } = props as Required<RulerProps>;
         const width = this.width;
         const height = this.height;
@@ -144,6 +146,21 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const length = maxRange - minRange;
         const alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
         const barSize = isHorizontal ? height : width;
+
+        // Draw Range Background
+        if (rangeBackgroundColor !== "transparent" && range[0] !== -Infinity && range[1] !== Infinity) {
+            const rangeStart = (range[0] - scrollPos) * zoom;
+            const rangeEnd = ((range[1] - range[0]) * zoom);
+            context.save();
+            context.fillStyle = rangeBackgroundColor;
+            if (isHorizontal) {
+                context.fillRect(rangeStart, 0, rangeEnd, barSize);
+            } else {
+                context.fillRect(0, rangeStart, barSize, rangeEnd);
+            }
+
+            context.restore();
+        }
 
         // Render Segments First
         for (let i = 0; i <= length; ++i) {

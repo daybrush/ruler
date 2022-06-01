@@ -20,6 +20,7 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "scrollPos",
     "style",
     "backgroundColor",
+    "rangeBackgroundColor",
     "lineColor",
     "textColor",
     "textBackgroundColor",
