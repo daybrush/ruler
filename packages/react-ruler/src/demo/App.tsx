@@ -15,6 +15,18 @@ export default class App extends Component<{}> {
     private ruler4: Ruler;
     private ruler5: Ruler;
     private ruler6: Ruler;
+
+    state = {
+        range: [0, 100] as [number, number],
+    }
+
+    public swapRange = () => {
+        const newRange = [0, this.state.range[1] + 10];
+        this.setState({
+            range: newRange as [number, number],
+        });
+    }
+
     public render() {
         return (<div>
             <Ruler ref={ref(this, "ruler1")}
@@ -48,7 +60,6 @@ export default class App extends Component<{}> {
                     type="horizontal"
                     direction="start"
                     style={{ display: "block", width: "400px", height: "30px" }}
-                    range={[0,200]}
                 />
             </div>
             <div style={{ padding: 10 }}>
@@ -59,7 +70,6 @@ export default class App extends Component<{}> {
                     textAlign="center"
                     textBackgroundColor="#333333"
                     style={{ display: "block", width: "400px", height: "30px" }}
-                    range={[0,200]}
                 />
             </div>
             <div style={{ padding: 10 }}>
@@ -68,7 +78,6 @@ export default class App extends Component<{}> {
                     type="horizontal"
                     direction="end"
                     style={{ display: "block", width: "400px", height: "30px" }}
-                    range={[0,200]}
                 />
             </div>
             <div style={{ padding: 10 }}>
@@ -78,7 +87,16 @@ export default class App extends Component<{}> {
                     direction="end"
                     textAlign="center"
                     style={{ display: "block", width: "400px", height: "30px" }}
-                    range={[0,200]}
+                />
+            </div>
+            <div style={{ padding: 10 }}>
+                <Ruler ref={ref(this, "ruler6")}
+                    negativeRuler={false}
+                    type="horizontal"
+                    direction="end"
+                    textAlign="center"
+                    style={{ display: "block", width: "400px", height: "30px" }}
+                    range={this.state.range}
                 />
             </div>
         </div>
@@ -122,5 +140,6 @@ export default class App extends Component<{}> {
             this.ruler4.scroll(scrollY);
             this.ruler6.scroll(scrollX);
         });
+        setInterval(this.swapRange, 1000);
     }
 }
