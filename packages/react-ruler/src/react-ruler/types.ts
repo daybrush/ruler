@@ -40,20 +40,22 @@ export interface RulerProps {
     height?: number;
     unit?: number;
     zoom?: number;
-    direction?: "start" | "end";
+    direction?: "start" | "center" | "end";
     textAlign?: "left" | "center" | "right";
     font?: string;
     segment?: number;
     mainLineSize?: string | number;
     longLineSize?: string | number;
     shortLineSize?: string | number;
+    lineOffset?: number[];
     textOffset?: number[];
     negativeRuler?: boolean;
-    range?: readonly [number, number],
+    range?: [number, number];
     scrollPos?: number;
     style?: IObject<any>;
     backgroundColor?: string;
     lineColor?: string;
     textColor?: string;
+    textBackgroundColor?: string;
     textFormat?: (scale: number) => string;
 }

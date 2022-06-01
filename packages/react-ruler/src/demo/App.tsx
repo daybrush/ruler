@@ -14,6 +14,7 @@ export default class App extends Component<{}> {
     private ruler3: Ruler;
     private ruler4: Ruler;
     private ruler5: Ruler;
+    private ruler6: Ruler;
     public render() {
         return (<div>
             <Ruler ref={ref(this, "ruler1")}
@@ -31,7 +32,8 @@ export default class App extends Component<{}> {
                 type="horizontal" direction="start" style={{ display: "block", width: "400px", height: "30px" }} />
             <Ruler ref={ref(this, "ruler3")}
                 negativeRuler={false}
-                type="vertical" style={{ display: "block", width: "400px", height: "30px" }} />
+                direction="start"
+                type="vertical" style={{ display: "block", width: "30px", height: "100px" }} />
             <Ruler ref={ref(this, "ruler4")}
                 negativeRuler={false}
                 textAlign={"center"}
@@ -40,6 +42,45 @@ export default class App extends Component<{}> {
             <Ruler ref={ref(this, "ruler5")}
                 type="horizontal" direction="start" style={{ display: "block", width: "130px", height: "30px" }}
                 textFormat={this.textFormat.bind(this)} />
+            <div style={{ padding: 10 }}>
+                <Ruler ref={ref(this, "ruler6")}
+                    negativeRuler={false}
+                    type="horizontal"
+                    direction="start"
+                    style={{ display: "block", width: "400px", height: "30px" }}
+                    range={[0,200]}
+                />
+            </div>
+            <div style={{ padding: 10 }}>
+                <Ruler ref={ref(this, "ruler6")}
+                    negativeRuler={false}
+                    type="horizontal"
+                    direction="center"
+                    textAlign="center"
+                    textBackgroundColor="#333333"
+                    style={{ display: "block", width: "400px", height: "30px" }}
+                    range={[0,200]}
+                />
+            </div>
+            <div style={{ padding: 10 }}>
+                <Ruler ref={ref(this, "ruler6")}
+                    negativeRuler={false}
+                    type="horizontal"
+                    direction="end"
+                    style={{ display: "block", width: "400px", height: "30px" }}
+                    range={[0,200]}
+                />
+            </div>
+            <div style={{ padding: 10 }}>
+                <Ruler ref={ref(this, "ruler6")}
+                    negativeRuler={false}
+                    type="horizontal"
+                    direction="end"
+                    textAlign="center"
+                    style={{ display: "block", width: "400px", height: "30px" }}
+                    range={[0,200]}
+                />
+            </div>
         </div>
         );
     }
@@ -79,6 +120,7 @@ export default class App extends Component<{}> {
             this.ruler2.scroll(scrollX);
             this.ruler3.scroll(scrollY);
             this.ruler4.scroll(scrollY);
+            this.ruler6.scroll(scrollX);
         });
     }
 }
