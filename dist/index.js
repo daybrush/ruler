@@ -4,7 +4,7 @@ name: @scena/ruler
 license: MIT
 author: Daybrush
 repository: git+https://github.com/daybrush/ruler.git
-version: 0.9.1
+version: 0.10.0
 */
 (function () {
     'use strict';
@@ -1492,7 +1492,7 @@ version: 0.9.1
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/utils
-    @version 1.6.0
+    @version 1.7.1
     */
     /**
     * get string "function"
@@ -1671,7 +1671,7 @@ version: 0.9.1
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
-    version: 0.9.1
+    version: 0.10.0
     */
 
     /*! *****************************************************************************
@@ -1787,6 +1787,7 @@ version: 0.9.1
             backgroundColor = _a.backgroundColor,
             lineColor = _a.lineColor,
             textColor = _a.textColor,
+            textBackgroundColor = _a.textBackgroundColor,
             direction = _a.direction,
             _b = _a.negativeRuler,
             negativeRuler = _b === void 0 ? true : _b,
@@ -1794,14 +1795,14 @@ version: 0.9.1
             segment = _c === void 0 ? 10 : _c,
             textFormat = _a.textFormat,
             _d = _a.range,
-            range = _d === void 0 ? [-Infinity, Infinity] : _d;
+            range = _d === void 0 ? [-Infinity, Infinity] : _d,
+            rangeBackgroundColor = _a.rangeBackgroundColor;
         var width = this.width;
         var height = this.height;
         var state = this.state;
         state.scrollPos = scrollPos;
         var context = this.canvasContext;
         var isHorizontal = type === "horizontal";
-        var isDirectionStart = direction === "start";
         var isNegative = negativeRuler !== false;
         var font = props.font || "10px sans-serif";
         var textAlign = props.textAlign || "left";
@@ -1810,6 +1811,7 @@ version: 0.9.1
         var mainLineSize = convertUnitSize("" + (props.mainLineSize || "100%"), containerSize);
         var longLineSize = convertUnitSize("" + (props.longLineSize || 10), containerSize);
         var shortLineSize = convertUnitSize("" + (props.shortLineSize || 7), containerSize);
+        var lineOffset = props.lineOffset || [0, 0];
 
         if (backgroundColor === "transparent") {
           // Clear existing paths & text
@@ -1828,8 +1830,18 @@ version: 0.9.1
         context.font = font;
         context.fillStyle = textColor;
 
-        if (isDirectionStart) {
-          context.textBaseline = "top";
+        switch (direction) {
+          case "start":
+            context.textBaseline = "top";
+            break;
+
+          case "center":
+            context.textBaseline = "middle";
+            break;
+
+          case "end":
+            context.textBaseline = "bottom";
+            break;
         }
 
         context.translate(0.5, 0);
@@ -1840,6 +1852,23 @@ version: 0.9.1
         var maxRange = Math.ceil((scrollPos * zoom + size) / zoomUnit);
         var length = maxRange - minRange;
         var alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
+        var barSize = isHorizontal ? height : width; // Draw Range Background
+
+        if (rangeBackgroundColor !== "transparent" && range[0] !== -Infinity && range[1] !== Infinity) {
+          var rangeStart = (range[0] - scrollPos) * zoom;
+          var rangeEnd = (range[1] - range[0]) * zoom;
+          context.save();
+          context.fillStyle = rangeBackgroundColor;
+
+          if (isHorizontal) {
+            context.fillRect(rangeStart, 0, rangeEnd, barSize);
+          } else {
+            context.fillRect(0, rangeStart, barSize, rangeEnd);
+          }
+
+          context.restore();
+        } // Render Segments First
+
 
         for (var i = 0; i <= length; ++i) {
           var value = i + minRange;
@@ -1860,8 +1889,23 @@ version: 0.9.1
             }
 
             var lineSize = j === 0 ? mainLineSize : j % 2 === 0 ? longLineSize : shortLineSize;
+            var origin = 0;
 
-            var _e = isHorizontal ? [pos, isDirectionStart ? 0 : height - lineSize] : [isDirectionStart ? 0 : width - lineSize, pos],
+            switch (direction) {
+              case "start":
+                origin = 0;
+                break;
+
+              case "center":
+                origin = barSize / 2 - lineSize / 2;
+                break;
+
+              case "end":
+                origin = barSize - lineSize;
+                break;
+            }
+
+            var _e = isHorizontal ? [pos + lineOffset[0], origin + lineOffset[1]] : [origin + lineOffset[0], pos + lineOffset[1]],
                 x1 = _e[0],
                 y1 = _e[1];
 
@@ -1869,15 +1913,44 @@ version: 0.9.1
                 x2 = _f[0],
                 y2 = _f[1];
 
-            context.moveTo(x1, y1);
-            context.lineTo(x2, y2);
+            context.moveTo(x1 + lineOffset[0], y1 + lineOffset[1]);
+            context.lineTo(x2 + lineOffset[0], y2 + lineOffset[1]);
           }
+        }
+
+        context.stroke(); // Render Labels
+
+        for (var i = 0; i <= length; ++i) {
+          var value = i + minRange;
+
+          if (!isNegative && value < 0) {
+            continue;
+          }
+
+          var startValue = value * unit;
+          var startPos = (startValue - scrollPos) * zoom;
 
           if (startPos < -zoomUnit || startPos >= size + unit * zoom || startValue < range[0] || startValue > range[1]) {
             continue;
           }
 
-          var _g = isHorizontal ? [startPos + alignOffset * -3, isDirectionStart ? 17 : height - 17] : [isDirectionStart ? 17 : width - 17, startPos + alignOffset * 3],
+          var origin = 0;
+
+          switch (direction) {
+            case "start":
+              origin = 17;
+              break;
+
+            case "center":
+              origin = barSize / 2;
+              break;
+
+            case "end":
+              origin = barSize - 17;
+              break;
+          }
+
+          var _g = isHorizontal ? [startPos + alignOffset * -3, origin] : [origin, startPos + alignOffset * 3],
               startX = _g[0],
               startY = _g[1];
 
@@ -1888,6 +1961,36 @@ version: 0.9.1
           }
 
           context.textAlign = textAlign;
+          var backgroundOffset = 0;
+          var textSize = context.measureText(text).width;
+
+          switch (textAlign) {
+            case "left":
+              backgroundOffset = 0;
+              break;
+
+            case "center":
+              backgroundOffset = -textSize / 2;
+              break;
+
+            case "right":
+              backgroundOffset = -textSize;
+              break;
+          }
+
+          if (isHorizontal) {
+            context.save();
+            context.fillStyle = textBackgroundColor;
+            context.fillRect(startX + textOffset[0] + backgroundOffset, 0, textSize, mainLineSize);
+            context.restore();
+          } else {
+            context.save();
+            context.translate(0, startY + textOffset[1]);
+            context.rotate(-Math.PI / 2);
+            context.fillStyle = textBackgroundColor;
+            context.fillRect(backgroundOffset, 0, textSize, mainLineSize);
+            context.restore();
+          }
 
           if (isHorizontal) {
             context.fillText(text, startX + textOffset[0], startY + textOffset[1]);
@@ -1900,7 +2003,6 @@ version: 0.9.1
           }
         }
 
-        context.stroke();
         context.restore();
       };
 
@@ -1923,13 +2025,15 @@ version: 0.9.1
         backgroundColor: "#333333",
         font: "10px sans-serif",
         textColor: "#ffffff",
+        textBackgroundColor: 'transparent',
         lineColor: "#777777",
-        range: [-Infinity, Infinity]
+        range: [-Infinity, Infinity],
+        rangeBackgroundColor: 'transparent'
       };
       return Ruler;
     }(PureComponent);
 
-    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "style", "backgroundColor", "lineColor", "textColor", "direction", "textFormat", "scrollPos", "textAlign", "mainLineSize", "longLineSize", "shortLineSize", "negativeRuler", "textOffset", "font", "segment"];
+    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "direction", "textAlign", "font", "segment", "mainLineSize", "longLineSize", "shortLineSize", "lineOffset", "textOffset", "negativeRuler", "range", "scrollPos", "style", "backgroundColor", "rangeBackgroundColor", "lineColor", "textColor", "textBackgroundColor", "textFormat"];
 
     var PROPERTIES$1 = PROPERTIES;
 
