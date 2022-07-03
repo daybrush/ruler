@@ -11,6 +11,7 @@ import { NgxRulerInterface } from './ngx-ruler.interface';
   styles: []
 })
 export class NgxRulerComponent extends NgxRulerInterface implements Required<RulerProps>, AfterViewInit, OnChanges, OnDestroy {
+
   @ViewChild('rulerRef', { static: false }) private rulerRef: ElementRef;
   @Input() public font!: RulerProps['font'];
   @Input() public segment!: RulerProps['segment'];
@@ -33,6 +34,9 @@ export class NgxRulerComponent extends NgxRulerInterface implements Required<Rul
   @Input() public textOffset!: RulerProps['textOffset'];
   @Input() public negativeRuler!: RulerProps['negativeRuler'];
   @Input() public range!: RulerProps['range'];
+  @Input() public lineOffset!: RulerProps['lineOffset'];
+  @Input() public rangeBackgroundColor!: RulerProps['rangeBackgroundColor'];
+  @Input() public textBackgroundColor!: RulerProps['textBackgroundColor'];
 
   ngOnChanges(changes: SimpleChanges): void {
     const ruler = this.ruler;
