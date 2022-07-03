@@ -22,7 +22,7 @@ const methods: Record<string, any> = {
 
 METHODS.forEach((name) => {
   methods[name] = function (this: any, ...args: any[]) {
-    this.$_ruler[name](...args);
+    return this.$_ruler[name](...args);
   };
 });
 const watch: Record<string, any> = {};
@@ -51,7 +51,6 @@ export default {
         (options as any)[name] = props[name];
       }
     });
-    console.log(options);
     const ruler = new VanillaRuler(this.$refs.rulerElement as HTMLElement, options);
     this.setStyle();
 
