@@ -33,10 +33,14 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
     private canvasContext!: CanvasRenderingContext2D;
     private width: number = 0;
     private height: number = 0;
+    private _zoom = 0;
+
     public render() {
-        return (<canvas
+        this._zoom = this.props.zoom!;
+
+        return <canvas
             ref={ref(this, "canvasElement")}
-            style={this.props.style} />);
+            style={this.props.style} />;
 
     }
     public componentDidMount() {
@@ -54,13 +58,13 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
      * @method Ruler#scroll
      * @param scrollPos
      */
-    public scroll(scrollPos: number) {
-        this.draw(scrollPos);
+    public scroll(scrollPos: number, nextZoom?: number) {
+        this.draw(scrollPos, nextZoom);
     }
     /**
      * @method Ruler#resize
      */
-    public resize() {
+    public resize(nextZoom?: number) {
         const canvas = this.canvasElement;
         const {
             width,
@@ -72,13 +76,13 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         this.height = height || canvas.offsetHeight;
         canvas.width = this.width * 2;
         canvas.height = this.height * 2;
-        this.draw(scrollPos);
+        this.draw(scrollPos, nextZoom);
     }
-    private draw(scrollPos: number = this.state.scrollPos) {
+    private draw(scrollPos: number = this.state.scrollPos, nextZoom = this._zoom) {
+        this._zoom = nextZoom;
         const props = this.props;
         const {
             unit,
-            zoom,
             type,
             backgroundColor,
             lineColor,
@@ -124,7 +128,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         context.font = font;
         context.fillStyle = textColor;
 
-        switch(direction) {
+        switch (direction) {
             case "start":
                 context.textBaseline = "top";
                 break;
@@ -140,17 +144,17 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         context.beginPath();
 
         const size = isHorizontal ? width : height;
-        const zoomUnit = zoom * unit;
-        const minRange = Math.floor(scrollPos * zoom / zoomUnit);
-        const maxRange = Math.ceil((scrollPos * zoom + size) / zoomUnit);
+        const zoomUnit = nextZoom * unit;
+        const minRange = Math.floor(scrollPos * nextZoom / zoomUnit);
+        const maxRange = Math.ceil((scrollPos * nextZoom + size) / zoomUnit);
         const length = maxRange - minRange;
         const alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
         const barSize = isHorizontal ? height : width;
 
         // Draw Range Background
         if (rangeBackgroundColor !== "transparent" && range[0] !== -Infinity && range[1] !== Infinity) {
-            const rangeStart = (range[0] - scrollPos) * zoom;
-            const rangeEnd = ((range[1] - range[0]) * zoom);
+            const rangeStart = (range[0] - scrollPos) * nextZoom;
+            const rangeEnd = ((range[1] - range[0]) * nextZoom);
             context.save();
             context.fillStyle = rangeBackgroundColor;
             if (isHorizontal) {
@@ -170,7 +174,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 continue;
             }
             const startValue = value * unit;
-            const startPos = (startValue - scrollPos) * zoom;
+            const startPos = (startValue - scrollPos) * nextZoom;
 
             for (let j = 0; j < segment; ++j) {
                 const pos = startPos + j / segment * zoomUnit;
@@ -185,7 +189,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                     : (j % 2 === 0 ? longLineSize : shortLineSize);
 
                 let origin = 0
-                switch(direction) {
+                switch (direction) {
                     case "start":
                         origin = 0;
                         break;
@@ -198,7 +202,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 }
 
                 const [x1, y1] = isHorizontal ?
-                    [pos + lineOffset[0], origin + lineOffset[1]]:
+                    [pos + lineOffset[0], origin + lineOffset[1]] :
                     [origin + lineOffset[0], pos + lineOffset[1]];
 
                 const [x2, y2] = isHorizontal ? [x1, y1 + lineSize] : [x1 + lineSize, y1];
@@ -217,14 +221,14 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 continue;
             }
             const startValue = value * unit;
-            const startPos = (startValue - scrollPos) * zoom;
+            const startPos = (startValue - scrollPos) * nextZoom;
 
-            if (startPos < -zoomUnit || startPos >= size + unit * zoom || startValue < range[0] || startValue > range[1]) {
+            if (startPos < -zoomUnit || startPos >= size + unit * nextZoom || startValue < range[0] || startValue > range[1]) {
                 continue;
             }
 
             let origin = 0
-            switch(direction) {
+            switch (direction) {
                 case "start":
                     origin = 17;
                     break;
@@ -251,7 +255,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
 
             let backgroundOffset = 0
             const textSize = context.measureText(text).width
-            switch(textAlign) {
+            switch (textAlign) {
                 case "left":
                     backgroundOffset = 0;
                     break;
