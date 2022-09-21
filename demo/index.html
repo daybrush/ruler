@@ -17,7 +17,7 @@
     <meta name="twitter:description" content="A Ruler component that can draw grids and scroll infinitely.">
     <meta name="theme-color" content="#f5f5f5">
     <title>A Ruler component that can draw grids and scroll infinitely.</title>
-    <link rel="stylesheet" type="text/css" href="./dist/index.css" />
+    <link rel="stylesheet" type="text/css" href="./index.css" />
 </head>
 
 <body>
@@ -65,7 +65,31 @@
     </div>
 
 
-    <script src="./dist/index.js"></script>
+    <script src="https://daybrush.com/gesto/release/latest/dist/gesto.js"></script>
+    <script src="./release/latest/dist/ruler.js"></script>
+    <script>
+        const ruler1 = new Ruler(document.querySelector(".ruler.horizontal"), {
+            type: "horizontal",
+        });
+        const ruler2 = new Ruler(document.querySelector(".ruler.vertical"), {
+            type: "vertical",
+        });
+
+        window.addEventListener("resize", () => {
+            ruler1.resize();
+            ruler2.resize();
+        });
+        let scrollX = 0;
+        let scrollY = 0;
+
+        new Gesto(document.body).on("drag", e => {
+            scrollX -= e.deltaX;
+            scrollY -= e.deltaY;
+
+            ruler1.scroll(scrollX);
+            ruler2.scroll(scrollY);
+        });
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128864447-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];

@@ -36,10 +36,17 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
     private _zoom = 0;
 
     public render() {
-        this._zoom = this.props.zoom!;
+        const props = this.props;
+        const portalContainer = props.portalContainer;
+        let portalAttributes: Record<string, any> = {};
 
+        if ((React.version || "").indexOf("simple") > -1 && portalContainer) {
+            portalAttributes = { portalContainer };
+        }
+        this._zoom = props.zoom!;
         return <canvas
             ref={ref(this, "canvasElement")}
+            {...portalAttributes}
             style={this.props.style} />;
 
     }

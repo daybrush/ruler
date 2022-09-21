@@ -153,4 +153,8 @@ export interface RulerProps {
      * @default ownself
      */
     textFormat?: (scale: number) => string;
+    /**
+     * portal container for other frameworks
+     */
+    portalContainer?: HTMLElement;
 }

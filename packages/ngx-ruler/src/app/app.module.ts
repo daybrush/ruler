@@ -1,8 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgxRulerModule } from '../../projects/ngx-ruler/src/public-api';
 
 import { AppComponent } from './app.component';
-import { NgxRulerModule } from 'projects/ngx-ruler/src/public-api';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 <template>
-  <div ref="rulerElement"></div>
+  <canvas ref="rulerElement"></canvas>
 </template>
 <script lang="ts">
 import VanillaRuler, { RulerProps, PROPERTIES, METHODS } from "@scena/ruler";
@@ -51,6 +51,7 @@ export default {
         (options as any)[name] = props[name];
       }
     });
+    options.portalContainer = this.$refs.rulerElement;
     const ruler = new VanillaRuler(this.$refs.rulerElement as HTMLElement, options);
     this.setStyle();
 

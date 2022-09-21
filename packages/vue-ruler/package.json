@@ -28,26 +28,30 @@
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "rollup -c && npm run declaration",
-        "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json && cp ./src/components/Ruler.vue.d.ts ./declaration/",
-        "lint": "vue-cli-service lint"
+        "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json && cp ./src/components/Ruler.vue.d.ts ./declaration/"
     },
     "dependencies": {
         "@scena/ruler": "~0.10.0"
     },
     "devDependencies": {
         "@daybrush/builder": "^0.1.2",
-        "@vue/cli-plugin-eslint": "^4.0.0",
-        "@vue/cli-plugin-typescript": "^4.0.0",
-        "@vue/cli-service": "^4.0.0",
         "@vue/compiler-sfc": "^2.7.0",
-        "@vue/eslint-config-typescript": "^4.0.0",
         "eslint": "^5.16.0",
         "eslint-plugin-vue": "^5.0.0",
         "rollup-plugin-vue": "^5.1.9",
-        "typescript": "~3.5.3",
+        "typescript": "^4.5.0 <4.6.0",
         "vue": "^2.6.12",
         "vue-class-component": "^7.2.6",
         "vue-property-decorator": "^9.1.2",
-        "vue-template-compiler": "^2.6.12"
+        "vue-template-compiler": "^2.6.12",
+        "@vue/cli-plugin-typescript": "~4.5.0",
+        "@vue/cli-service": "~4.5.0",
+        "@vue/composition-api": "^1.2.4",
+        "@vue/eslint-config-airbnb": "^5.0.2",
+        "@vue/eslint-config-prettier": "^6.0.0",
+        "@vue/eslint-config-typescript": "^5.0.2",
+        "@vue/test-utils": "^1.0.3",
+        "babel-eslint": "^10.1.0",
+        "babel-loader": "^8.2.2"
     }
 }

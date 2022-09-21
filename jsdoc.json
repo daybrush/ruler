@@ -7,8 +7,8 @@
     },
     "source": {
         "include": [
-            "./src",
             "README.md",
+            "packages/ruler/src",
             "packages/react-ruler/src/react-ruler"
         ],
         "includePattern": "(.+\\.js(doc|x)?|.+\\.ts(doc|x)?)$",

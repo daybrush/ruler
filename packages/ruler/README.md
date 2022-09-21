@@ -81,15 +81,6 @@ The default unit is px, and a line is drawn every 50px. If you want to use a dif
     * zoom: 96
     * unit: 1 (every 1in)
 
-
-
-## ⚙️ Developments
-The `ruler` repo is managed as a [monorepo](https://github.com/lerna/lerna) with `yarn`.
-
-```sh
-yarn config set registry https://registry.npmjs.org/
-```
-
 ## ⭐️ Show Your Support
 Please give a ⭐️ if this project helped you!
 

@@ -1,0 +1,3 @@
+// auto
+// eslint-disable-next-line max-len
+export const ANGULAR_RULER_INPUTS: ["type","width","height","unit","zoom","direction","textAlign","font","segment","mainLineSize","longLineSize","shortLineSize","lineOffset","textOffset","negativeRuler","range","scrollPos","style","backgroundColor","rangeBackgroundColor","lineColor","textColor","textBackgroundColor","textFormat","portalContainer"] = ["type","width","height","unit","zoom","direction","textAlign","font","segment","mainLineSize","longLineSize","shortLineSize","lineOffset","textOffset","negativeRuler","range","scrollPos","style","backgroundColor","rangeBackgroundColor","lineColor","textColor","textBackgroundColor","textFormat","portalContainer"];

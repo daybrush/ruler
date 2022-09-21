@@ -21,11 +21,8 @@
     "url": "https://github.com/daybrush/ruler/issues"
   },
   "homepage": "https://github.com/daybrush/ruler#readme",
-  "peerDependencies": {
-    "@angular/common": "^8.2.13",
-    "@angular/core": "^8.2.13"
-  },
   "dependencies": {
-    "@scena/ruler": "~0.10.0"
+    "@scena/ruler": "~0.10.0",
+    "tslib": "^2.3.0"
   }
 }

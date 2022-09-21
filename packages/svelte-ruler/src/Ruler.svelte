@@ -46,6 +46,7 @@
   });
   onMount(() => {
     setStyle();
+    options.portalContainer = rulerElement;
     ruler = new VanillaRuler(rulerElement, options);
   });
   onDestroy(() => {
@@ -57,4 +58,4 @@
   }
 </script>
 
-<div class="ruler" bind:this={rulerElement} />
+<canvas bind:this={rulerElement} />
