@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2019 Daybrush
+Copyright (c) Daybrush
 name: @scena/ruler
 license: MIT
 author: Daybrush
@@ -12,30 +12,32 @@ version: 0.10.0
     (global = global || self, global.Ruler = factory());
 }(this, (function () { 'use strict';
 
-    /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    /******************************************************************************
+    Copyright (c) Microsoft Corporation.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
     /* global Reflect, Promise */
 
     var extendStatics = function(d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
 
     function __extends(d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -426,8 +428,28 @@ version: 0.10.0
     license: MIT
     author: Daybrush
     repository: https://github.com/daybrush/utils
-    @version 1.6.0
+    @version 1.10.0
     */
+    /**
+    * get string "function"
+    * @memberof Consts
+    * @example
+    import {FUNCTION} from "@daybrush/utils";
+
+    console.log(FUNCTION); // "function"
+    */
+
+    var FUNCTION = "function";
+    /**
+    * get string "object"
+    * @memberof Consts
+    * @example
+    import {OBJECT} from "@daybrush/utils";
+
+    console.log(OBJECT); // "object"
+    */
+
+    var OBJECT = "object";
     /**
     * get string "string"
     * @memberof Consts
@@ -458,6 +480,54 @@ version: 0.10.0
     */
 
     var UNDEFINED = "undefined";
+    var DEFAULT_UNIT_PRESETS = {
+      "cm": function (pos) {
+        return pos * 96 / 2.54;
+      },
+      "mm": function (pos) {
+        return pos * 96 / 254;
+      },
+      "in": function (pos) {
+        return pos * 96;
+      },
+      "pt": function (pos) {
+        return pos * 96 / 72;
+      },
+      "pc": function (pos) {
+        return pos * 96 / 6;
+      },
+      "%": function (pos, size) {
+        return pos * size / 100;
+      },
+      "vw": function (pos, size) {
+        if (size === void 0) {
+          size = window.innerWidth;
+        }
+
+        return pos / 100 * size;
+      },
+      "vh": function (pos, size) {
+        if (size === void 0) {
+          size = window.innerHeight;
+        }
+
+        return pos / 100 * size;
+      },
+      "vmax": function (pos, size) {
+        if (size === void 0) {
+          size = Math.max(window.innerWidth, window.innerHeight);
+        }
+
+        return pos / 100 * size;
+      },
+      "vmin": function (pos, size) {
+        if (size === void 0) {
+          size = Math.min(window.innerWidth, window.innerHeight);
+        }
+
+        return pos / 100 * size;
+      }
+    };
     /**
     * Check the type that the value is undefined.
     * @memberof Utils
@@ -474,6 +544,23 @@ version: 0.10.0
 
     function isUndefined(value) {
       return typeof value === UNDEFINED;
+    }
+    /**
+    * Check the type that the value is object.
+    * @memberof Utils
+    * @param {string} value - Value to check the type
+    * @return {} true if the type is correct, false otherwise
+    * @example
+    import {isObject} from "@daybrush/utils";
+
+    console.log(isObject({})); // true
+    console.log(isObject(undefined)); // false
+    console.log(isObject("")); // false
+    console.log(isObject(null)); // false
+    */
+
+    function isObject(value) {
+      return value && typeof value === OBJECT;
     }
     /**
     * Check the type that the value is isArray.
@@ -513,6 +600,60 @@ version: 0.10.0
       return typeof value === NUMBER;
     }
     /**
+    * Check the type that the value is function.
+    * @memberof Utils
+    * @param {string} value - Value to check the type
+    * @return {} true if the type is correct, false otherwise
+    * @example
+    import {isFunction} from "@daybrush/utils";
+
+    console.log(isFunction(function a() {})); // true
+    console.log(isFunction(() => {})); // true
+    console.log(isFunction("1234")); // false
+    console.log(isFunction(1)); // false
+    console.log(isFunction(null)); // false
+    */
+
+    function isFunction(value) {
+      return typeof value === FUNCTION;
+    }
+    /**
+    * divide text by number and unit.
+    * @memberof Utils
+    * @param {string} text - text to divide
+    * @return {} divided texts
+    * @example
+    import {splitUnit} from "@daybrush/utils";
+
+    console.log(splitUnit("10px"));
+    // {prefix: "", value: 10, unit: "px"}
+    console.log(splitUnit("-10px"));
+    // {prefix: "", value: -10, unit: "px"}
+    console.log(splitUnit("a10%"));
+    // {prefix: "a", value: 10, unit: "%"}
+    */
+
+    function splitUnit(text) {
+      var matches = /^([^\d|e|\-|\+]*)((?:\d|\.|-|e-|e\+)+)(\S*)$/g.exec(text);
+
+      if (!matches) {
+        return {
+          prefix: "",
+          unit: "",
+          value: NaN
+        };
+      }
+
+      var prefix = matches[1];
+      var value = matches[2];
+      var unit = matches[3];
+      return {
+        prefix: prefix,
+        unit: unit,
+        value: parseFloat(value)
+      };
+    }
+    /**
     * transform a camelized string into a lowercased string.
     * @memberof Utils
     * @param {string} text - a camel-cased string
@@ -534,6 +675,37 @@ version: 0.10.0
         return "" + letter + separator + letter2.toLowerCase();
       });
     }
+    /**
+    * convert unit size to px size
+    * @function
+    * @memberof Utils
+    */
+
+    function convertUnitSize(pos, size) {
+      var _a = splitUnit(pos),
+          value = _a.value,
+          unit = _a.unit;
+
+      if (isObject(size)) {
+        var sizeFunction = size[unit];
+
+        if (sizeFunction) {
+          if (isFunction(sizeFunction)) {
+            return sizeFunction(value);
+          } else if (DEFAULT_UNIT_PRESETS[unit]) {
+            return DEFAULT_UNIT_PRESETS[unit](value, sizeFunction);
+          }
+        }
+      } else if (unit === "%") {
+        return value * size / 100;
+      }
+
+      if (DEFAULT_UNIT_PRESETS[unit]) {
+        return DEFAULT_UNIT_PRESETS[unit](value);
+      }
+
+      return value;
+    }
 
     /*
     Copyright (c) Daybrush
@@ -541,7 +713,7 @@ version: 0.10.0
     license: MIT
     author: Daybrush
     repository: git+https://github.com/daybrush/react-simple-compat.git
-    version: 1.2.2
+    version: 1.2.3
     */
 
     /*! *****************************************************************************
@@ -1167,7 +1339,7 @@ version: 0.10.0
         return this.base.shouldComponentUpdate(fillProps(nextProps, this.type.defaultProps), nextState || this.base.state);
       };
 
-      __proto._render = function (hooks, prevProps, nextState) {
+      __proto._render = function (hooks, prevProps) {
         var _this = this;
 
         this.props = fillProps(this.props, this.type.defaultProps);
@@ -1188,7 +1360,7 @@ version: 0.10.0
           template.props.children = this.props.children;
         }
 
-        renderProviders(this, this._providers, template ? [template] : [], hooks, nextState, null);
+        renderProviders(this, this._providers, template ? [template] : [], hooks);
         hooks.push(function () {
           if (isMount) {
             _this._mounted();
@@ -1488,185 +1660,7 @@ version: 0.10.0
         container: container
       });
     }
-
-    /*
-    Copyright (c) 2018 Daybrush
-    @name: @daybrush/utils
-    license: MIT
-    author: Daybrush
-    repository: https://github.com/daybrush/utils
-    @version 1.7.1
-    */
-    /**
-    * get string "function"
-    * @memberof Consts
-    * @example
-    import {FUNCTION} from "@daybrush/utils";
-
-    console.log(FUNCTION); // "function"
-    */
-
-    var FUNCTION = "function";
-    /**
-    * get string "object"
-    * @memberof Consts
-    * @example
-    import {OBJECT} from "@daybrush/utils";
-
-    console.log(OBJECT); // "object"
-    */
-
-    var OBJECT = "object";
-    var DEFAULT_UNIT_PRESETS = {
-      "cm": function (pos) {
-        return pos * 96 / 2.54;
-      },
-      "mm": function (pos) {
-        return pos * 96 / 254;
-      },
-      "in": function (pos) {
-        return pos * 96;
-      },
-      "pt": function (pos) {
-        return pos * 96 / 72;
-      },
-      "pc": function (pos) {
-        return pos * 96 / 6;
-      },
-      "%": function (pos, size) {
-        return pos * size / 100;
-      },
-      "vw": function (pos, size) {
-        if (size === void 0) {
-          size = window.innerWidth;
-        }
-
-        return pos / 100 * size;
-      },
-      "vh": function (pos, size) {
-        if (size === void 0) {
-          size = window.innerHeight;
-        }
-
-        return pos / 100 * size;
-      },
-      "vmax": function (pos, size) {
-        if (size === void 0) {
-          size = Math.max(window.innerWidth, window.innerHeight);
-        }
-
-        return pos / 100 * size;
-      },
-      "vmin": function (pos, size) {
-        if (size === void 0) {
-          size = Math.min(window.innerWidth, window.innerHeight);
-        }
-
-        return pos / 100 * size;
-      }
-    };
-    /**
-    * Check the type that the value is object.
-    * @memberof Utils
-    * @param {string} value - Value to check the type
-    * @return {} true if the type is correct, false otherwise
-    * @example
-    import {isObject} from "@daybrush/utils";
-
-    console.log(isObject({})); // true
-    console.log(isObject(undefined)); // false
-    console.log(isObject("")); // false
-    console.log(isObject(null)); // false
-    */
-
-    function isObject(value) {
-      return value && typeof value === OBJECT;
-    }
-    /**
-    * Check the type that the value is function.
-    * @memberof Utils
-    * @param {string} value - Value to check the type
-    * @return {} true if the type is correct, false otherwise
-    * @example
-    import {isFunction} from "@daybrush/utils";
-
-    console.log(isFunction(function a() {})); // true
-    console.log(isFunction(() => {})); // true
-    console.log(isFunction("1234")); // false
-    console.log(isFunction(1)); // false
-    console.log(isFunction(null)); // false
-    */
-
-    function isFunction(value) {
-      return typeof value === FUNCTION;
-    }
-    /**
-    * divide text by number and unit.
-    * @memberof Utils
-    * @param {string} text - text to divide
-    * @return {} divided texts
-    * @example
-    import {splitUnit} from "@daybrush/utils";
-
-    console.log(splitUnit("10px"));
-    // {prefix: "", value: 10, unit: "px"}
-    console.log(splitUnit("-10px"));
-    // {prefix: "", value: -10, unit: "px"}
-    console.log(splitUnit("a10%"));
-    // {prefix: "a", value: 10, unit: "%"}
-    */
-
-    function splitUnit(text) {
-      var matches = /^([^\d|e|\-|\+]*)((?:\d|\.|-|e-|e\+)+)(\S*)$/g.exec(text);
-
-      if (!matches) {
-        return {
-          prefix: "",
-          unit: "",
-          value: NaN
-        };
-      }
-
-      var prefix = matches[1];
-      var value = matches[2];
-      var unit = matches[3];
-      return {
-        prefix: prefix,
-        unit: unit,
-        value: parseFloat(value)
-      };
-    }
-    /**
-    * convert unit size to px size
-    * @function
-    * @memberof Utils
-    */
-
-    function convertUnitSize(pos, size) {
-      var _a = splitUnit(pos),
-          value = _a.value,
-          unit = _a.unit;
-
-      if (isObject(size)) {
-        var sizeFunction = size[unit];
-
-        if (sizeFunction) {
-          if (isFunction(sizeFunction)) {
-            return sizeFunction(value);
-          } else if (DEFAULT_UNIT_PRESETS[unit]) {
-            return DEFAULT_UNIT_PRESETS[unit](value, sizeFunction);
-          }
-        }
-      } else if (unit === "%") {
-        return value * size / 100;
-      }
-
-      if (DEFAULT_UNIT_PRESETS[unit]) {
-        return DEFAULT_UNIT_PRESETS[unit](value);
-      }
-
-      return value;
-    }
+    var version = "simple-1.1.0";
 
     /*
     Copyright (c) 2019 Daybrush
@@ -1676,36 +1670,37 @@ version: 0.10.0
     repository: https://github.com/daybrush/ruler/blob/master/packages/react-ruler
     version: 0.10.0
     */
+    /******************************************************************************
+    Copyright (c) Microsoft Corporation.
 
-    /*! *****************************************************************************
-    Copyright (c) Microsoft Corporation. All rights reserved.
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-    this file except in compliance with the License. You may obtain a copy of the
-    License at http://www.apache.org/licenses/LICENSE-2.0
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
 
-    THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-    WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-    MERCHANTABLITY OR NON-INFRINGEMENT.
-
-    See the Apache Version 2.0 License for specific language governing permissions
-    and limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
 
     /* global Reflect, Promise */
+
     var extendStatics$2 = function (d, b) {
       extendStatics$2 = Object.setPrototypeOf || {
         __proto__: []
       } instanceof Array && function (d, b) {
         d.__proto__ = b;
       } || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
       };
 
       return extendStatics$2(d, b);
     };
 
     function __extends$2(d, b) {
+      if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
       extendStatics$2(d, b);
 
       function __() {
@@ -1715,9 +1710,21 @@ version: 0.10.0
       d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     }
 
-    var Ruler =
-    /*#__PURE__*/
-    function (_super) {
+    var __assign$2 = function () {
+      __assign$2 = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+          s = arguments[i];
+
+          for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+
+        return t;
+      };
+
+      return __assign$2.apply(this, arguments);
+    };
+
+    var Ruler = /*#__PURE__*/function (_super) {
       __extends$2(Ruler, _super);
 
       function Ruler() {
@@ -1728,16 +1735,29 @@ version: 0.10.0
         };
         _this.width = 0;
         _this.height = 0;
+        _this._zoom = 0;
         return _this;
       }
 
       var __proto = Ruler.prototype;
 
       __proto.render = function () {
-        return createElement("canvas", {
-          ref: ref(this, "canvasElement"),
+        var props = this.props;
+        var portalContainer = props.portalContainer;
+        var portalAttributes = {};
+
+        if ((version ).indexOf("simple") > -1 && portalContainer) {
+          portalAttributes = {
+            portalContainer: portalContainer
+          };
+        }
+
+        this._zoom = props.zoom;
+        return createElement("canvas", __assign$2({
+          ref: ref(this, "canvasElement")
+        }, portalAttributes, {
           style: this.props.style
-        });
+        }));
       };
 
       __proto.componentDidMount = function () {
@@ -1756,15 +1776,15 @@ version: 0.10.0
        */
 
 
-      __proto.scroll = function (scrollPos) {
-        this.draw(scrollPos);
+      __proto.scroll = function (scrollPos, nextZoom) {
+        this.draw(scrollPos, nextZoom);
       };
       /**
        * @method Ruler#resize
        */
 
 
-      __proto.resize = function () {
+      __proto.resize = function (nextZoom) {
         var canvas = this.canvasElement;
         var _a = this.props,
             width = _a.width,
@@ -1774,18 +1794,22 @@ version: 0.10.0
         this.height = height || canvas.offsetHeight;
         canvas.width = this.width * 2;
         canvas.height = this.height * 2;
-        this.draw(scrollPos);
+        this.draw(scrollPos, nextZoom);
       };
 
-      __proto.draw = function (scrollPos) {
+      __proto.draw = function (scrollPos, nextZoom) {
         if (scrollPos === void 0) {
           scrollPos = this.state.scrollPos;
         }
 
+        if (nextZoom === void 0) {
+          nextZoom = this._zoom;
+        }
+
+        this._zoom = nextZoom;
         var props = this.props;
         var _a = props,
             unit = _a.unit,
-            zoom = _a.zoom,
             type = _a.type,
             backgroundColor = _a.backgroundColor,
             lineColor = _a.lineColor,
@@ -1811,9 +1835,9 @@ version: 0.10.0
         var textAlign = props.textAlign || "left";
         var textOffset = props.textOffset || [0, 0];
         var containerSize = isHorizontal ? height : width;
-        var mainLineSize = convertUnitSize("" + (props.mainLineSize || "100%"), containerSize);
-        var longLineSize = convertUnitSize("" + (props.longLineSize || 10), containerSize);
-        var shortLineSize = convertUnitSize("" + (props.shortLineSize || 7), containerSize);
+        var mainLineSize = convertUnitSize("".concat(props.mainLineSize || "100%"), containerSize);
+        var longLineSize = convertUnitSize("".concat(props.longLineSize || 10), containerSize);
+        var shortLineSize = convertUnitSize("".concat(props.shortLineSize || 7), containerSize);
         var lineOffset = props.lineOffset || [0, 0];
 
         if (backgroundColor === "transparent") {
@@ -1850,16 +1874,16 @@ version: 0.10.0
         context.translate(0.5, 0);
         context.beginPath();
         var size = isHorizontal ? width : height;
-        var zoomUnit = zoom * unit;
-        var minRange = Math.floor(scrollPos * zoom / zoomUnit);
-        var maxRange = Math.ceil((scrollPos * zoom + size) / zoomUnit);
+        var zoomUnit = nextZoom * unit;
+        var minRange = Math.floor(scrollPos * nextZoom / zoomUnit);
+        var maxRange = Math.ceil((scrollPos * nextZoom + size) / zoomUnit);
         var length = maxRange - minRange;
         var alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
         var barSize = isHorizontal ? height : width; // Draw Range Background
 
         if (rangeBackgroundColor !== "transparent" && range[0] !== -Infinity && range[1] !== Infinity) {
-          var rangeStart = (range[0] - scrollPos) * zoom;
-          var rangeEnd = (range[1] - range[0]) * zoom;
+          var rangeStart = (range[0] - scrollPos) * nextZoom;
+          var rangeEnd = (range[1] - range[0]) * nextZoom;
           context.save();
           context.fillStyle = rangeBackgroundColor;
 
@@ -1881,7 +1905,7 @@ version: 0.10.0
           }
 
           var startValue = value * unit;
-          var startPos = (startValue - scrollPos) * zoom;
+          var startPos = (startValue - scrollPos) * nextZoom;
 
           for (var j = 0; j < segment; ++j) {
             var pos = startPos + j / segment * zoomUnit;
@@ -1931,9 +1955,9 @@ version: 0.10.0
           }
 
           var startValue = value * unit;
-          var startPos = (startValue - scrollPos) * zoom;
+          var startPos = (startValue - scrollPos) * nextZoom;
 
-          if (startPos < -zoomUnit || startPos >= size + unit * zoom || startValue < range[0] || startValue > range[1]) {
+          if (startPos < -zoomUnit || startPos >= size + unit * nextZoom || startValue < range[0] || startValue > range[1]) {
             continue;
           }
 
@@ -1957,7 +1981,7 @@ version: 0.10.0
               startX = _g[0],
               startY = _g[1];
 
-          var text = "" + startValue;
+          var text = "".concat(startValue);
 
           if (textFormat) {
             text = textFormat(startValue);
@@ -2036,7 +2060,7 @@ version: 0.10.0
       return Ruler;
     }(PureComponent);
 
-    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "direction", "textAlign", "font", "segment", "mainLineSize", "longLineSize", "shortLineSize", "lineOffset", "textOffset", "negativeRuler", "range", "scrollPos", "style", "backgroundColor", "rangeBackgroundColor", "lineColor", "textColor", "textBackgroundColor", "textFormat"];
+    var PROPERTIES = ["type", "width", "height", "unit", "zoom", "direction", "textAlign", "font", "segment", "mainLineSize", "longLineSize", "shortLineSize", "lineOffset", "textOffset", "negativeRuler", "range", "scrollPos", "style", "backgroundColor", "rangeBackgroundColor", "lineColor", "textColor", "textBackgroundColor", "textFormat", "portalContainer"];
     var METHODS = ["scroll", "resize"];
 
     var PROPERTIES$1 = PROPERTIES;
@@ -2139,12 +2163,12 @@ version: 0.10.0
 
 
 
-    var others = ({
+    var others = {
         __proto__: null,
         'default': Ruler$1,
         PROPERTIES: PROPERTIES$1,
         METHODS: METHODS$1
-    });
+    };
 
     for (var name in others) {
       Ruler$1[name] = others[name];

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>react-ruler/src/react-ruler/types.ts - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/daybrush.css">
+    <link type="text/css" rel="stylesheet" href="styles/custom.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="description" content="react-ruler/src/react-ruler/types.ts - Documentation"/>
+
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h2 class="custom"><a href="https://github.com/daybrush/ruler" target="_blank" class="menu-item" id="repository" >Github repo</a></h2><div class="search"><div class="input-area"><input type="text"/></div><button></button></div><ul class="classes"><li file="ruler" class="parent"><a href="Ruler.html">Ruler</a><h4><a href="Ruler.html#methods">Methods</a></h4><ul class='methods'><li data-type='method'><a href="Ruler.html#destroy">destroy</a></li><li data-type='method'><a href="Ruler.html#resize">resize</a></li><li data-type='method'><a href="Ruler.html#scroll">scroll</a></li></ul><h4><a href="Ruler.html#type definitions">Type Definitions</a></h4><ul class='type definitions'><li data-type='typddef'><a href="Ruler.html#.RulerInterface">RulerInterface</a></li><li data-type='typddef'><a href="Ruler.html#.RulerProps">RulerProps</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">react-ruler/src/react-ruler/types.ts</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { IObject } from "@daybrush/utils";
+
+/**
+ * @typedef
+ * @memberof Ruler
+ */
+export interface RulerInterface {
+    /**
+     * Scroll to that location. It can be used when the scrollPos prop is not used.
+     * @param - scroll position
+     */
+    scroll(scrollPos: number): void;
+    /**
+     * Recalculate the style of the ruler.
+     */
+    resize(): void;
+}
+
+/**
+ * @typedef
+ * @memberof Ruler
+ */
+export interface RulerProps {
+    /**
+     * ruler's direction
+     * @default "horizontal"
+     */
+    type?: "horizontal" | "vertical";
+    /**
+     * ruler's width
+     * @default target's offsetWidth
+     */
+    width?: number;
+    /**
+     * ruler's height
+     * @default target's offsetHeight
+     */
+    height?: number;
+    /**
+     * main scale unit
+     * @default 50
+     * @example
+     * ```
+     * 1px (Default) zoom: 1, unit: 50 (every 50px)
+     * 1cm = 37.7952px zoom: 37.7952 unit: 1 (every 1cm)
+     * 1in = 96px = 2.54cm zoom: 9 unit: 1 (every 1in)
+     * ```
+     */
+    unit?: number;
+    /**
+     * zoom
+     * @default 1
+     * @example
+     * ```
+     * 1px (Default) zoom: 1, unit: 50 (every 50px)
+     * 1cm = 37.7952px zoom: 37.7952 unit: 1 (every 1cm)
+     * 1in = 96px = 2.54cm zoom: 9 unit: 1 (every 1in)
+     * ```
+     */
+    zoom?: number;
+    /**
+     * line's direction (align)
+     * @default "end"
+     */
+    direction?: "start" | "center" | "end";
+    /**
+     * text align
+     * @default "start"
+     */
+    textAlign?: "left" | "center" | "right";
+    /**
+     * font and size
+     * @default "10px sans-serif"
+     */
+    font?: string;
+    /**
+     * Number of areas to divide between two main lines
+     * @default 10
+     */
+    segment?: number;
+    /**
+     * main line size
+     * @default "100%"
+     */
+    mainLineSize?: string | number;
+    /**
+     * long line size
+     * @default 10
+     */
+    longLineSize?: string | number;
+    /**
+     * short line size
+     * @default 7
+     */
+    shortLineSize?: string | number;
+    /**
+     * line's position offset
+     * @default [0, 0]
+     */
+    lineOffset?: number[];
+    /**
+     * text's position offset
+     * @default [0, 0]
+     */
+    textOffset?: number[];
+    /**
+     * Whether to display the ruler in the negative direction.
+     * @default true
+     */
+    negativeRuler?: boolean;
+    /**
+     * The range to show the ruler's scales
+     * @default [-Infinity, Infinity]
+     */
+    range?: [number, number];
+    /**
+     * you can set scroll position by prop.
+     * If you use the scrollPos prop, you can't use the scroll method.
+     * @default undefined
+     */
+    scrollPos?: number;
+    /**
+     * ruler canvas style
+     */
+    style?: IObject&lt;any>;
+    /**
+     * ruler's background color
+     * @default "#333333"
+     */
+    backgroundColor?: string;
+    /**
+     * background color within range in ruler
+     * @default "transparent"
+     */
+    rangeBackgroundColor?: string;
+    /**
+     * ruler's line color
+     * @default "#777777"
+     */
+    lineColor?: string;
+    /**
+     * ruler's text color
+     * @default "#ffffff"
+     */
+    textColor?: string;
+    /**
+     * The background color that wraps the text
+     * @default "transparent"
+     */
+    textBackgroundColor?: string;
+    /**
+     * text foramt
+     * @default ownself
+     */
+    textFormat?: (scale: number) => string;
+    /**
+     * portal container for other frameworks
+     */
+    portalContainer?: HTMLElement;
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+<style>
+
+
+nav li[file="react-ruler/src/react-ruler/types"]:after {
+    display: none;
+}
+nav li[file="react-ruler/src/react-ruler/types"] h4, nav li[file="react-ruler/src/react-ruler/types"] ul {
+    display: block;
+}
+</style>
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/daybrush/jsdoc">JSDoc 0.4.3</a> on Thu Sep 22 2022 01:11:02 GMT+0900 (대한민국 표준시) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/utils.min.js"></script>
+<script src="scripts/search.js"></script>
+<script src="scripts/custom.js"></script>
+</body>
+</html>
