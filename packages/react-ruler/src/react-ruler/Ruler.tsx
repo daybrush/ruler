@@ -4,7 +4,7 @@ import { RulerInterface, RulerProps } from "./types";
 import { convertUnitSize } from "@daybrush/utils";
 
 export default class Ruler extends React.PureComponent<RulerProps> implements RulerInterface {
-    public static defaultProps: RulerProps = {
+    public static defaultProps: Partial<RulerProps> = {
         type: "horizontal",
         zoom: 1,
         width: 0,
@@ -24,6 +24,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         lineColor: "#777777",
         range: [-Infinity, Infinity],
         rangeBackgroundColor: 'transparent',
+        lineWidth: 1,
     };
     public divisionsElement!: HTMLElement;
     public state = {
@@ -101,6 +102,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             textFormat,
             range = [-Infinity, Infinity],
             rangeBackgroundColor,
+            lineWidth = 1,
         } = props as Required<RulerProps>;
         const width = this.width;
         const height = this.height;
@@ -131,7 +133,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         context.save();
         context.scale(2, 2);
         context.strokeStyle = lineColor;
-        context.lineWidth = 1;
+        context.lineWidth = lineWidth;
         context.font = font;
         context.fillStyle = textColor;
 

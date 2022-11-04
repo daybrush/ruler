@@ -154,6 +154,11 @@ export interface RulerProps {
      */
     textFormat?: (scale: number) => string;
     /**
+     * Ruler's line width
+     * @default 1
+     */
+    lineWidth?: number;
+    /**
      * portal container for other frameworks
      */
     portalContainer?: HTMLElement;
