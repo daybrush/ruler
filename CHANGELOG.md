@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.0](https://github.com/daybrush/ruler/compare/0.11.0...0.12.0) (2022-11-06)
+### :sparkles: Packages
+* `preact-ruler` 0.12.0
+* `react-compat-ruler` 0.11.0
+* `@scena/react-ruler` 0.12.0
+* `@scena/ruler` 0.12.0
+* `svelte-ruler` 0.12.0
+* `@scena/vue-ruler` 0.11.0
+* `ngx-ruler` 0.12.0
+
+
+### :rocket: New Features
+
+* `@scena/react-ruler`
+    * add lineWidth prop #32 ([f3dbc1d](https://github.com/daybrush/ruler/commit/f3dbc1d695cfcb564637cc896f053d8db301ffa8))
+
+
+### :mega: Other
+
+* All
+    * publish packages ([de112ef](https://github.com/daybrush/ruler/commit/de112ef49f2b4063a0b8e810abff0d646da5c3d1))
+
+
+
 ## [0.11.0](https://github.com/daybrush/ruler/compare/0.10.0...0.11.0) (2022-09-21)
 ### :sparkles: Packages
 * `preact-ruler` 0.11.0
