@@ -2950,6 +2950,14 @@
   dependencies:
     "@daybrush/utils" "^1.4.0"
 
+"@scena/react-ruler@~0.11.0":
+  version "0.11.0"
+  resolved "https://registry.npmjs.org/@scena/react-ruler/-/react-ruler-0.11.0.tgz#ff74a2ac3bb9f5656f6f919162037c7977a4ebf1"
+  integrity sha512-a9foyOTs7xp/IHi7gHLiSziWi1X1VKxMlNq/EkE2a9JvQWiDzDi/7S/N0t3C0c8yE3zNcJ++9e3eqcKbI+/P9g==
+  dependencies:
+    "@daybrush/utils" "^1.7.1"
+    framework-utils "^1.1.0"
+
 "@scenejs/effects@^1.0.1":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@scenejs/effects/-/effects-1.0.1.tgz"
