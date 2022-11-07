@@ -26,6 +26,12 @@
         "type": "git",
         "url": "https://github.com/daybrush/ruler/blob/master/packages/react-compat-ruler"
     },
+    "files": [
+        "README.md",
+        "package.json",
+        "dist/*",
+        "declaration/*"
+    ],
     "author": "Daybrush",
     "license": "MIT",
     "bugs": {

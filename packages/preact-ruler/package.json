@@ -31,6 +31,12 @@
     "bugs": {
         "url": "https://github.com/daybrush/ruler/issues"
     },
+    "files": [
+        "README.md",
+        "package.json",
+        "dist/*",
+        "declaration/*"
+    ],
     "homepage": "https://daybrush.com/ruler",
     "devDependencies": {
         "@daybrush/builder": "^0.1.0",

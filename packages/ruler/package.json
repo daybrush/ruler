@@ -23,6 +23,12 @@
         "type": "git",
         "url": "git+https://github.com/daybrush/ruler.git"
     },
+    "files": [
+        "README.md",
+        "package.json",
+        "dist/*",
+        "declaration/*"
+    ],
     "author": "Daybrush",
     "license": "MIT",
     "bugs": {
