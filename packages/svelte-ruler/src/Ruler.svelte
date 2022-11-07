@@ -50,7 +50,7 @@
     ruler = new VanillaRuler(rulerElement, options);
   });
   onDestroy(() => {
-    ruler.destroy();
+    ruler && ruler.destroy();
   });
 
   export function getInstance() {

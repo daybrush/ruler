@@ -4,6 +4,7 @@
     "description": "A Svelte Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
+    "svelte": "./src/index.js",
     "types": "src/index.d.ts",
     "sideEffects": false,
     "keywords": [
@@ -14,6 +15,12 @@
         "ruler",
         "scroller",
         "svelte"
+    ],
+    "files": [
+        "README.md",
+        "package.json",
+        "dist/*",
+        "declaration/*"
     ],
     "repository": {
         "type": "git",
