@@ -30,6 +30,7 @@
         "README.md",
         "package.json",
         "dist/*",
+        "src/*",
         "declaration/*"
     ],
     "author": "Daybrush",

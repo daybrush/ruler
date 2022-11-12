@@ -35,6 +35,7 @@
         "README.md",
         "package.json",
         "dist/*",
+        "src/*",
         "declaration/*"
     ],
     "homepage": "https://daybrush.com/ruler",

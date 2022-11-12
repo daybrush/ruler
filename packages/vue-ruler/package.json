@@ -37,6 +37,7 @@
         "README.md",
         "package.json",
         "dist/*",
+        "src/*",
         "declaration/*"
     ],
     "devDependencies": {
