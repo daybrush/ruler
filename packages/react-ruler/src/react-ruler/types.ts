@@ -171,4 +171,11 @@ export interface RulerProps {
      * @default "#555555"
      */
     selectedBackgroundColor?: string;
+    /**
+     * Scale value of canvase when device high density is 1.
+     * Less than 2 may cause pixels to blur.
+     * If device high density is greater than 1, it is forcibly set to 3.
+     * @default 2
+     */
+    defaultPixelScale?: number;
 }

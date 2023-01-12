@@ -28,6 +28,7 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "portalContainer",
     "selectedBackgroundColor",
     "selectedRanges",
+    "defaultPixelScale",
 ];
 export const METHODS: Array<keyof RulerInterface> = [
     "scroll", "resize",

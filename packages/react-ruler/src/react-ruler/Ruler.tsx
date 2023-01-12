@@ -36,6 +36,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
     private width: number = 0;
     private height: number = 0;
     private _zoom = 0;
+    private _rulerScale = 0;
 
     public render() {
         const props = this.props;
@@ -54,7 +55,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
     }
     public componentDidMount() {
         const canvas = this.canvasElement;
-        const context = canvas.getContext("2d")!;
+        const context = canvas.getContext("2d", { alpha: false })!;
 
         this.canvasContext = context;
 
@@ -80,11 +81,12 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             height,
             scrollPos,
         } = this.props;
+        const rulerScale = this._getRulerScale();
 
         this.width = width || canvas.offsetWidth;
         this.height = height || canvas.offsetHeight;
-        canvas.width = this.width * 2;
-        canvas.height = this.height * 2;
+        canvas.width = this.width * rulerScale;
+        canvas.height = this.height * rulerScale;
         this.draw(scrollPos, nextZoom);
     }
     private draw(scrollPos: number = this.state.scrollPos, nextZoom = this._zoom) {
@@ -107,6 +109,8 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             selectedBackgroundColor,
             lineWidth = 1,
         } = props as Required<RulerProps>;
+
+        const rulerScale = this._getRulerScale();
         const width = this.width;
         const height = this.height;
         const state = this.state;
@@ -125,16 +129,17 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
 
         if (backgroundColor === "transparent") {
             // Clear existing paths & text
-            context.clearRect(0, 0, width * 2, height * 2);
+            context.clearRect(0, 0, width * rulerScale, height * rulerScale);
         } else {
             // Draw the background
-            context.rect(0, 0, width * 2, height * 2);
+            context.rect(0, 0, width * rulerScale, height * rulerScale);
             context.fillStyle = backgroundColor;
             context.fill();
         }
 
+
         context.save();
-        context.scale(2, 2);
+        context.scale(rulerScale, rulerScale);
         context.strokeStyle = lineColor;
         context.lineWidth = lineWidth;
         context.font = font;
@@ -329,5 +334,19 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         }
 
         context.restore();
+    }
+    private _getRulerScale() {
+        const defaultPixelScale = this.props.defaultPixelScale || 2;
+
+        if (!this._rulerScale) {
+            let isHighDensity = window.devicePixelRatio > 1;
+
+            if (!isHighDensity && window.matchMedia) {
+                const mq = window.matchMedia('only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 2.6/2), only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen  and (min-device-pixel-ratio: 1.3), only screen and (min-resolution: 1.3dppx)');
+                isHighDensity = mq && mq.matches;
+            }
+            this._rulerScale = isHighDensity ? 3 : defaultPixelScale;
+        }
+        return this._rulerScale;
     }
 }
