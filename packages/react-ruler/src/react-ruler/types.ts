@@ -165,7 +165,7 @@ export interface RulerProps {
     /**
      * You can paint the selected area(selectedranges) with the `selectedBackgroundColor` color.
      */
-    selectedRanges: number[][];
+    selectedRanges?: number[][];
     /**
      * background color within selected range in ruler with `selectedRanges` area
      * @default "#555555"
