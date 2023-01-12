@@ -25,6 +25,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         range: [-Infinity, Infinity],
         rangeBackgroundColor: 'transparent',
         lineWidth: 1,
+        selectedBackgroundColor: "#555555",
     };
     public divisionsElement!: HTMLElement;
     public state = {
@@ -102,6 +103,8 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             textFormat,
             range = [-Infinity, Infinity],
             rangeBackgroundColor,
+            selectedRanges,
+            selectedBackgroundColor,
             lineWidth = 1,
         } = props as Required<RulerProps>;
         const width = this.width;
@@ -160,6 +163,30 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
         const barSize = isHorizontal ? height : width;
 
+        // Draw Selected Range Background
+        if (selectedBackgroundColor !== "transparent" && selectedRanges?.length) {
+            selectedRanges.forEach(selectedRange => {
+                const rangeStart = Math.max(selectedRange[0], range[0], negativeRuler ? 0 : -Infinity);
+                const rangeEnd = Math.min(selectedRange[1], range[1]);
+                const rangeX = (rangeStart - scrollPos) * nextZoom;
+                const rangeWidth = ((rangeEnd - rangeStart) * nextZoom);
+
+
+                if (rangeWidth <= 0) {
+                    return;
+                }
+
+                context.save();
+                context.fillStyle = selectedBackgroundColor;
+                if (isHorizontal) {
+                    context.fillRect(rangeX, 0, rangeWidth, barSize);
+                } else {
+                    context.fillRect(0, rangeX, barSize, rangeWidth);
+                }
+
+                context.restore();
+            });
+        }
         // Draw Range Background
         if (rangeBackgroundColor !== "transparent" && range[0] !== -Infinity && range[1] !== Infinity) {
             const rangeStart = (range[0] - scrollPos) * nextZoom;

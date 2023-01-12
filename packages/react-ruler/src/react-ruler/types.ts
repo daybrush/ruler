@@ -162,4 +162,13 @@ export interface RulerProps {
      * portal container for other frameworks
      */
     portalContainer?: HTMLElement;
+    /**
+     * You can paint the selected area(selectedranges) with the `selectedBackgroundColor` color.
+     */
+    selectedRanges: number[][];
+    /**
+     * background color within selected range in ruler with `selectedRanges` area
+     * @default "#555555"
+     */
+    selectedBackgroundColor?: string;
 }

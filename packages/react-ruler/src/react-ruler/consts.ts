@@ -26,6 +26,8 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "textBackgroundColor",
     "textFormat",
     "portalContainer",
+    "selectedBackgroundColor",
+    "selectedRanges",
 ];
 export const METHODS: Array<keyof RulerInterface> = [
     "scroll", "resize",

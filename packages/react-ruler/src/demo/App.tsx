@@ -14,6 +14,10 @@ export default class App extends React.Component {
     private ruler6!: Ruler;
     private ruler7!: Ruler;
     private ruler8!: Ruler;
+    private ruler9!: Ruler;
+    private ruler10!: Ruler;
+    private ruler11!: Ruler;
+    private ruler12!: Ruler;
 
     state = {
         range: [0, 100]
@@ -41,7 +45,10 @@ export default class App extends React.Component {
                 lineWidth={1}
             />
             <Ruler ref={ref(this, "ruler2")}
-                type="horizontal" direction="start" style={{ display: "block", width: "400px", height: "30px" }}
+                type="horizontal"
+                direction="start"
+                selectedRanges={[[100, 250]]}
+                style={{ display: "block", width: "400px", height: "30px" }}
                 lineWidth={1}
                 />
             <Ruler ref={ref(this, "ruler3")}
@@ -66,7 +73,7 @@ export default class App extends React.Component {
                 />
             </div>
             <div style={{ padding: 10 }}>
-                <Ruler ref={ref(this, "ruler6")}
+                <Ruler ref={ref(this, "ruler7")}
                     negativeRuler={false}
                     type="horizontal"
                     direction="center"
@@ -76,7 +83,7 @@ export default class App extends React.Component {
                 />
             </div>
             <div style={{ padding: 10 }}>
-                <Ruler ref={ref(this, "ruler6")}
+                <Ruler ref={ref(this, "ruler8")}
                     negativeRuler={false}
                     type="horizontal"
                     direction="end"
@@ -84,7 +91,7 @@ export default class App extends React.Component {
                 />
             </div>
             <div style={{ padding: 10 }}>
-                <Ruler ref={ref(this, "ruler6")}
+                <Ruler ref={ref(this, "ruler9")}
                     negativeRuler={false}
                     type="horizontal"
                     direction="end"
@@ -93,17 +100,18 @@ export default class App extends React.Component {
                 />
             </div>
             <div style={{ padding: 10 }}>
-                <Ruler ref={ref(this, "ruler6")}
+                <Ruler ref={ref(this, "ruler10")}
                     negativeRuler={false}
                     type="horizontal"
                     direction="end"
                     textAlign="center"
                     style={{ display: "block", width: "400px", height: "30px" }}
+                    selectedRanges={[[-100, 100], [200, 300]]}
                     range={this.state.range as any}
                 />
             </div>
             <div style={{ padding: 10 }}>
-                <Ruler ref={ref(this, "ruler7")}
+                <Ruler ref={ref(this, "ruler11")}
                     negativeRuler={false}
                     type="horizontal"
                     zoom={0.5}
@@ -115,7 +123,7 @@ export default class App extends React.Component {
                 />
             </div>
             <div style={{ padding: 10 }}>
-                <Ruler ref={ref(this, "ruler8")}
+                <Ruler ref={ref(this, "ruler12")}
                     negativeRuler={false}
                     zoom={0.5}
                     type="vertical"
@@ -167,7 +175,11 @@ export default class App extends React.Component {
             this.ruler4.scroll(scrollY);
             this.ruler6.scroll(scrollX);
             this.ruler7.scroll(scrollX);
-            this.ruler8.scroll(scrollY);
+            this.ruler8.scroll(scrollX);
+            this.ruler9.scroll(scrollX);
+            this.ruler10.scroll(scrollX);
+            this.ruler11.scroll(scrollX);
+            this.ruler12.scroll(scrollY);
         });
         setInterval(this.swapRange, 1000);
     }
