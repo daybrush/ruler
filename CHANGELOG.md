@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.14.0](https://github.com/daybrush/ruler/compare/0.12.2...0.14.0) (2023-01-12)
+### :sparkles: Packages
+* `preact-ruler` 0.13.0
+* `react-compat-ruler` 0.12.0
+* `@scena/react-ruler` 0.13.0
+* `@scena/ruler` 0.14.0
+* `svelte-ruler` 0.13.0
+* `@scena/vue-ruler` 0.12.0
+* `ngx-ruler` 0.13.0
+
+
+### :rocket: New Features
+
+* `@scena/react-ruler`
+    * add defaultPixelScale prop #36 ([083f519](https://github.com/daybrush/ruler/commit/083f51904786354e39c592684e204aa1575d907d))
+    * add selectedRanges #35 ([b3be55c](https://github.com/daybrush/ruler/commit/b3be55c312efa2d6b9ea6b16ae1cd49cc0f96f04))
+
+
+### :mega: Other
+
+* All
+    * publish packages ([6e41e5f](https://github.com/daybrush/ruler/commit/6e41e5f910f84f68b8db80b493a8c683ab755381))
+
+
+
 ## [0.12.2](https://github.com/daybrush/ruler/compare/0.12.0...0.12.2) (2022-11-12)
 ### :sparkles: Packages
 * `preact-ruler` 0.12.2

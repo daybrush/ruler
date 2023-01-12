@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.12.2...@scena/react-ruler@0.13.0) (2023-01-12)
+
+
+### :rocket: New Features
+
+* add defaultPixelScale prop #36 ([083f519](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/083f51904786354e39c592684e204aa1575d907d))
+* add selectedRanges #35 ([b3be55c](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/b3be55c312efa2d6b9ea6b16ae1cd49cc0f96f04))
+
+
+### :mega: Other
+
+* publish packages ([6e41e5f](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/6e41e5f910f84f68b8db80b493a8c683ab755381))
+
+
+
 ## [0.12.2](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.12.0...@scena/react-ruler@0.12.2) (2022-11-12)
 
 

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.0](https://github.com/daybrush/ruler/compare/svelte-ruler@0.12.2...svelte-ruler@0.13.0) (2023-01-12)
+
+
+### :mega: Other
+
+* publish packages ([6e41e5f](https://github.com/daybrush/ruler/commit/6e41e5f910f84f68b8db80b493a8c683ab755381))
+
+
+
 ## [0.12.2](https://github.com/daybrush/ruler/compare/svelte-ruler@0.12.0...svelte-ruler@0.12.2) (2022-11-12)
 
 
