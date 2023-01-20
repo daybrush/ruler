@@ -32,6 +32,16 @@ export default class App extends React.Component {
 
     render() {
         return (<div>
+            <Ruler
+                textAlign={"center"}
+                segment={5}
+                mainLineSize={12}
+                shortLineSize={5}
+                longLineSize={4}
+                type="horizontal"
+                useResizeObserver={true}
+                style={{ display: "block", width: "100%", height: "50px" }}
+            />
             <Ruler ref={ref(this, "ruler1")}
                 negativeRuler={false}
                 textAlign={"center"}

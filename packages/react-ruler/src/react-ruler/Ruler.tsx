@@ -37,7 +37,6 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
     private height: number = 0;
     private _zoom = 0;
     private _rulerScale = 0;
-    private _observerId = 0;
     private _observer: ResizeObserver | null = null;
 
     public render() {
@@ -60,7 +59,6 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const context = canvas.getContext("2d", { alpha: false })!;
 
         this.canvasContext = context;
-        this.resize();
 
         if (this.props.useResizeObserver) {
             this._observer = new ResizeObserver(this._checkResize);
@@ -68,6 +66,8 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             this._observer.observe(canvas, {
                 box: "border-box",
             });
+        } else {
+            this.resize();
         }
     }
     public componentDidUpdate() {
@@ -76,7 +76,6 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
     public componentWillUnmount(): void {
         this.state.scrollPos = 0;
         this._observer?.disconnect();
-        cancelAnimationFrame(this._observerId);
     }
     /**
      * Gets the scroll position of the ruler.
@@ -370,9 +369,6 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         return this._rulerScale;
     }
     private _checkResize = () => {
-        cancelAnimationFrame(this._observerId);
-        this._observerId = requestAnimationFrame(() => {
-            this.resize();
-        });
+        this.resize();
     }
 }
