@@ -29,6 +29,7 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "selectedBackgroundColor",
     "selectedRanges",
     "defaultPixelScale",
+    "useResizeObserver",
 ];
 export const METHODS: Array<keyof RulerInterface> = [
     "scroll",
