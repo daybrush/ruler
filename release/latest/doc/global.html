@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>ruler/src/Ruler.tsx - Documentation</title>
+    <title>Global - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -14,7 +14,7 @@
     <link type="text/css" rel="stylesheet" href="styles/daybrush.css">
     <link type="text/css" rel="stylesheet" href="styles/custom.css">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <meta name="description" content="ruler/src/Ruler.tsx - Documentation"/>
+    <meta name="description" content="Global - Documentation"/>
 
 </head>
 <body>
@@ -32,83 +32,185 @@
 
 <div id="main">
     
-    <h1 class="page-title">ruler/src/Ruler.tsx</h1>
+    <h1 class="page-title">Global</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import { ref, Properties } from "framework-utils";
-import * as React from "react";
-import { render } from "react-dom";
-import { PROPERTIES } from "./consts";
-import { RulerInterface, RulerProps } from "@scena/react-ruler/declaration/types";
-import InnerRuler from "./InnerRuler";
+        <h2>
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
-/**
- * A Ruler component that can draw grids and scroll infinitely.
- * @sort 1
- * @implements Ruler.RulerInterface
- */
-@Properties(PROPERTIES, (prototype, property) => {
-    Object.defineProperty(prototype, property, {
-        get() {
-            return this.getRuler().props[property];
-        },
-        set(value) {
-            this.innerRuler.setState({
-                [property]: value,
-            });
-        },
-        enumerable: true,
-        configurable: true,
-    });
-})
-class Ruler implements RulerInterface {
-    private tempElement = document.createElement("div");
-    private innerRuler!: InnerRuler;
-    /**
-     * @param - container
-     * @param {$ts:Partial&lt;Ruler.RulerProps>} options - options
-     */
-    constructor(parentElement: HTMLElement, options: Partial&lt;RulerProps> = {}) {
-        render(
-            &lt;InnerRuler ref={ref(this, "innerRuler")}
-                {...options} parentElement={parentElement} />,
-            this.tempElement,
-        );
-    }
-    public scroll(scrollPos: number) {
-        this.getRuler().scroll(scrollPos);
-    }
-    public resize() {
-        this.getRuler().resize();
-    }
-    public getScrollPos() {
-        return this.getRuler().getScrollPos();
-    }
-    /**
-     * Remove Ruler
-     */
-    public destroy() {
-        render(null, this.tempElement);
-        this.tempElement = null;
-        this.innerRuler = null;
-    }
-    private getRuler() {
-        return this.innerRuler.ruler;
-    }
-}
 
-export default Ruler;
-</code></pre>
-        </article>
-    </section>
+
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title" id="methods">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="getScrollPos"><span class="type-signature"></span>getScrollPos<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="react-ruler_src_react-ruler_Ruler.tsx.html">react-ruler/src/react-ruler/Ruler.tsx</a>, <a href="react-ruler_src_react-ruler_Ruler.tsx.html#line83">line 83</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Gets the scroll position of the ruler.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
@@ -117,10 +219,10 @@ export default Ruler;
 <style>
 
 
-nav li[file="ruler/src/ruler"]:after {
+nav li[file="global"]:after {
     display: none;
 }
-nav li[file="ruler/src/ruler"] h4, nav li[file="ruler/src/ruler"] ul {
+nav li[file="global"] h4, nav li[file="global"] ul {
     display: block;
 }
 </style>
