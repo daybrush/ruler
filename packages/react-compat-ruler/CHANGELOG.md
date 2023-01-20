@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/daybrush/ruler/blob/master/packages/react-compat-ruler/compare/react-compat-ruler@0.13.0...react-compat-ruler@0.13.1) (2023-01-20)
+
+
+### :mega: Other
+
+* publish packages ([2d2d96a](https://github.com/daybrush/ruler/blob/master/packages/react-compat-ruler/commit/2d2d96ac218d45278ebfecdd52424a60a2da1ec9))
+
+
+
 ## [0.13.0](https://github.com/daybrush/ruler/blob/master/packages/react-compat-ruler/compare/react-compat-ruler@0.12.0...react-compat-ruler@0.13.0) (2023-01-20)
 
 

@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://github.com/daybrush/ruler/compare/0.15.0...0.15.1) (2023-01-20)
+### :sparkles: Packages
+* `preact-ruler` 0.14.1
+* `react-compat-ruler` 0.13.1
+* `@scena/react-ruler` 0.14.1
+* `@scena/ruler` 0.15.1
+* `svelte-ruler` 0.14.1
+* `@scena/vue-ruler` 0.13.1
+* `ngx-ruler` 0.14.1
+
+
+### :mega: Other
+
+* All
+    * publish packages ([2d2d96a](https://github.com/daybrush/ruler/commit/2d2d96ac218d45278ebfecdd52424a60a2da1ec9))
+
+
+
 ## [0.15.0](https://github.com/daybrush/ruler/compare/0.14.0...0.15.0) (2023-01-20)
 ### :sparkles: Packages
 * `preact-ruler` 0.14.0
