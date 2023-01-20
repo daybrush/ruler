@@ -45,6 +45,9 @@ class Ruler implements RulerInterface {
     public resize() {
         this.getRuler().resize();
     }
+    public getScrollPos() {
+        return this.getRuler().getScrollPos();
+    }
     /**
      * Remove Ruler
      */
