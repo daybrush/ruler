@@ -31,5 +31,7 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "defaultPixelScale",
 ];
 export const METHODS: Array<keyof RulerInterface> = [
-    "scroll", "resize",
+    "scroll",
+    "resize",
+    "getScrollPos",
 ];
