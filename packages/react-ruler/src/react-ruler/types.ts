@@ -14,6 +14,10 @@ export interface RulerInterface {
      * Recalculate the style of the ruler.
      */
     resize(): void;
+    /**
+     * Gets the scroll position of the ruler.
+     */
+    getScrollPos(): number;
 }
 
 /**
@@ -178,4 +182,8 @@ export interface RulerProps {
      * @default 2
      */
     defaultPixelScale?: number;
+    /**
+     * Whether to use the resize observer. When the size changes, the resize method is automatically called.
+     */
+    useResizeObserver?: boolean;
 }
