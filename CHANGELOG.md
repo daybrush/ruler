@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.2](https://github.com/daybrush/ruler/compare/0.15.1...0.15.2) (2023-01-27)
+### :sparkles: Packages
+* `preact-ruler` 0.14.2
+* `react-compat-ruler` 0.13.2
+* `@scena/react-ruler` 0.14.2
+* `@scena/ruler` 0.15.2
+* `svelte-ruler` 0.14.2
+* `@scena/vue-ruler` 0.13.2
+* `ngx-ruler` 0.14.2
+
+
+### :bug: Bug Fix
+
+* `@scena/react-ruler`
+    * fix selected for negativeRuler #35 ([25f2671](https://github.com/daybrush/ruler/commit/25f2671738e742f1464f16addbe46a1fd7654208))
+
+
+### :mega: Other
+
+* All
+    * publish packages ([c9e29b5](https://github.com/daybrush/ruler/commit/c9e29b51d433abd63c4b684cab25c5319a0c4273))
+
+
+
 ## [0.15.1](https://github.com/daybrush/ruler/compare/0.15.0...0.15.1) (2023-01-20)
 ### :sparkles: Packages
 * `preact-ruler` 0.14.1
