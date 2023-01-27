@@ -190,7 +190,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         // Draw Selected Range Background
         if (selectedBackgroundColor !== "transparent" && selectedRanges?.length) {
             selectedRanges.forEach(selectedRange => {
-                const rangeStart = Math.max(selectedRange[0], range[0], negativeRuler ? 0 : -Infinity);
+                const rangeStart = Math.max(selectedRange[0], range[0], negativeRuler ? -Infinity : 0);
                 const rangeEnd = Math.min(selectedRange[1], range[1]);
                 const rangeX = (rangeStart - scrollPos) * nextZoom;
                 const rangeWidth = ((rangeEnd - rangeStart) * nextZoom);

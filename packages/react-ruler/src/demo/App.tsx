@@ -57,7 +57,7 @@ export default class App extends React.Component {
             <Ruler ref={ref(this, "ruler2")}
                 type="horizontal"
                 direction="start"
-                selectedRanges={[[100, 250]]}
+                selectedRanges={[[-100, 250]]}
                 style={{ display: "block", width: "400px", height: "30px" }}
                 lineWidth={1}
                 />
