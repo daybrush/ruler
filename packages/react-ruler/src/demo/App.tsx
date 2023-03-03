@@ -58,6 +58,7 @@ export default class App extends React.Component {
                 type="horizontal"
                 direction="start"
                 selectedRanges={[[-100, 250]]}
+                selectedRangesText={true}
                 style={{ display: "block", width: "400px", height: "30px" }}
                 lineWidth={1}
                 />

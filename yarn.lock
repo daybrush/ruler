@@ -6797,10 +6797,10 @@ dateformat@^3.0.0:
   resolved "https://registry.npmjs.org/dateformat/-/dateformat-3.0.3.tgz"
   integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
-daybrush-jsdoc-template@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.npmjs.org/daybrush-jsdoc-template/-/daybrush-jsdoc-template-1.7.0.tgz"
-  integrity sha512-+R+37tg0etaaWqMP+z5mGMdt7432riKh1jMo2SYZnUMhk0KMEmoXUC4JzwF1sKQtmWojLBQZ7Z2zfbsVA2tBjQ==
+daybrush-jsdoc-template@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.npmjs.org/daybrush-jsdoc-template/-/daybrush-jsdoc-template-1.10.0.tgz#6fc0f2f90c689b1eaaf0d2d74e67062a5a593c25"
+  integrity sha512-9bj+MGARB1Spqn2WQYpnK6f5KOBFLcJLunUrGqjLKkwi9X2WrWCqPfjIATahwSA/I7I0+XNjavlYgegyc1y47g==
   dependencies:
     "@daybrush/jsdoc" "^0.4.0"
     "@daybrush/utils" "^1.6.0"

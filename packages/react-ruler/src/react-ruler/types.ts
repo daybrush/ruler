@@ -176,6 +176,24 @@ export interface RulerProps {
      */
     selectedBackgroundColor?: string;
     /**
+     * Text is displayed in the selected ranges. If it overlaps existing text, only the selected range text is visible.
+     * @since 0.16.0
+     * @default false
+     */
+    selectedRangesText?: boolean;
+    /**
+     * Position offset of text in selected ranges
+     * @since 0.16.0
+     * @default "0, 0"
+     */
+    selectedRangesTextOffset?: number[];
+    /**
+     * Color of text in selected ranges
+     * @since 0.16.0
+     * @default "#44aaff"
+     */
+    selectedRangesTextColor?: string;
+    /**
      * Scale value of canvase when device high density is 1.
      * Less than 2 may cause pixels to blur.
      * If device high density is greater than 1, it is forcibly set to 3.

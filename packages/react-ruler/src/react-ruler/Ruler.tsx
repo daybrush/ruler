@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ref } from "framework-utils";
 import { RulerInterface, RulerProps } from "./types";
-import { convertUnitSize } from "@daybrush/utils";
+import { convertUnitSize, findIndex } from "@daybrush/utils";
 
 export default class Ruler extends React.PureComponent<RulerProps> implements RulerInterface {
     public static defaultProps: Partial<RulerProps> = {
@@ -127,6 +127,9 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             selectedRanges,
             selectedBackgroundColor,
             lineWidth = 1,
+            selectedRangesText,
+            selectedRangesTextColor = "#44aaff",
+            selectedRangesTextOffset = [0, 0],
         } = props as Required<RulerProps>;
 
         const rulerScale = this._getRulerScale();
@@ -186,6 +189,22 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const length = maxRange - minRange;
         const alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
         const barSize = isHorizontal ? height : width;
+        const values: Array<{
+            value: number;
+            color: string;
+            backgroundColor?: string;
+            offset: number[];
+        }> = [];
+
+        for (let i = 0; i <= length; ++i) {
+            values.push({
+                color: textColor,
+                offset: textOffset,
+                backgroundColor: textBackgroundColor,
+                value: (i + minRange) * unit,
+            });
+        }
+
 
         // Draw Selected Range Background
         if (selectedBackgroundColor !== "transparent" && selectedRanges?.length) {
@@ -195,19 +214,32 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 const rangeX = (rangeStart - scrollPos) * nextZoom;
                 const rangeWidth = ((rangeEnd - rangeStart) * nextZoom);
 
+                if (selectedRangesText) {
+                    selectedRange.forEach(value => {
+                        const index = findIndex(values, ({ value: prevValue }) => prevValue === value);
+
+                        if (index > -1) {
+                            values.splice(index, 1);
+                        }
+                        values.push({
+                            value,
+                            color: selectedRangesTextColor,
+                            offset: selectedRangesTextOffset,
+                        });
+                    });
+                }
 
                 if (rangeWidth <= 0) {
                     return;
                 }
-
                 context.save();
                 context.fillStyle = selectedBackgroundColor;
+
                 if (isHorizontal) {
                     context.fillRect(rangeX, 0, rangeWidth, barSize);
                 } else {
                     context.fillRect(0, rangeX, barSize, rangeWidth);
                 }
-
                 context.restore();
             });
         }
@@ -274,17 +306,16 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         context.stroke();
 
         // Render Labels
-        for (let i = 0; i <= length; ++i) {
-            const value = i + minRange;
 
+
+        values.forEach(({ value, offset, backgroundColor, color }) => {
             if (!isNegative && value < 0) {
-                continue;
+                return;
             }
-            const startValue = value * unit;
-            const startPos = (startValue - scrollPos) * nextZoom;
+            const startPos = (value - scrollPos) * nextZoom;
 
-            if (startPos < -zoomUnit || startPos >= size + unit * nextZoom || startValue < range[0] || startValue > range[1]) {
-                continue;
+            if (startPos < -zoomUnit || startPos >= size + unit * nextZoom || value < range[0] || value > range[1]) {
+                return;
             }
 
             let origin = 0
@@ -304,53 +335,51 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 ? [startPos + alignOffset * -3, origin]
                 : [origin, startPos + alignOffset * 3];
 
-            let text = `${startValue}`;
+            let text = `${value}`;
 
             if (textFormat) {
-                text = textFormat(startValue);
+                text = textFormat(value);
             }
 
             context.textAlign = textAlign;
 
-
-            let backgroundOffset = 0
-            const textSize = context.measureText(text).width
-            switch (textAlign) {
-                case "left":
-                    backgroundOffset = 0;
-                    break;
-                case "center":
-                    backgroundOffset = -textSize / 2;
-                    break;
-                case "right":
-                    backgroundOffset = -textSize;
-                    break;
-            }
-
-            if (isHorizontal) {
+            if (backgroundColor) {
+                let backgroundOffset = 0
+                const textSize = context.measureText(text).width
+                switch (textAlign) {
+                    case "left":
+                        backgroundOffset = 0;
+                        break;
+                    case "center":
+                        backgroundOffset = -textSize / 2;
+                        break;
+                    case "right":
+                        backgroundOffset = -textSize;
+                        break;
+                }
                 context.save();
-                context.fillStyle = textBackgroundColor;
-                context.fillRect(startX + textOffset[0] + backgroundOffset, 0, textSize, mainLineSize);
-                context.restore();
-            } else {
-                context.save();
-                context.translate(0, startY + textOffset[1]);
-                context.rotate(-Math.PI / 2);
-                context.fillStyle = textBackgroundColor;
-                context.fillRect(backgroundOffset, 0, textSize, mainLineSize);
+                context.fillStyle = backgroundColor;
+                if (isHorizontal) {
+                    context.fillRect(startX + offset[0] + backgroundOffset, 0, textSize, mainLineSize);
+                } else {
+                    context.translate(0, startY + offset[1]);
+                    context.rotate(-Math.PI / 2);
+                    context.fillRect(backgroundOffset, 0, textSize, mainLineSize);
+                }
                 context.restore();
             }
 
+            context.save();
+            context.fillStyle = color;
             if (isHorizontal) {
-                context.fillText(text, startX + textOffset[0], startY + textOffset[1]);
+                context.fillText(text, startX + offset[0], startY + offset[1]);
             } else {
-                context.save();
-                context.translate(startX + textOffset[0], startY + textOffset[1]);
+                context.translate(startX + offset[0], startY + offset[1]);
                 context.rotate(-Math.PI / 2);
                 context.fillText(text, 0, 0);
-                context.restore();
             }
-        }
+            context.restore();
+        });
 
         context.restore();
     }
