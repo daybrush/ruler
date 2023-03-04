@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.14.2...@scena/react-ruler@0.15.0) (2023-03-04)
+
+
+### :rocket: New Features
+
+* add selectedRangesText props #38 ([6b1f77a](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/6b1f77ae633b94effb8ce21412b871dcf8a3673f))
+
+
+### :mega: Other
+
+* publish packages ([80d6f11](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/80d6f1176e755cce1b4bcc044b4e6574b8118c01))
+
+
+
 ## [0.14.2](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.14.1...@scena/react-ruler@0.14.2) (2023-01-27)
 
 
