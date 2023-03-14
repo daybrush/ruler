@@ -26,7 +26,7 @@
         "update-type-consts": "node ./config/update-type-consts.js",
         "packages:build": "npm run build --prefix packages/react-ruler && npm run update-type-consts && lerna run build --ignore ngx-ruler --ignore @scena/react-ruler",
         "packages:publish": "lerna-helper publish --ignore ngx-ruler --commit 'chore: publish packages'",
-        "demo:build": "npm run packages:build && npm run doc && npm run build:storybook && npm run build:storybook2",
+        "demo:build": "npm run packages:build && npm run doc",
         "changelog": "lerna-helper changelog --type all --base @scena/ruler",
         "changelog:root": "lerna-helper changelog --type root --base @scena/ruler",
         "doc": "rm -rf ./doc && jsdoc -c jsdoc.json",
