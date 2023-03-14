@@ -25,6 +25,17 @@
     "linkMap": {
         "IObject": "http://daybrush.com/utils/release/latest/doc/global.html#ObjectInterface"
     },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "staticFiles": {
+                "include": [
+                    "./static"
+                ]
+            }
+        }
+    },
     "docdash": {
         "menu": {
             "Github repo": {
