@@ -45,7 +45,7 @@ export class NgxRulerComponent extends NgxRulerInterface implements AfterViewIni
       (options as any)[name] = (this as any)[name];
     });
 
-    options['portalContainer'] = this.rulerRef.nativeElement;
+    options['warpSelf'] = true;
     this.ruler = new Ruler(el, options);
     this.setStyle();
   }

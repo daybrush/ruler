@@ -1,9 +1,9 @@
 import { ref, Properties } from "framework-utils";
 import * as React from "react";
-import { render } from "react-dom";
 import { PROPERTIES } from "./consts";
 import { RulerInterface, RulerProps } from "@scena/react-ruler/declaration/types";
 import InnerRuler from "./InnerRuler";
+import { ContainerProvider, renderSelf } from "croact";
 
 
 /**
@@ -26,17 +26,29 @@ import InnerRuler from "./InnerRuler";
     });
 })
 class Ruler implements RulerInterface {
-    private tempElement = document.createElement("div");
+    private containerProvider: ContainerProvider | null = null;
+    private selfElement: HTMLElement | null = null;
     private innerRuler!: InnerRuler;
+    private _warp = false;
     /**
      * @param - container
      * @param {$ts:Partial<Ruler.RulerProps>} options - options
      */
     constructor(parentElement: HTMLElement, options: Partial<RulerProps> = {}) {
-        render(
+        let selfElement!: HTMLElement;
+
+        if (options.warpSelf) {
+            delete options.warpSelf;
+            this._warp = true;
+            selfElement = parentElement;
+        } else {
+            selfElement = document.createElement("div");
+            parentElement.appendChild(selfElement);
+        }
+        renderSelf(
             <InnerRuler ref={ref(this, "innerRuler")}
-                {...options} parentElement={parentElement} />,
-            this.tempElement,
+                {...options} />,
+            selfElement,
         );
     }
     public scroll(scrollPos: number) {
@@ -52,8 +64,17 @@ class Ruler implements RulerInterface {
      * Remove Ruler
      */
     public destroy() {
-        render(null, this.tempElement);
-        this.tempElement = null;
+        const selfElement = this.selfElement!;
+
+        renderSelf(
+            null,
+            selfElement!,
+            this.containerProvider,
+        );
+        if (!this._warp) {
+            selfElement?.parentElement?.removeChild(selfElement);
+        }
+        this.selfElement = null;
         this.innerRuler = null;
     }
     private getRuler() {

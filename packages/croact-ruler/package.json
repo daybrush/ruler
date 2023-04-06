@@ -1,5 +1,5 @@
 {
-    "name": "react-compat-ruler",
+    "name": "croact-ruler",
     "version": "0.14.0",
     "description": "A React Compat Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
@@ -24,7 +24,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/daybrush/ruler/blob/master/packages/react-compat-ruler"
+        "url": "https://github.com/daybrush/ruler/blob/master/packages/croact-ruler"
     },
     "files": [
         "README.md",
@@ -47,10 +47,9 @@
         "preact": "^10.0.0",
         "print-sizes": "^0.1.0",
         "pvu": "^0.5.1",
-        "react-simple-compat": "^1.2.2",
+        "croact": "^1.0.0",
         "rollup-plugin-css-bundle": "^1.0.4",
-        "rollup-plugin-preact": "^0.5.2",
-        "rollup-plugin-react-compat": "^0.1.0",
+        "rollup-plugin-react-compat": "^0.1.1",
         "scenejs": "^1.1.4",
         "shape-svg": "^0.3.3",
         "tslint": "^5.16.0",

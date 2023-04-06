@@ -46,7 +46,7 @@
   });
   onMount(() => {
     setStyle();
-    options.portalContainer = rulerElement;
+    options.warpSelf = true;
     ruler = new VanillaRuler(rulerElement, options);
   });
   onDestroy(() => {

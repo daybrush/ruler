@@ -3,7 +3,7 @@ import cssbundle from "rollup-plugin-css-bundle";
 import compat from "rollup-plugin-react-compat";
 
 const resolveReactCompat = compat({
-    useReactCompat: true,
+    useCroact: true,
     resolveCompat: true,
 });
 

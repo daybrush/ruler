@@ -12,8 +12,6 @@ export default class InnerRuler extends React.Component<InnerRulerProps, InnerRu
         this.state = this.props;
     }
     public render() {
-        const { parentElement, ...state } = this.state;
-
-        return createPortal(<ReactRuler ref={ref(this, "ruler")} {...state} />, parentElement);
+        return <ReactRuler ref={ref(this, "ruler")} {...this.state} />;
     }
 }

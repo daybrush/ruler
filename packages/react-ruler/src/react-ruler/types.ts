@@ -163,9 +163,9 @@ export interface RulerProps {
      */
     lineWidth?: number;
     /**
-     * portal container for other frameworks
+     * Whether to warp self
      */
-    portalContainer?: HTMLElement;
+    warpSelf?: boolean;
     /**
      * You can paint the selected area(selectedranges) with the `selectedBackgroundColor` color.
      */

@@ -1681,10 +1681,10 @@
   dependencies:
     prototype-minify "^1.0.0"
 
-"@daybrush/utils@1.6.0", "@daybrush/utils@^0.10.0", "@daybrush/utils@^0.10.1", "@daybrush/utils@^0.11.0", "@daybrush/utils@^0.5.2", "@daybrush/utils@^0.7.1", "@daybrush/utils@^1.0.0", "@daybrush/utils@^1.1.1", "@daybrush/utils@^1.3.1", "@daybrush/utils@^1.4.0", "@daybrush/utils@^1.6.0", "@daybrush/utils@^1.7.1":
-  version "1.10.0"
-  resolved "https://registry.npmjs.org/@daybrush/utils/-/utils-1.10.0.tgz"
-  integrity sha512-IDT0DWAGcjxb2+WMr8pHrVTkHVKdilBumX1SubXJUlowN4rMSLphwDxvMNfv+vQOrdCPXSoPVZ3mhfrHsQ9Xow==
+"@daybrush/utils@1.6.0", "@daybrush/utils@^0.10.0", "@daybrush/utils@^0.10.1", "@daybrush/utils@^0.11.0", "@daybrush/utils@^0.5.2", "@daybrush/utils@^0.7.1", "@daybrush/utils@^1.0.0", "@daybrush/utils@^1.1.1", "@daybrush/utils@^1.11.0", "@daybrush/utils@^1.3.1", "@daybrush/utils@^1.4.0", "@daybrush/utils@^1.6.0", "@daybrush/utils@^1.7.1":
+  version "1.11.0"
+  resolved "https://registry.npmjs.org/@daybrush/utils/-/utils-1.11.0.tgz#ad23a431fdb8f95ab4bb34fb6d080f2f7997a988"
+  integrity sha512-/T0Oe7KkfUoCusFj1cJ6N+Tu+jFZXVkaKqDBcDY3P0goJfcfaT+4+oG8aHi4LDgBErNjP6uvC3IEOSMe2ka/yQ==
 
 "@discoveryjs/json-ext@0.5.6":
   version "0.5.6"
@@ -6364,6 +6364,14 @@ critters@0.0.16:
     postcss "^8.3.7"
     pretty-bytes "^5.3.0"
 
+croact@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/croact/-/croact-1.0.0.tgz#fb0fe8281b736acba4ca78e2545eff0e314fb414"
+  integrity sha512-VpPknTd65rB3VgRVchQiX5pQAqx/qaZVCNVzY3rwCpqYjQKVPHZ5YwdkHX9jTxkg5lKxrUmFzj/5SNUJ7S4dNA==
+  dependencies:
+    "@daybrush/utils" "^1.11.0"
+    "@egjs/list-differ" "^1.0.0"
+
 cross-spawn@7.0.1:
   version "7.0.1"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.1.tgz"
@@ -6565,7 +6573,7 @@ css-selector-tokenizer@^0.7.0:
     cssesc "^3.0.0"
     fastparse "^1.1.2"
 
-css-styled@^1.0.0, css-styled@~1.0.1:
+css-styled@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/css-styled/-/css-styled-1.0.1.tgz"
   integrity sha512-psJCbNDPPusDBWH/gszP6BetPh577QaqpvaysTNPitxX0nxdGiTgELiOCus0gZ0yXk3gvjShBrFP07nvn58/TQ==
@@ -15619,24 +15627,6 @@ react-app-polyfill@^1.0.6:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
-react-compat-css-styled@^1.0.8:
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/react-compat-css-styled/-/react-compat-css-styled-1.0.9.tgz#70ed3ed8d8000fe01cb5ce15ee7723a094165db1"
-  integrity sha512-YpUgTpXU1wR58aPQJVGAWq6QeEFWkafV0qq4Y8KRUwpQJLbJF2GYu5ZQ/kafHGvN3dqQX2e340NlNZ+zbZZv2w==
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    css-styled "^1.0.0"
-    framework-utils "^1.1.0"
-    react-css-styled "~1.0.4"
-
-react-css-styled@^1.0.3, react-css-styled@~1.0.4:
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/react-css-styled/-/react-css-styled-1.0.4.tgz#236ce398232dc152084bbf20540df1c971534174"
-  integrity sha512-nRske1bAKOCaf7Gf3o76tKQFIYggaW1qH4rutBlitH5lYnRPA7WoAYKrcxqdUPZd00oASg3SvFZSh3Mc1Wvj3w==
-  dependencies:
-    css-styled "~1.0.1"
-    framework-utils "^1.1.0"
-
 react-dev-utils@^10.2.1:
   version "10.2.1"
   resolved "https://registry.npmjs.org/react-dev-utils/-/react-dev-utils-10.2.1.tgz"
@@ -15746,14 +15736,6 @@ react-scripts@^3.0.1:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
-
-react-simple-compat@^1.2.2:
-  version "1.2.3"
-  resolved "https://registry.npmjs.org/react-simple-compat/-/react-simple-compat-1.2.3.tgz"
-  integrity sha512-vYepRjSriGRyEmFtSsTQoHWVQRbBMYR4ONATeZtuf8GDY8jWGkc6R4+lIb5rVhPBIkx3ru68bpl+9r8V4YA/nA==
-  dependencies:
-    "@daybrush/utils" "^1.0.0"
-    "@egjs/list-differ" "^1.0.0"
 
 react@^16.12.0, react@^16.8.6:
   version "16.14.0"
@@ -16420,13 +16402,12 @@ rollup-plugin-prototype-minify@^1.1.0:
   dependencies:
     prototype-minify "^1.1.0"
 
-rollup-plugin-react-compat@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/rollup-plugin-react-compat/-/rollup-plugin-react-compat-0.1.0.tgz"
-  integrity sha512-iZa0w8b+sdVQaiorjauEJTz3GV+AsmduAgJnpF12KbUxiEepMwKBqRUA9NGnYXuubyZtFLgZimyJ6Hgvgiu1KA==
+rollup-plugin-react-compat@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/rollup-plugin-react-compat/-/rollup-plugin-react-compat-0.1.1.tgz#e57556e9a168ebf376668107123eaf2c0f21962b"
+  integrity sha512-9wu6K7RABBcke4HzsL+gZFPExhcPIKj2lThHew8QAlqCL217nfz1KnKQ7juNn9bXrjdGCBAJDDyDngyRJJkWjQ==
   dependencies:
     preact-compat "^3.19.0"
-    preact-compat2 "^0.1.0"
     rollup-plugin-node-resolve "^5.2.0"
 
 rollup-plugin-replace@^2.1.1:

@@ -51,7 +51,7 @@ export default {
         (options as any)[name] = props[name];
       }
     });
-    options.portalContainer = this.$refs.rulerElement;
+    options.warpSelf = true;
     const ruler = new VanillaRuler(this.$refs.rulerElement as HTMLElement, options);
     this.setStyle();
 

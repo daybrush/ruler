@@ -25,7 +25,7 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "textColor",
     "textBackgroundColor",
     "textFormat",
-    "portalContainer",
+    "warpSelf",
     "selectedBackgroundColor",
     "selectedRanges",
     "defaultPixelScale",
