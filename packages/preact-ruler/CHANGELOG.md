@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.0](https://github.com/daybrush/ruler/blob/master/packages/preact-ruler/compare/preact-ruler@0.15.0...preact-ruler@0.16.0) (2023-04-06)
+
+
+### :mega: Other
+
+* publish packages ([9775d43](https://github.com/daybrush/ruler/blob/master/packages/preact-ruler/commit/9775d43ce6b04033141c394aa8c7ca3288238588))
+
+
+
 ## [0.15.0](https://github.com/daybrush/ruler/blob/master/packages/preact-ruler/compare/preact-ruler@0.14.2...preact-ruler@0.15.0) (2023-03-04)
 
 

@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.15.0...@scena/react-ruler@0.16.0) (2023-04-06)
+
+
+### :rocket: New Features
+
+* add croact-ruler ([2d0361e](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/2d0361e403c0b51f135558add86296a509e3ec9b))
+
+
+### :mega: Other
+
+* publish packages ([9775d43](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/9775d43ce6b04033141c394aa8c7ca3288238588))
+
+
+
 ## [0.15.0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.14.2...@scena/react-ruler@0.15.0) (2023-03-04)
 
 
