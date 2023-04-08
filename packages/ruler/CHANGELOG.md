@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://github.com/daybrush/ruler/compare/@scena/ruler@0.18.0...@scena/ruler@0.18.1) (2023-04-08)
+
+
+### :mega: Other
+
+* publish packages ([2c6bfa0](https://github.com/daybrush/ruler/commit/2c6bfa0cda3df3a361f48163d9a7f1ada6cccb59))
+
+
+
 ## [0.18.0](https://github.com/daybrush/ruler/compare/@scena/ruler@0.17.0...@scena/ruler@0.18.0) (2023-04-08)
 
 

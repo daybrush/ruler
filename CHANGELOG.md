@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.1](https://github.com/daybrush/ruler/compare/0.18.0...0.18.1) (2023-04-08)
+### :sparkles: Packages
+* `croact-ruler` 0.16.1
+* `preact-ruler` 0.17.1
+* `@scena/react-ruler` 0.17.1
+* `@scena/ruler` 0.18.1
+* `svelte-ruler` 0.17.1
+* `@scena/vue-ruler` 0.16.1
+* `ngx-ruler` 0.17.1
+
+
+### :bug: Bug Fix
+
+* `@scena/react-ruler`
+    * fix selectedRangesText's overlapped text ([456dd22](https://github.com/daybrush/ruler/commit/456dd2285fc89aabd43724618e8731103256b8cf))
+
+
+### :mega: Other
+
+* All
+    * publish packages ([2c6bfa0](https://github.com/daybrush/ruler/commit/2c6bfa0cda3df3a361f48163d9a7f1ada6cccb59))
+
+
+
 ## [0.18.0](https://github.com/daybrush/ruler/compare/0.17.0...0.18.0) (2023-04-08)
 ### :sparkles: Packages
 * `croact-ruler` 0.16.0

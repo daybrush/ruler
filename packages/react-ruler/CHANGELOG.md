@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.1](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.17.0...@scena/react-ruler@0.17.1) (2023-04-08)
+
+
+### :bug: Bug Fix
+
+* fix selectedRangesText's overlapped text ([456dd22](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/456dd2285fc89aabd43724618e8731103256b8cf))
+
+
+### :mega: Other
+
+* publish packages ([2c6bfa0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/2c6bfa0cda3df3a361f48163d9a7f1ada6cccb59))
+
+
+
 ## [0.17.0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.16.0...@scena/react-ruler@0.17.0) (2023-04-08)
 
 
