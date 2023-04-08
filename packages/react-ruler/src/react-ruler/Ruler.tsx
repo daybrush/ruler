@@ -26,6 +26,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         rangeBackgroundColor: 'transparent',
         lineWidth: 1,
         selectedBackgroundColor: "#555555",
+        defaultScrollPos: 0,
     };
     public divisionsElement!: HTMLElement;
     public state = {
@@ -49,12 +50,14 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
 
     }
     public componentDidMount() {
+        const props = this.props;
+        this.state.scrollPos = props.defaultScrollPos || 0;
         const canvas = this.canvasElement;
         const context = canvas.getContext("2d", { alpha: false })!;
 
         this.canvasContext = context;
 
-        if (this.props.useResizeObserver) {
+        if (props.useResizeObserver) {
             this._observer = new ResizeObserver(this._checkResize);
 
             this._observer.observe(canvas, {

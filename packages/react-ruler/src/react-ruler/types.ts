@@ -124,6 +124,12 @@ export interface RulerProps {
      */
     scrollPos?: number;
     /**
+     * you can set scroll position by prop for init.
+     * don't use `scrollPos` prop
+     * @default 0
+     */
+    defaultScrollPos?: number;
+    /**
      * ruler canvas style
      */
     style?: IObject<any>;

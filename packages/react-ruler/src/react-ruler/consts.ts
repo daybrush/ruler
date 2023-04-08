@@ -18,6 +18,7 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "negativeRuler",
     "range",
     "scrollPos",
+    "defaultScrollPos",
     "style",
     "backgroundColor",
     "rangeBackgroundColor",

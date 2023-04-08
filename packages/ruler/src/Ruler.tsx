@@ -28,8 +28,8 @@ import { ContainerProvider, renderSelf } from "croact";
 class Ruler implements RulerInterface {
     private containerProvider: ContainerProvider | null = null;
     private selfElement: HTMLElement | null = null;
-    private innerRuler!: InnerRuler;
     private _warp = false;
+    private innerRuler!: InnerRuler;
     /**
      * @param - container
      * @param {$ts:Partial<Ruler.RulerProps>} options - options
