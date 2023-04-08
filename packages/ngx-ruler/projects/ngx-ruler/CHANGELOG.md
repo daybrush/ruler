@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.0](https://github.com/daybrush/ruler/compare/ngx-ruler@0.16.0...ngx-ruler@0.17.0) (2023-04-08)
+
+
+### :mega: Other
+
+* publish packages ([65c88e8](https://github.com/daybrush/ruler/commit/65c88e87316850f2cd0cd56a1c4a7f9d1131355b))
+
+
+
 ## [0.16.0](https://github.com/daybrush/ruler/compare/ngx-ruler@0.15.0...ngx-ruler@0.16.0) (2023-04-06)
 
 

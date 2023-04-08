@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.0](https://github.com/daybrush/ruler/compare/@scena/ruler@0.17.0...@scena/ruler@0.18.0) (2023-04-08)
+
+
+### :rocket: New Features
+
+* add defaultScrollPos prop ([abd585b](https://github.com/daybrush/ruler/commit/abd585bda548be8384a644cd251e6678635fa8b4))
+
+
+### :mega: Other
+
+* publish packages ([65c88e8](https://github.com/daybrush/ruler/commit/65c88e87316850f2cd0cd56a1c4a7f9d1131355b))
+
+
+
 ## [0.17.0](https://github.com/daybrush/ruler/compare/@scena/ruler@0.16.0...@scena/ruler@0.17.0) (2023-04-06)
 
 
