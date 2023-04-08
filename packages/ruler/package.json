@@ -1,6 +1,6 @@
 {
     "name": "@scena/ruler",
-    "version": "0.17.0",
+    "version": "0.18.0",
     "description": "A Vanilla Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -48,6 +48,6 @@
     },
     "dependencies": {
         "croact": "^1.0.0",
-        "croact-ruler": "~0.15.0"
+        "croact-ruler": "~0.16.0"
     }
 }
