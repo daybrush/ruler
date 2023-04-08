@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ref } from "framework-utils";
 import { RulerInterface, RulerProps } from "./types";
-import { convertUnitSize, findIndex } from "@daybrush/utils";
+import { convertUnitSize, findLast } from "@daybrush/utils";
 
 export default class Ruler extends React.PureComponent<RulerProps> implements RulerInterface {
     public static defaultProps: Partial<RulerProps> = {
@@ -163,6 +163,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         context.lineWidth = lineWidth;
         context.font = font;
         context.fillStyle = textColor;
+        context.textAlign = textAlign;
 
         switch (direction) {
             case "start":
@@ -187,18 +188,30 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const alignOffset = Math.max(["left", "center", "right"].indexOf(textAlign) - 1, -1);
         const barSize = isHorizontal ? height : width;
         const values: Array<{
-            value: number;
             color: string;
             backgroundColor?: string;
             offset: number[];
+            value: number;
+            text: string;
+            textSize: number;
         }> = [];
 
         for (let i = 0; i <= length; ++i) {
+            const value = (i + minRange) * unit;
+            let text = `${value}`;
+
+            if (textFormat) {
+                text = textFormat(value);
+            }
+            const textSize = context.measureText(text).width;
+
             values.push({
                 color: textColor,
                 offset: textOffset,
                 backgroundColor: textBackgroundColor,
-                value: (i + minRange) * unit,
+                value,
+                text,
+                textSize: textSize,
             });
         }
 
@@ -213,15 +226,30 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
 
                 if (selectedRangesText) {
                     selectedRange.forEach(value => {
-                        const index = findIndex(values, ({ value: prevValue }) => prevValue === value);
+                        let text = `${value}`;
 
-                        if (index > -1) {
-                            values.splice(index, 1);
+                        if (textFormat) {
+                            text = textFormat(value);
                         }
+                        const textSize = context.measureText(text).width;
+
+                        const startPos = value * nextZoom;
+                        const endPos = startPos + textSize;
+
+                        findLast(values, ({ value: prevValue, textSize: prevTextSize }, index) => {
+                            const prevStartPos = prevValue * nextZoom;
+                            const prevEndPos = prevStartPos + prevTextSize;
+
+                            if (prevStartPos <= endPos && startPos <= prevEndPos) {
+                                values.splice(index, 1);
+                            }
+                        });
                         values.push({
                             value,
                             color: selectedRangesTextColor,
                             offset: selectedRangesTextOffset,
+                            text,
+                            textSize,
                         });
                     });
                 }
@@ -304,8 +332,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
 
         // Render Labels
 
-
-        values.forEach(({ value, offset, backgroundColor, color }) => {
+        values.forEach(({ value, offset, backgroundColor, color, text, textSize }) => {
             if (!isNegative && value < 0) {
                 return;
             }
@@ -332,17 +359,8 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 ? [startPos + alignOffset * -3, origin]
                 : [origin, startPos + alignOffset * 3];
 
-            let text = `${value}`;
-
-            if (textFormat) {
-                text = textFormat(value);
-            }
-
-            context.textAlign = textAlign;
-
             if (backgroundColor) {
                 let backgroundOffset = 0
-                const textSize = context.measureText(text).width
                 switch (textAlign) {
                     case "left":
                         backgroundOffset = 0;
