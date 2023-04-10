@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.1](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.17.1...@scena/react-ruler@0.17.1) (2023-04-10)
+
+**Note:** Version bump only for package @scena/react-ruler
+
+
+
+
+
 ## [0.17.1](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.17.0...@scena/react-ruler@0.17.1) (2023-04-08)
 
 

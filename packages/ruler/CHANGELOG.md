@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.2](https://github.com/daybrush/ruler/compare/@scena/ruler@0.18.1...@scena/ruler@0.18.2) (2023-04-10)
+
+
+### :bug: Bug Fix
+
+* fix module name #40 ([c36f6fe](https://github.com/daybrush/ruler/commit/c36f6fe9c5b4eb04b3e0dbeca78dbaf126289178))
+
+
+### :mega: Other
+
+* update packages ([c9ffdbb](https://github.com/daybrush/ruler/commit/c9ffdbb6524f80ed5213ff778dafa62f4a1f9353))
+
+
+
 ## [0.18.1](https://github.com/daybrush/ruler/compare/@scena/ruler@0.18.0...@scena/ruler@0.18.1) (2023-04-08)
 
 

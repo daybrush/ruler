@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.1](https://github.com/daybrush/ruler/blob/master/packages/croact-ruler/compare/croact-ruler@0.16.1...croact-ruler@0.16.1) (2023-04-10)
+
+**Note:** Version bump only for package croact-ruler
+
+
+
+
+
 ## [0.16.1](https://github.com/daybrush/ruler/blob/master/packages/croact-ruler/compare/croact-ruler@0.16.0...croact-ruler@0.16.1) (2023-04-08)
 
 
