@@ -6,7 +6,7 @@ import compat from "rollup-plugin-react-compat";
 const reactCompat = compat({
     useCroact: true,
     aliasModules: {
-        "@scena/react-ruler": "react-compat-ruler",
+        "@scena/react-ruler": "croact-ruler",
     },
 });
 const resolveReactCompat = compat({
@@ -16,7 +16,7 @@ const resolveReactCompat = compat({
 
 const external = {
     "croact": "croact",
-    "react-compat-ruler": "react-compat-ruler",
+    "croact-ruler": "croact-ruler",
     "@egjs/component": "@egjs/component",
     "@daybrush/utils": "@daybrush/utils",
     "@daybrush/drag": "@daybrush/drag",
