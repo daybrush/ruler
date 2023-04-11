@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.3](https://github.com/daybrush/ruler/compare/@scena/vue-ruler@0.16.2...@scena/vue-ruler@0.16.3) (2023-04-11)
+
+
+### :bug: Bug Fix
+
+* fix createElement canvas #40 ([8fe015c](https://github.com/daybrush/ruler/commit/8fe015ce7c6258c718f74747b6bc0431fcd22842))
+
+
+
 ## [0.16.2](https://github.com/daybrush/ruler/compare/@scena/vue-ruler@0.16.1...@scena/vue-ruler@0.16.2) (2023-04-10)
 
 
