@@ -42,7 +42,7 @@ class Ruler implements RulerInterface {
             this._warp = true;
             selfElement = parentElement;
         } else {
-            selfElement = document.createElement("div");
+            selfElement = document.createElement("canvas");
             parentElement.appendChild(selfElement);
         }
         renderSelf(
