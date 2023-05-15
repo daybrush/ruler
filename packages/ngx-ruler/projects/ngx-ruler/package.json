@@ -1,6 +1,6 @@
 {
   "name": "ngx-ruler",
-  "version": "0.17.4",
+  "version": "0.17.5",
   "description": "An Angular Ruler component that can draw grids and scroll infinitely.",
   "keywords": [
     "scene",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/daybrush/ruler#readme",
   "dependencies": {
-    "@scena/ruler": "~0.18.4",
+    "@scena/ruler": "~0.18.5",
     "tslib": "^2.3.0"
   }
 }
