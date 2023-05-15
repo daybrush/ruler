@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.6](https://github.com/daybrush/ruler/compare/0.18.5...0.18.6) (2023-05-15)
+### :sparkles: Packages
+* `croact-ruler` 0.16.1
+* `preact-ruler` 0.17.1
+* `@scena/react-ruler` 0.17.1
+* `@scena/ruler` 0.18.6
+* `svelte-ruler` 0.17.6
+* `@scena/vue-ruler` 0.16.6
+* `ngx-ruler` 0.17.6
+
+
+### :mega: Other
+
+* `svelte-ruler`, `ngx-ruler`, `croact-ruler`, `@scena/vue-ruler`, `@scena/ruler`
+    * update croact version ([852caef](https://github.com/daybrush/ruler/commit/852caef635a0cacf95b4702cd4c72fb6cac516c2))
+
+
+
 ## [0.18.5](https://github.com/daybrush/ruler/compare/0.18.3...0.18.5) (2023-05-15)
 ### :sparkles: Packages
 * `croact-ruler` 0.16.1

@@ -6,6 +6,15 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [0.16.1](https://github.com/daybrush/ruler/blob/master/packages/croact-ruler/compare/croact-ruler@0.16.1...croact-ruler@0.16.1) (2023-05-15)
 
 
+### :mega: Other
+
+* update croact version ([852caef](https://github.com/daybrush/ruler/blob/master/packages/croact-ruler/commit/852caef635a0cacf95b4702cd4c72fb6cac516c2))
+
+
+
+## [0.16.1](https://github.com/daybrush/ruler/blob/master/packages/croact-ruler/compare/croact-ruler@0.16.1...croact-ruler@0.16.1) (2023-05-15)
+
+
 ### :bug: Bug Fix
 
 * update dependency modules ([e2f4602](https://github.com/daybrush/ruler/blob/master/packages/croact-ruler/commit/e2f4602432d64f316a2c41bb9421b7665f72d7f6))
