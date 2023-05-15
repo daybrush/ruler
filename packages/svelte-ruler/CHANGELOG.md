@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.5](https://github.com/daybrush/ruler/compare/svelte-ruler@0.17.3...svelte-ruler@0.17.5) (2023-05-15)
+
+
+### :bug: Bug Fix
+
+* update dependency modules ([e2f4602](https://github.com/daybrush/ruler/commit/e2f4602432d64f316a2c41bb9421b7665f72d7f6))
+
+
+### :mega: Other
+
+* update croact veresion ([f252b98](https://github.com/daybrush/ruler/commit/f252b9872924ad02e3d1efdf012bf6c55933408b))
+
+
+
 ## [0.17.3](https://github.com/daybrush/ruler/compare/svelte-ruler@0.17.2...svelte-ruler@0.17.3) (2023-04-11)
 
 
