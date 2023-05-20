@@ -1,27 +1,12 @@
-import { RulerInterface } from "@scena/ruler";
+/// <reference types="svelte" />
+import { SvelteComponentTyped } from "svelte";
+import { RulerInterface, RulerProps } from "@scena/ruler";
 
+export default class RulerComponent extends SvelteComponentTyped<
+    RulerProps,
+    {}
+> { }
 
-interface ComponentOptions {
-    target: HTMLElement;
-    anchor?: HTMLElement | null;
-    props?: {};
-    hydrate?: boolean;
-    intro?: boolean;
+export default interface RulerComponent extends RulerInterface {
 }
-
-interface RulerComponent extends RulerInterface {
-    new(options: ComponentOptions): any;
-    // client-side methods
-    $set(props: {}): void;
-    $on(event: string, callback: (event: CustomEvent) => void): void;
-    $destroy(): void;
-    // server-side methods
-    render(props?: {}): {
-        html: string;
-        css: { code: string; map: string | null };
-        head?: string;
-    };
-}
-
-export default RulerComponent;
 export * from "@scena/ruler";
