@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.17.1...@scena/react-ruler@0.18.0) (2023-06-01)
+
+
+### :rocket: New Features
+
+* add marks, markColor prop ([ba5c7f4](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/ba5c7f4716b86455d20e5fcc57e3bace17960ae2))
+
+
+### :bug: Bug Fix
+
+* remove console.log ([fda4fc6](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/fda4fc6c23d9f9f732b9ea86325bb4dc41ee01a1))
+
+
+### :mega: Other
+
+* publish packages ([2628b3d](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/2628b3db856e066d8ede8eaca3281de61c10c27b))
+
+
+
 ## [0.17.1](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.17.1...@scena/react-ruler@0.17.1) (2023-05-15)
 
 **Note:** Version bump only for package @scena/react-ruler
