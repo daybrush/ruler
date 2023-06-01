@@ -34,6 +34,8 @@ export const PROPERTIES: Array<keyof RulerProps> = [
     "selectedRangesText",
     "selectedRangesTextColor",
     "selectedRangesTextOffset",
+    "marks",
+    "markColor",
 ];
 export const METHODS: Array<keyof RulerInterface> = [
     "scroll",

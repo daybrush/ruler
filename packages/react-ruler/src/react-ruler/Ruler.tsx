@@ -345,7 +345,6 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             if (pos < 0 || pos >= size || value < range[0] || value > range[1]) {
                 return;
             }
-            console.log(pos, value);
             const [x1, y1] = isHorizontal ?
                 [pos + lineOffset[0], lineOffset[1]] :
                 [lineOffset[0], pos + lineOffset[1]];
