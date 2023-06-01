@@ -27,6 +27,8 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         lineWidth: 1,
         selectedBackgroundColor: "#555555",
         defaultScrollPos: 0,
+        markColor: "#f55",
+        marks: [],
     };
     public divisionsElement!: HTMLElement;
     public state = {
@@ -53,7 +55,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         const props = this.props;
         this.state.scrollPos = props.defaultScrollPos || 0;
         const canvas = this.canvasElement;
-        const context = canvas.getContext("2d", { alpha: false })!;
+        const context = canvas.getContext("2d", { alpha: true })!;
 
         this.canvasContext = context;
 
@@ -127,6 +129,8 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             selectedRangesText,
             selectedRangesTextColor = "#44aaff",
             selectedRangesTextOffset = [0, 0],
+            markColor = "#ff5",
+            marks,
         } = props as Required<RulerProps>;
 
         const rulerScale = this._getRulerScale();
@@ -284,6 +288,7 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         }
 
         // Render Segments First
+
         for (let i = 0; i <= length; ++i) {
             const value = i + minRange;
 
@@ -328,6 +333,27 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
                 context.lineTo(x2 + lineOffset[0], y2 + lineOffset[1]);
             }
         }
+        context.stroke();
+
+        context.beginPath();
+        // Render marks
+        context.strokeStyle = markColor;
+        context.lineWidth = 1;
+        (marks || []).forEach(value => {
+            const pos = (-scrollPos + value) * nextZoom;
+
+            if (pos < 0 || pos >= size || value < range[0] || value > range[1]) {
+                return;
+            }
+            console.log(pos, value);
+            const [x1, y1] = isHorizontal ?
+                [pos + lineOffset[0], lineOffset[1]] :
+                [lineOffset[0], pos + lineOffset[1]];
+            const [x2, y2] = isHorizontal ? [x1, y1 + containerSize] : [x1 + containerSize, y1];
+
+            context.moveTo(x1 + lineOffset[0], y1 + lineOffset[1]);
+            context.lineTo(x2 + lineOffset[0], y2 + lineOffset[1]);
+        });
         context.stroke();
 
         // Render Labels

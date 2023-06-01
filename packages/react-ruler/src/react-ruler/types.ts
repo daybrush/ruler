@@ -164,6 +164,16 @@ export interface RulerProps {
      */
     textFormat?: (scale: number) => string;
     /**
+     * positions to mark
+     * @default []
+     */
+    marks?: number[];
+    /**
+     * @default "#f55"
+     *
+     */
+    markColor?: string;
+    /**
      * Ruler's line width
      * @default 1
      */

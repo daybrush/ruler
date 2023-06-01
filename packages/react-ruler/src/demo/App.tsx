@@ -31,7 +31,9 @@ export default class App extends React.Component {
     }
 
     render() {
-        return (<div>
+        return (<div style={{
+            background: "#f55"
+        }}>
             <Ruler
                 textAlign={"center"}
                 segment={5}
@@ -40,6 +42,7 @@ export default class App extends React.Component {
                 longLineSize={4}
                 type="horizontal"
                 useResizeObserver={true}
+                marks={[0, 50, 100, 800]}
                 style={{ display: "block", width: "100%", height: "50px" }}
             />
             <Ruler ref={ref(this, "ruler1")}
@@ -59,6 +62,7 @@ export default class App extends React.Component {
                 direction="start"
                 selectedRanges={[[-100, 290]]}
                 selectedRangesText={true}
+                backgroundColor="transparent"
                 style={{ display: "block", width: "400px", height: "30px" }}
                 lineWidth={1}
                 />
@@ -80,6 +84,8 @@ export default class App extends React.Component {
                     negativeRuler={false}
                     type="horizontal"
                     direction="start"
+                    zoom={2}
+                    marks={[0, 50, 100, 800]}
                     style={{ display: "block", width: "400px", height: "30px" }}
                 />
             </div>
