@@ -6364,7 +6364,7 @@ critters@0.0.16:
     postcss "^8.3.7"
     pretty-bytes "^5.3.0"
 
-croact@^1.0.2:
+croact@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npmjs.org/croact/-/croact-1.0.3.tgz#796cb6bf8966eea3e6cc7546781dc9c7631c6e3c"
   integrity sha512-BgediQptaQjOnJmttpC3DM8ShuOXnY3pJ/T4lnupO1Aoyb4LOI+mu9AzjPnoWantiitpRSkR2WMxg7JhDgaNQQ==
