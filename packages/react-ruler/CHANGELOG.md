@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.18.0...@scena/react-ruler@0.19.0) (2023-06-02)
+
+
+### :rocket: New Features
+
+* add draw method ([dc28298](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/dc2829801efc96d6859865d2d123f87b7cd609ff))
+* add ruler unit, segment option ([a18a52a](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/a18a52a5e41e0202efb613b02eabac3020bc2a55))
+
+
+### :mega: Other
+
+* publish packages ([6cb44f9](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/commit/6cb44f944747a2ff008011bae638fa52cc860c93))
+
+
+
 ## [0.18.0](https://github.com/daybrush/ruler/blob/master/packages/react-ruler/compare/@scena/react-ruler@0.17.1...@scena/react-ruler@0.18.0) (2023-06-01)
 
 

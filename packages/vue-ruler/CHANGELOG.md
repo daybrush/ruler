@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.18.0](https://github.com/daybrush/ruler/compare/@scena/vue-ruler@0.17.0...@scena/vue-ruler@0.18.0) (2023-06-02)
+
+
+### :mega: Other
+
+* publish packages ([6cb44f9](https://github.com/daybrush/ruler/commit/6cb44f944747a2ff008011bae638fa52cc860c93))
+
+
+
 ## [0.17.0](https://github.com/daybrush/ruler/compare/@scena/vue-ruler@0.16.6...@scena/vue-ruler@0.17.0) (2023-06-01)
 
 
