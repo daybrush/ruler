@@ -29,6 +29,8 @@ export interface DrawRulerOptions {
     zoom?: number;
     selectedRanges?: number[][];
     marks?: number[];
+    unit?: number;
+    segment?: number;
 }
 
 /**

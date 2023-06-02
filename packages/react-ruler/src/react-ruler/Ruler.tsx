@@ -124,13 +124,14 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             zoom: nextZoom = this._zoom,
             scrollPos = this.state.scrollPos,
             marks = props.marks,
-            selectedRanges = props.selectedRanges,
+            selectedRanges = props.selectedRanges!,
+            segment = props.segment || 10,
+            unit = props.unit!,
         } = options;
 
         this._zoom = nextZoom;
 
         const {
-            unit,
             type,
             backgroundColor,
             lineColor,
@@ -138,7 +139,6 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             textBackgroundColor,
             direction,
             negativeRuler = true,
-            segment = 10,
             textFormat,
             range = [-Infinity, Infinity],
             rangeBackgroundColor,
