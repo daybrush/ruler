@@ -1,7 +1,7 @@
 import { ref, Properties } from "framework-utils";
 import * as React from "react";
 import { PROPERTIES } from "./consts";
-import { RulerInterface, RulerProps } from "@scena/react-ruler/declaration/types";
+import { DrawRulerOptions, RulerInterface, RulerProps } from "@scena/react-ruler/declaration/types";
 import InnerRuler from "./InnerRuler";
 import { ContainerProvider, renderSelf } from "croact";
 
@@ -59,6 +59,9 @@ class Ruler implements RulerInterface {
     }
     public getScrollPos() {
         return this.getRuler().getScrollPos();
+    }
+    public draw(options: DrawRulerOptions) {
+        this.getRuler().draw(options);
     }
     /**
      * Remove Ruler

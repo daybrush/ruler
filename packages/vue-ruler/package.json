@@ -1,6 +1,6 @@
 {
     "name": "@scena/vue-ruler",
-    "version": "0.17.0",
+    "version": "0.18.0",
     "description": "A Vue Ruler component that can draw grids and scroll infinitely.",
     "main": "./dist/ruler.cjs.js",
     "module": "./dist/ruler.esm.js",
@@ -31,7 +31,7 @@
         "declaration": "rm -rf declaration && tsc -p tsconfig.declaration.json && cp ./src/components/Ruler.vue.d.ts ./declaration/"
     },
     "dependencies": {
-        "@scena/ruler": "~0.19.0"
+        "@scena/ruler": "~0.20.0"
     },
     "files": [
         "README.md",
