@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ref } from "framework-utils";
-import { RulerInterface, RulerProps } from "./types";
+import { DrawRulerOptions, RulerInterface, RulerProps } from "./types";
 import { convertUnitSize, findLast } from "@daybrush/utils";
 
 export default class Ruler extends React.PureComponent<RulerProps> implements RulerInterface {
@@ -86,8 +86,11 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
      * @method Ruler#scroll
      * @param scrollPos
      */
-    public scroll(scrollPos: number, nextZoom?: number) {
-        this.draw(scrollPos, nextZoom);
+    public scroll(scrollPos: number, zoom?: number) {
+        this.draw({
+            scrollPos,
+            zoom,
+        });
     }
     /**
      * @method Ruler#resize
@@ -105,11 +108,27 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
         this.height = height || canvas.offsetHeight;
         canvas.width = this.width * rulerScale;
         canvas.height = this.height * rulerScale;
-        this.draw(scrollPos, nextZoom);
+
+        this.draw({
+            scrollPos,
+            zoom: nextZoom,
+        });
     }
-    private draw(scrollPos: number = this.state.scrollPos, nextZoom = this._zoom) {
-        this._zoom = nextZoom;
+    /**
+     * draw a ruler
+     * @param options - It is drawn with an external value, not the existing state.
+     */
+    public draw(options: DrawRulerOptions = {}) {
         const props = this.props;
+        const {
+            zoom: nextZoom = this._zoom,
+            scrollPos = this.state.scrollPos,
+            marks = props.marks,
+            selectedRanges = props.selectedRanges,
+        } = options;
+
+        this._zoom = nextZoom;
+
         const {
             unit,
             type,
@@ -123,14 +142,12 @@ export default class Ruler extends React.PureComponent<RulerProps> implements Ru
             textFormat,
             range = [-Infinity, Infinity],
             rangeBackgroundColor,
-            selectedRanges,
             selectedBackgroundColor,
             lineWidth = 1,
             selectedRangesText,
             selectedRangesTextColor = "#44aaff",
             selectedRangesTextOffset = [0, 0],
             markColor = "#ff5",
-            marks,
         } = props as Required<RulerProps>;
 
         const rulerScale = this._getRulerScale();

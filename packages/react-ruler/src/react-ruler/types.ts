@@ -18,6 +18,17 @@ export interface RulerInterface {
      * Gets the scroll position of the ruler.
      */
     getScrollPos(): number;
+    /**
+     * draw a ruler
+     */
+    draw(options?: DrawRulerOptions): void;
+}
+
+export interface DrawRulerOptions {
+    scrollPos?: number;
+    zoom?: number;
+    selectedRanges?: number[][];
+    marks?: number[];
 }
 
 /**

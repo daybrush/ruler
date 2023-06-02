@@ -41,4 +41,5 @@ export const METHODS: Array<keyof RulerInterface> = [
     "scroll",
     "resize",
     "getScrollPos",
+    "draw",
 ];
